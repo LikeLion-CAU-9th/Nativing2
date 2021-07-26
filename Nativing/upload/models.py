@@ -1,9 +1,5 @@
 from django.db import models
-
-TAG_CHOICES = (
-    ('game','GAME'),
-    ('idol', 'IDOL'),
-)
+from taggit.managers import TaggableManager
 
 EXPRESSION_CHOICES = (
     ('abbreviation','ABBREVIATION'),
@@ -21,9 +17,8 @@ class Content_upload(models.Model):
     expression = models.TextField(help_text="핵심 표현")
     expression_descript = models.TextField(help_text="핵심 표현 설명")
     image = models.ImageField(upload_to='images/', blank=True, null=True)
+    tag = TaggableManager()
 
-    #태그를 선택으로 둘 시
-    tag= models.CharField(max_length=10, choices=TAG_CHOICES, default='game')
     #핵심표현 설명 선택지
     expression_descript_select = models.CharField(max_length=10, choices=EXPRESSION_CHOICES, default='abbreviation')
     #상대와의 관계 선택지
