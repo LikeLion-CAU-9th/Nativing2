@@ -1,5 +1,8 @@
 from django.db import models
+import datetime
+
 from taggit.managers import TaggableManager
+
 
 EXPRESSION_CHOICES = (
     ('abbreviation','ABBREVIATION'),
@@ -18,7 +21,7 @@ class Content_upload(models.Model):
     expression_descript = models.TextField(help_text="핵심 표현 설명")
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     tag = TaggableManager()
-
+    pub_date = models.DateTimeField(default= datetime.date.today)
     #핵심표현 설명 선택지
     expression_descript_select = models.CharField(max_length=10, choices=EXPRESSION_CHOICES, default='abbreviation')
     #상대와의 관계 선택지
