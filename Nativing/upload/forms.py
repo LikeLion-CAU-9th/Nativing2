@@ -1,7 +1,7 @@
 from django import forms
-from . models import Content_upload
+from . models import ContentUpload
 
-class Content_upload_Form(forms.ModelForm):
+class ContentUploadForm(forms.ModelForm):
     class Meta:
-        model = Content_upload
+        model = ContentUpload
         fields = '__all__'

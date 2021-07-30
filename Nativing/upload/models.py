@@ -3,14 +3,15 @@ from taggit.managers import TaggableManager
 
 EXPRESSION_CHOICES = (
     ('abbreviation','ABBREVIATION'),
+    ('abbreviation','줄임말'),
 )
 
 RELATION_CHOICES = (
     ('family','FAMILY'),
-    ('FRIEND', 'friend'),
+    ('family','가족'),
 )
 
-class Content_upload(models.Model):
+class ContentUpload(models.Model):
     #제목, 핵심표현, 핵심표현 설명(선택지 + 줄글), 상대와의 관계(선택지), 태그(아마 선택지?), 이미지
 
     title = models.CharField(max_length = 40, help_text="제목")
