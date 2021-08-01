@@ -16,9 +16,8 @@ class Gender:
     ]
 
 
-
 class User(AbstractBaseUser):
-    username = models.CharField(max_length=30, null=True, blank=True)
+    name = models.CharField(max_length=30, null=True, blank=True)
     email = models.EmailField(
         max_length=255,
         unique=True,
