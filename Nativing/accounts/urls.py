@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.urls import path, include
 from .views import *
 
-
 urlpatterns = [
     path('', accounts_home, name="accounts_home"),
     path('signup/', accounts_signup, name='accounts_signup'),
