@@ -27,7 +27,7 @@ class User(AbstractBaseUser):
     nickname = models.CharField(max_length=15, blank=True, null=True, unique=True)
     joined_on = models.DateTimeField(auto_now_add=True)
     withdrew_at = models.DateTimeField(blank=True, null=True, verbose_name='탈퇴 시점')
-    date_of_birth = models.CharField(max_length=32, blank=True, help_text='생년월일')
+    date_of_birth = models.CharField(max_length=32, blank=True, help_text='생년월일 6자리')
     user_image = models.ImageField(upload_to='images/', blank=True, null=True)
     user_gender = models.CharField(max_length=10, choices=Gender.GENDER_TYPES)
     user_age = models.PositiveIntegerField(blank=True, null=True)
