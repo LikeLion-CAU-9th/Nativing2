@@ -10,7 +10,7 @@ def accounts_signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            form.save()
             return redirect("signup_success")
             #TODO 추후 회원가입 후 개인 프로필로 redirect 되도록 설정 필요
         else:
@@ -34,6 +34,7 @@ def accounts_login(request):
         password = request.POST["password"]
         user = authenticate(email=email, password=password)
         print(user)
+        print(form.errors)
         if user is not None:
             auth_login(request, user)
             return redirect("login_success")
