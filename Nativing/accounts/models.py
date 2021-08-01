@@ -1,5 +1,46 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseUserManager
+
+
+class CustomAccountManager(BaseUserManager):
+    def create_user(
+        self,
+        name, 
+        email, 
+        nickname,
+        date_of_birth,
+        user_image,
+        user_gender,
+        password=None
+    ):
+        user = self.model(
+            name=name,
+            email=email, 
+            nickname=nickname, 
+            date_of_birth=date_of_birth,
+            user_image=user_image,
+            user_gender=user_gender,
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(
+        self,
+        name, 
+        email, 
+        nickname, 
+        password
+    ):
+        user = self.model(
+            email=email, 
+            name=name,
+            nickname=nickname, 
+            password=password)
+        user.is_admin = True
+        
+        user.save(using=self._db)
+        return user
 
 
 class Gender:
@@ -16,24 +57,26 @@ class Gender:
     ]
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=30, null=True, blank=True)
     email = models.EmailField(
         max_length=255,
         unique=True,
-        verbose_name='email',
     )
     nickname = models.CharField(max_length=15, blank=True, null=True, unique=True)
     joined_on = models.DateTimeField(auto_now_add=True)
-    withdrew_at = models.DateTimeField(blank=True, null=True, verbose_name='탈퇴 시점')
+    withdrew_at = models.DateTimeField(blank=True, null=True)
     date_of_birth = models.CharField(max_length=32, blank=True, help_text='생년월일 6자리')
     user_image = models.ImageField(upload_to='images/', blank=True, null=True)
     user_gender = models.CharField(max_length=10, choices=Gender.GENDER_TYPES)
     user_age = models.PositiveIntegerField(blank=True, null=True)
     is_login = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
+
+    objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['nickname']
+    REQUIRED_FIELDS = ['name', 'nickname']
 
     def __str__(self):
         return self.email
