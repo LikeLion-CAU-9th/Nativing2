@@ -12,7 +12,7 @@ def accounts_signup(request):
         if form.is_valid():
             user = form.save()
             return redirect("accounts:signup_success")
-            #TODO 추후 작업 후 개인 프로필로 redirect 되도록 설정 필요
+            #TODO 추후 회원가입 후 개인 프로필로 redirect 되도록 설정 필요
         else:
             ctx = {
                 "form": form,
@@ -28,7 +28,27 @@ def accounts_signup(request):
 
 
 def accounts_login(request):
-    return 
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        email = request.POST.get("email")
+        password = request.POST["password"]
+        user = authenticate(email=email, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return redirect("accounts:login_success")
+            #TODO 추후 로그인 후 개인 프로필로 redirect 되도록 설정 필요
+        else:
+            ctx = {
+                "form": form,
+                "error": "email or password is incorrect",
+            }
+            return render(request, "accounts_login.html", ctx)
+    elif request.method == "GET":
+        form = LoginForm()
+        ctx = {
+            "form": form,
+        }
+        return render(request, "accounts_login.html", ctx)
 
 
 def accounts_logout(request):
