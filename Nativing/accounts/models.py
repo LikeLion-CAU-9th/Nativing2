@@ -22,6 +22,7 @@ class CustomAccountManager(BaseUserManager):
             user_gender=user_gender,
         )
         user.set_password(password)
+        user.is_superuser = False
         user.save(using=self._db)
         return user
 
@@ -38,7 +39,7 @@ class CustomAccountManager(BaseUserManager):
             nickname=nickname, 
             password=password)
         user.is_admin = True
-        
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
