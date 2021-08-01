@@ -7,7 +7,24 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 
 def accounts_signup(request):
-    return 
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect("accounts:signup_success")
+            #TODO 추후 작업 후 개인 프로필로 redirect 되도록 설정 필요
+        else:
+            ctx = {
+                "form": form,
+            }
+            return render(request, "accounts_signup.html", ctx)
+
+    elif request.method == "GET":
+        form = SignUpForm()
+        ctx = {
+            "form": form,
+        }
+        return render(request, "accounts_signup.html", ctx)
 
 
 def accounts_login(request):
