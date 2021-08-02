@@ -13,7 +13,7 @@
 }
 
 .nav__logo {
-    flex: 1 9em;
+    flex: 0 1 9em;
     color: var(--nativing-orange);
     font-family: 'QuentinPro';
     font-size: 3em;
@@ -21,6 +21,7 @@
 }
 
 .nav__search {
+    min-width: 25em;
     width: 25em;
     height: 2.5em;
     background-color: #FAFAFA;
@@ -55,6 +56,7 @@
     text-decoration: none;
     color: inherit;
     font-family: 'Quicksand';
+    font-size: 1.1em;
 }
 
 .nav__account {
@@ -71,7 +73,7 @@
     border-radius: 1em;
     box-shadow: 0.06em 0.18em 0.36em 0px var(--shadow);
     font-family: 'Quicksand';
-    font-size: 1em;
+    font-size: 1.1em;
 }
 
 .footer {
