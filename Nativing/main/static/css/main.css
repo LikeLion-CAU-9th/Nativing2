@@ -1,0 +1,31 @@
+.featured-content {
+    background-color: #F4F4F4;
+    height: 40rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space:nowrap;
+    overflow: hidden;
+    gap: 6rem;
+}
+
+.categorized-content {
+    /* background-color: #FFFAE8; */
+    padding: 1.25rem 0 1.25rem 8.75rem;
+}
+
+.filtered-content {
+    margin-top: 2.6rem;
+    padding: 1rem 0;
+    font-family: 'SourceSansPro';
+    font-size: 2rem;
+}
+
+.filtered-content__content-box {
+    box-sizing: border-box;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-bottom: 0.2em;
+    gap: 3rem;
+}

@@ -8,12 +8,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block htmlHead %}
     {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
     <title>Nativing</title>
 </head>
 
 <body>
+    <div class="nav">
+        <a href ="{% url 'main' %}" class="nav__logo">
+            Nativing
+        </a>
+        <div class="nav__search">
+            <img src="../static/img/loupe.png">
+            <input tpye="text" placeholder="What do you want to learn?">
+        </div>
+        <ul class="nav__menu">
+            <li>
+                <a href="#">Explore</a>    
+            </li>
+            <li>
+                <a href="#">My Learning Center</a>
+            </li>
+            <li>
+                <a href="#">About us</a>
+            </li>
+        </ul>
+        <div class="nav__account">
+            <button class="nav__account__button button--white">
+                Sign in
+            </button>
+            <button class="nav__account__button button--orange">
+                Register
+            </button>
+        </div>
+    </div>
     {% block mainContent %}
     {% endblock %}
+    <div class="footer">
+        <div class="footer__logo">
+            Nativing.
+        </div>
+        <span class="footer__text">
+            Ⓒ 2021, Nativing web site. Developed by cau likelion 9th.
+        </span>
+        <div class="footer__logo">
+             
+        </div>
+    </div>
 </body>
 
 </html>
