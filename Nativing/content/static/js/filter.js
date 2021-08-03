@@ -7,28 +7,23 @@ const filterProperty = {
     tag : []
 }
 
-filterProperty.keyword.push('ne')
-console.log(filterProperty);
-
 if (keyword){
-    console.log("키워드는 : ", keyword )
+    filterProperty.keyword.push(keyword);
+    console.log("키워드는 : ", keyword );
 } else {
-    console.log("키워드 없음")
+    filterProperty.keyword = [];
 }
 
-
-// console.log(searchResults.value)
-fetch('/explore-filter',).
+function fetchContent() {
+    fetch('/explore-filter',).
     then((res) => res.json()).
     then((res) => {
-        let filtered_content;
-        filtered_content = res.filter(value => value.id === 1 || value.id === 2);
+        let filtered_content = [];
+        for (let relation of filterProperty.relation){
+            filtered_content.push(res.filter((value) => value.relation_select === relation));
+        }
         console.log(filtered_content);
     })
-// console.log(abc)
-
-function addEvent(){
-    console.log("sed")
 }
 
 
@@ -45,29 +40,8 @@ function toggleTags(value) {
     }
 }
 
-function formin(x) {
-    relationshipTag[x].addEventListener("click", (event) =>{
-        if (event.target.checked) {
-            filterProperty.relation.push(event.target.value);
-        }
-        else {
-            filterProperty.relation = filterProperty.relation.filter((value) => {
-                return value != event.target.value;
-            })
-        }
-        console.log(filterProperty.relation);
-        // toggleTags(value);  
-    })
-}
-
-function lengthCheck(){
-    
-}
-
-
-function init(){
+function checkEventRelation() {
     for (var i = 0; i < relationshipTag.length ; i ++){
-        // console.log(relationshipTag[i].value);
         // IIFE (Immediate Invoked Function Expression 이용)
         (function (x) {
             relationshipTag[x].addEventListener("click", (event) =>{
@@ -79,11 +53,26 @@ function init(){
                         return value != event.target.value;
                     })
                 }
+                fetchContent();
+
                 console.log(filterProperty.relation);
-                // toggleTags(value);  
             })
         })(i);
     }
-    console.log("aaa")
 }
+
+function checkEventTag() {
+}
+
+function lengthCheck(){
+    
+}
+
+
+function init(){
+    checkEventRelation();
+    
+}
+
+
 init();

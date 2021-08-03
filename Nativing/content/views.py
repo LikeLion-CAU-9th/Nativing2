@@ -4,7 +4,6 @@ from django.db.models import Q
 from . models import ContentUpload, RELATION_CHOICES
 from .forms import ContentUploadForm
 from django.http import JsonResponse
-from django.contrib import sessions
 
 import numpy as np
 import json
@@ -48,6 +47,7 @@ def explore(request):
         print("키워드 없")
     
     relationships  = np.array(RELATION_CHOICES)[:, 0]
+    
     print("relation tag들: ", relationships,type(relationships))
     
     return render(request, 'test_explore.html', {'content_all' : content_all,
