@@ -37,7 +37,10 @@ def explore(request):
     # print("키워드는: ", keyword)
     if keyword_query:
         print("키워드는: ", keyword_query)
-        content_all = content_all.filter(Q(title__icontains = keyword_query) | Q(body__icontains = keyword_query)).order_by('-pub_date')
+        content_all = content_all.filter(
+            Q(title__icontains = keyword_query) | 
+            Q(expression__icontains = keyword_query) |
+            Q(expression_descript__icontains = keyword_query)).order_by('-datetime')
         # return render(request, 'explore.html', {'content_all' : content_all, "keyword" : keyword_query})
     else:
         print("키워드 없")

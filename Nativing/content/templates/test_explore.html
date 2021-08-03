@@ -60,7 +60,10 @@
                 {{content.relation_select}}
             </div>
             <div class = "content-tag">
-                {{content.tag}}
+                {% for tag in content.tag.all %}
+                    {{ tag }}, 
+                {% endfor %}
+                <!-- {{content.tag.all}} -->
             </div>
             <div class = "content-body">
                 {{content.expression}} <span>is short for</span> {{content.expression_descript}}
