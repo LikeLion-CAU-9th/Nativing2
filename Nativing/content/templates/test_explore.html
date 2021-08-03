@@ -50,7 +50,7 @@
 
         {% endif %}
 
-        {% for content in content_all %}
+        <!-- {% for content in content_all %}
         <div class = "content-box {{ content.relation_select }}">
             <div class = "content-title">
                 {{content.title}}
@@ -62,7 +62,6 @@
                 {% for tag in content.tag.all %}
                     {{ tag }}, 
                 {% endfor %}
-                <!-- {{content.tag.all}} -->
             </div>
             <div class = "content-body">
                 {{content.expression}} <span>is {{content.expression_descript_select}} of</span> {{content.expression_descript}}
@@ -70,7 +69,7 @@
                 작성 시각: {{content.datetime}}
             </div>
         </div>
-        {% endfor %}
+        {% endfor %} -->
     
     </div>
 

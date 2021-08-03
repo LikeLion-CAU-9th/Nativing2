@@ -7,6 +7,7 @@ const filterProperty = {
     tag : []
 }
 
+
 if (keyword){
     filterProperty.keyword.push(keyword);
     console.log("키워드는 : ", keyword );
@@ -15,15 +16,48 @@ if (keyword){
 }
 
 function fetchContent() {
-    fetch('/explore-filter',).
-    then((res) => res.json()).
-    then((res) => {
-        let filtered_content = [];
-        for (let relation of filterProperty.relation){
-            filtered_content.push(res.filter((value) => value.relation_select === relation));
-        }
-        console.log(filtered_content);
-    })
+    fetch('/explore-filter',)
+        .then((res) => res.json())
+        .then((res) => {
+            let filtered_content = [];
+            for (let relation of filterProperty.relation){
+                filtered_content.push(res.filter((value) => value.relation_select === relation));
+            }
+            // console.log(filtered_content[0])
+            clearChildNode();
+            printContent(filtered_content[0])
+
+        })
+}
+
+function printContent(value) {
+    let mainSection = document.querySelector('.main-sections');
+    for (var i = 0; i < value.length; i ++){
+        let contentBox = document.createElement('div');
+        let contentTitle = document.createElement('div');    
+        let contentRelation = document.createElement('div');    
+        let contentBody = document.createElement('div');
+        
+        contentBox.classList.add('content-box');
+        contentTitle.classList.add('content-title');
+        contentRelation.classList.add('content-relation');
+        contentBody.classList.add('content-body');
+
+        contentTitle.innerHTML = value[i].title;
+        contentRelation.innerHTML = value[i].relation_select;
+        contentBody.innerHTML = i, "번째 글"
+
+        contentBox.append(contentTitle, contentRelation, contentBody);
+        
+        mainSection.appendChild(contentBox);
+    }
+}
+
+function clearChildNode() {
+    var cell = document.querySelector('.main-sections');
+    while (cell.hasChildNodes()){
+        cell.removeChild( cell.firstChild );
+    }
 }
 
 
@@ -61,17 +95,9 @@ function checkEventRelation() {
     }
 }
 
-function checkEventTag() {
-}
-
-function lengthCheck(){
-    
-}
-
-
 function init(){
     checkEventRelation();
-    
+    printContent();
 }
 
 
