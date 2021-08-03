@@ -9,7 +9,9 @@ EXPRESSION_CHOICES = (
 
 RELATION_CHOICES = (
     ('FAMILY','가족'),   
-    ('FRIEND','친구'),     
+    ('FRIEND','친구'),
+    ('SENIOR', '선배'),
+    ('WORK', '직장')
 )
 
 class ContentUpload(models.Model):
