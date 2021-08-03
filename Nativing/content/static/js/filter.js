@@ -1,23 +1,18 @@
 const relationshipTag = document.getElementsByClassName("relationship-check")
 const searchResults = document.getElementsByClassName("content-box");
 
-const resultsJSON = JSON.stringify(searchResults);
-console.log(resultsJSON)
-
-
-console.log(searchResults)
+// console.log(searchResults.value)
 
 function toggleTags(value) {
     const keywordSort = document.getElementsByClassName(value)
+    console.log(keywordSort);
+
     for (var i = 0; i < keywordSort.length ;i ++){
         (function (x) {
             const classes = keywordSort[i].classList;
             classes.toggle("display");
         })(i);
     }
-    
-    
-    console.log(keywordSort);
 }
 
 

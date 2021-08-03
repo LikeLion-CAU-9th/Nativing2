@@ -52,7 +52,7 @@
         {% endif %}
 
         {% for content in content_all %}
-        <div class = "content-box {{ content.relationship }}">
+        <div class = "content-box {{ content.relation_select }}">
             <div class = "content-title">
                 {{content.title}}
             </div>
@@ -66,7 +66,7 @@
                 <!-- {{content.tag.all}} -->
             </div>
             <div class = "content-body">
-                {{content.expression}} <span>is short for</span> {{content.expression_descript}}
+                {{content.expression}} <span>is {{content.expression_descript_select}} of</span> {{content.expression_descript}}
                 <br>
                 작성 시각: {{content.datetime}}
             </div>
