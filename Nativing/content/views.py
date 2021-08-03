@@ -3,8 +3,11 @@ from django.views.generic import CreateView
 from django.db.models import Q
 from . models import ContentUpload, RELATION_CHOICES
 from .forms import ContentUploadForm
+from django.http import JsonResponse
+from django.contrib import sessions
 
 import numpy as np
+import json
 
 class CreateContentUploadView(CreateView):
     model = ContentUpload
@@ -31,38 +34,32 @@ def relationENG(request):
 
 def explore(request):
     content_all = ContentUpload.objects.all()
+    print("type of request : ", type(request))
+    print("type of object_all : ", type(content_all))
     keyword_query = request.GET.get('keyword')
-    print(request.body)
-    print(type(request.body))
-    # print("키워드는: ", keyword)
+    
     if keyword_query:
         print("키워드는: ", keyword_query)
         content_all = content_all.filter(
             Q(title__icontains = keyword_query) | 
             Q(expression__icontains = keyword_query) |
             Q(expression_descript__icontains = keyword_query)).order_by('-datetime')
-        # return render(request, 'explore.html', {'content_all' : content_all, "keyword" : keyword_query})
     else:
         print("키워드 없")
     
-    # a = Content.objects.values()
     relationships  = np.array(RELATION_CHOICES)[:, 0]
-    print("프린트 결과: ", relationships,type(relationships))
-    # for i in relationships:
-    #     print(i[0])
-
-    # jsonObject = json.loads(request.body)
-    # print(jsonObject.get)
-
-    # return JsonResponse(jsonObject)
-
+    print("relation tag들: ", relationships,type(relationships))
+    
     return render(request, 'test_explore.html', {'content_all' : content_all,
                                              "keyword": keyword_query,
-                                             "relationships" : relationships})
+                                             "relationships" : relationships},)
+
                                              
-
-
-
+def explore_filter(request):
+    content_all = ContentUpload.objects.all()
+    data = content_all.values()
+    # print(content_all)
+    return JsonResponse(list(data), safe = False)
 
 
 
