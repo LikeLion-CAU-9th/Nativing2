@@ -1,18 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-    <form method="POST" action="{% url 'accounts_signup' %}">
+{% block htmlHead %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+
+{% block mainContent %}
+<form method="POST" action="{% url 'accounts_signup' %}">
+    <div class="account-area">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">회원가입</button>
-    </form>
+        <div class="form-box">
+            <div class="form-box__title">
+                Sign Up
+            </div>
+            <div class="form-box__label">
+                Username
+            </div>
+            <input name="{{ form.name.name }}" class="form-box__input">
+            <div class="form-box__label">
+                Password
+            </div>
+            <input name="{{ form.password.name }}" type="password" class="form-box__input">
+            <div class="form-box__label">
+                Password Check
+            </div>
+            <input type="password" class="form-box__input">
+            <div class="form-box__label">
+                Date of Birth
+            </div>
+            <input type="date" name="{{ form.date_of_birth.name }}" class="form-box__input" id="dateinput">
+            <div class="form-box__label">
+                Gender
+            </div>
+            <button class="form-box__gender-button" id="male">Male</button> 
+            <button class="form-box__gender-button" id="female">Female</button>
+            <input name="{{ form.user_gender.name }}" id="gender-input" class="invisible">
+            <button type="submit" class="form-box__subimt-button">Sign Up</button>
+            <div class="form-box__social-login-box">
+                <div class="form-box__social-login-box__top">
+                    <hr>
+                    <span>or</span>
+                    <hr>
+                </div>
+                <div class="form-box__social-login-box__icon-box">
+                    <div class="icon"></div>
+                    <div class="icon"></div>
+                    <div class="icon"></div>
+                </div>
+                <div class="form-box__login">
+                    Already have ccount? <a href="{% url 'accounts_login' %}">Please log in.</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
-</body>
-</html>
+<script src="{% static 'js/signup.js' %}"></script>
+
+{% endblock %}
