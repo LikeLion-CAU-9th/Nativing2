@@ -1,7 +1,9 @@
+from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
 from django.views.generic import CreateView
 from . models import ContentUpload
 from .forms import ContentUploadForm
+
 
 class CreateContentUploadView(CreateView):
     model = ContentUpload
