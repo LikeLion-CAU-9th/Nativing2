@@ -9,7 +9,9 @@
 
 {% block mainContent %}
 
-<div id="just-for-keyword" style="display: none;">{{keyword}}</div>
+{% if keyword %}
+    <div id="just-for-keyword" style="display: none;">{{keyword}}</div>
+{% endif %}
 
 <div class = "upper">
     <span>구분선</span>
