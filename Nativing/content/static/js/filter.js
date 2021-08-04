@@ -19,14 +19,18 @@ function fetchContent() {
     fetch('/explore-filter',)
         .then((res) => res.json())
         .then((res) => {
+            console.log(res);
             let filtered_content = [];
             for (let relation of filterProperty.relation){
-                filtered_content.push(res.filter((value) => value.relation_select === relation));
+                // console.log(relation);
+                let filteredArray = res.filter((value) => value.relation_select === relation);
+                for (arrayComponent of filteredArray) {
+                    filtered_content.push(arrayComponent);
+                }
             }
-            // console.log(filtered_content[0])
+            console.log("체크된 컨텐츠", filtered_content)
             clearChildNode();
-            printContent(filtered_content[0])
-
+            printContent(filtered_content)
         })
 }
 
@@ -87,9 +91,10 @@ function checkEventRelation() {
                         return value != event.target.value;
                     })
                 }
-                fetchContent();
+                // fetchContent();
 
-                console.log(filterProperty.relation);
+                console.log("체크된 relation: ", filterProperty.relation);
+                fetchContent();
             })
         })(i);
     }
@@ -97,7 +102,7 @@ function checkEventRelation() {
 
 function init(){
     checkEventRelation();
-    printContent();
+    // fetchContent();
 }
 
 
