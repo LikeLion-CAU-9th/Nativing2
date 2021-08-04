@@ -75,6 +75,7 @@ function fetchContent() {
         })
 }
 
+// filter한 결과를 html에 print해주는
 function printContent(value) {
     let mainSection = document.querySelector('.main-sections');
     for (var i = 0; i < value.length; i ++){
@@ -99,6 +100,7 @@ function printContent(value) {
     }
 }
 
+// tag 바뀔 때마다 앞부분 지워주기 
 function clearChildNode() {
     var cell = document.querySelector('.main-sections');
     while (cell.hasChildNodes()){
@@ -120,6 +122,7 @@ function toggleTags(value) {
     }
 }
 
+// checklist에 eventlistner 추가
 function checkEventRelation() {
     for (var i = 0; i < relationshipTag.length ; i ++){
         // IIFE (Immediate Invoked Function Expression 이용)
@@ -145,7 +148,6 @@ function checkEventRelation() {
 function init(){
     initialView();
     checkEventRelation();
-    // fetchContent();
 }
 
 

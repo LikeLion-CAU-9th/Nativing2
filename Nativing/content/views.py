@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import CreateView
 from django.db.models import Q
 from . models import ContentUpload, RELATION_CHOICES
@@ -6,13 +6,13 @@ from .forms import ContentUploadForm
 from django.http import JsonResponse
 
 import numpy as np
-import json
 
 class CreateContentUploadView(CreateView):
     model = ContentUpload
     form_class = ContentUploadForm
     template_name = 'content_upload.html'
     success_url = '/'
+
 
 def expresstionENG(request):
     expression = ContentUpload.expression_descript_select
@@ -21,6 +21,7 @@ def expresstionENG(request):
     if expression == "NEOLOGISM":
         temp = "neologism"
     return temp
+
 
 def relationENG(request):
     relation = ContentUpload.relation_select
@@ -61,7 +62,6 @@ def explore_filter(request):
     # print(content_all)
     return JsonResponse(list(data), safe = False)
 
-
-
-
- 
+def content_detail(request, content_id):
+    content_detail = get_object_or_404(ContentUpload, pk = content_id)
+    return render(request, 'content_detail.html', {"detail" : content_detail})
