@@ -25,14 +25,14 @@
         <a class="content_subject_orange">콘텐츠</a>
         <a class="content_subject"> 업로드</a>
         <br>
+        <form action="" method="post">
+            {% csrf_token %}
             <div class="card">
                 <div class="card_left">
                     <div class="picture">          
                         <img style="width: 14.2em;" id="preview-image" src="">
-                    </div>
-                    
-                   {{form.image}}
-                
+                    </div>                   
+                   {{form.image}}                
                 </div>
 
 
@@ -106,7 +106,7 @@
 
     </div>
 </div>
-
+</form>
 
 
 {% endblock %}
