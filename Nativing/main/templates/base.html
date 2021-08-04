@@ -42,6 +42,17 @@
             </button>
         </div>
     </div>
+    <a href = "{% url 'index' %}">홈페이지</a>
+    <a href = "{% url 'content_upload' %}">글 작성</a>
+    <a href = "{% url 'explore' %}">explore</a>
+    <form action = "{% url 'explore' %}">
+        <input type="text" name = "keyword" placeholder="검색하셈">
+        <button type="submit"></button>
+    </form>
+
+
+    <br>
+
     {% block mainContent %}
     {% endblock %}
     <div class="footer">

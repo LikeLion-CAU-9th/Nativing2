@@ -25,7 +25,7 @@
         <a class="content_subject_orange">콘텐츠</a>
         <a class="content_subject"> 업로드</a>
         <br>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="card">
                 <div class="card_left">
@@ -34,7 +34,6 @@
                     </div>                   
                    {{form.image}}                
                 </div>
-
 
                 <script>
                     function readImage(input) {                      
