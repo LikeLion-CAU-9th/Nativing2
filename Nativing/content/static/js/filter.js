@@ -79,11 +79,13 @@ function fetchContent() {
 function printContent(value) {
     let mainSection = document.querySelector('.main-sections');
     for (var i = 0; i < value.length; i ++){
+        let linkDetail = document.createElement('a');
         let contentBox = document.createElement('div');
         let contentTitle = document.createElement('div');    
         let contentRelation = document.createElement('div');    
         let contentBody = document.createElement('div');
         
+        linkDetail.href = `/explore/${value[i].id}`;
         contentBox.classList.add('content-box');
         contentTitle.classList.add('content-title');
         contentRelation.classList.add('content-relation');
@@ -95,8 +97,9 @@ function printContent(value) {
             `${value[i].expression} <span>is ${value[i].expression_descript_select}</span> of ${value[i].expression_descript}`
 
         contentBox.append(contentTitle, contentRelation, contentBody);
+        linkDetail.append(contentBox);
         
-        mainSection.appendChild(contentBox);
+        mainSection.appendChild(linkDetail);
     }
 }
 

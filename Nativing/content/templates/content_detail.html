@@ -1,4 +1,4 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block htmlHead %}
@@ -7,5 +7,22 @@
 
 
 {% block mainContent %}
+<div>
+    {{detail.title}}
+</div>
+<div class="relation">
+    {{ detail.relation_select }}
+</div>
+<div class="expression">
+    {{ detail.expression }}
+    <span style="font-weight: bold;">
+        is {{detail.expression_descript_select}} of
+        
+    </span>
+    {{ detail.expression_descript }}
+</div>
+
+
+
 
 {% endblock %}
