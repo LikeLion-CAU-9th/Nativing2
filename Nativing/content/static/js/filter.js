@@ -43,6 +43,7 @@ function fetchContent() {
         .then((res) => {
             console.log(res);
             let filtered_content = [];
+            // relation tag에 해당하는 글
             for (let relationIter of filterProperty.relation){
                 // console.log(relation);
                 // filter() 가 Array로 return 하므로 다시 한번 for문으로 추가해줌,,
@@ -51,6 +52,7 @@ function fetchContent() {
                     filtered_content.push(arrayComponent);
                 }
             }
+            // keyword search에 해당하는 글
             for (let keywordIter of filterProperty.keyword) {
                 let filteredArray = res.filter((value) => value.title.includes(keywordIter))
                 for (let arrayComponent of filteredArray) {
@@ -59,10 +61,17 @@ function fetchContent() {
                     }
                 }
             }
+            // 일반 상황 tag에 해당하는 글
+            for (let tagIter of filterProperty.tag) {
+            }
 
-            console.log("체크된 컨텐츠", filtered_content)
+            return filtered_content
+
+        })
+        .then((res) => {
+            console.log("체크된 컨텐츠", res)
             clearChildNode();
-            printContent(filtered_content)
+            printContent(res)
         })
 }
 
