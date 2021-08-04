@@ -93,12 +93,14 @@
 .caution{
     font-size: 0.55em;
     color: #AEAEAE;
+    font-family: 'NanumSquareRoundR';
 }
 
 .subject{
     font-size: 0.85em;
     font-weight: bold;
     padding: 0.2em 0.1em;
+    font-family: 'NanumSquareRoundR';
 }
 
 .title_input {
@@ -149,9 +151,11 @@
 .content_subject{
     font-size: 1em;
     font-weight: bold;
+    font-family: 'NanumSquareRoundR';
 }
 
 .content_subject_orange{
+    font-family: 'NanumSquareRoundR';
     font-size: 1em;
     font-weight: bold;
     color: #F2711C;
@@ -159,6 +163,7 @@
 }
 
 .mychanel{
+    font-family: 'QuickSand';
     font-size: 1.3em;
     font-weight: bold;
 }
@@ -172,14 +177,21 @@
     margin:0 auto;
     vertical-align:middle;
     line-height:5em;
-    }
+}
 
 .username{
     font-size: 1.2em;
+    font-family: 'NanumSquareRoundR';
+}
+
+.side_head{
+    font-size: 1em;
+    font-family: 'NanumSquareRoundR';
 }
 
 .side{
-    font-size: 1em;
+    font-size: 0.8em;
+    font-family: 'QuickSand';
 }
 
 

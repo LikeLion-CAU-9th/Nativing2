@@ -31,5 +31,7 @@ class ContentUploadForm(forms.ModelForm):
             }),
              'image' : FileInput(attrs={
                 'class' : "image_button",
+                'style' : "display: block",
+                'id' : "input-image",
             }),
         }

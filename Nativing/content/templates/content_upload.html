@@ -8,12 +8,13 @@
 {% block mainContent %}
 <div class="center">
     <div class="center_left">
+        <br>
         <p class="mychanel" >My Chanel</p>
         <div class="circle">
          
         </div>
         <p class="username">따라큐<p><br>
-        <p class="side">업로드한 컨텐츠</p>
+        <p class="side_head">업로드한 컨텐츠</p>
         <p class="side">Playlists</p>
         <p class="side">Community</p>
         <p class="side">Channel</p>
@@ -26,12 +27,32 @@
         <br>
             <div class="card">
                 <div class="card_left">
-                    <div class="picture">
-                        <input type="file" id="image" accept="image/*" onchange="setThumbnail(event);"/> 
-                        <div id="image_container"></div>
+                    <div class="picture">          
+                        <img style="width: 14.2em;" id="preview-image" src="">
                     </div>
-                   
+                    
+                   {{form.image}}
+                
                 </div>
+
+
+                <script>
+                    function readImage(input) {                      
+                        if(input.files && input.files[0]) {                          
+                            const reader = new FileReader()                        
+                            reader.onload = e => {
+                                const previewImage = document.getElementById("preview-image")
+                                previewImage.src = e.target.result
+                            }                        
+                            reader.readAsDataURL(input.files[0])
+                        }
+                    }                
+                    const inputImage = document.getElementById("input-image")
+                    inputImage.addEventListener("change", e => {
+                        readImage(e.target)
+                    })
+                </script>
+
 
                 <div class="card_right">
                         <div class="Fline_left">
@@ -87,17 +108,6 @@
 </div>
 
 
-<script>
- function setThumbnail(event) { 
-     var reader = new FileReader(); 
-     reader.onload = function(event) { 
-        var img = document.createElement("img");
-        img.setAttribute("src", event.taget.result);
-        document.querySelector("div#image_container").appendChild(img);
-         };
-          reader.readAsDataURL(event.target.files[0]); 
-          }
-</script>
 
 {% endblock %}
 
