@@ -31,6 +31,10 @@ def relationENG(request):
         temp = "family"
     if relation == "FRIEND":
         temp = "friend"
+    if relation == "SENIOR":
+        temp = "senior"
+    if relation == "WORK":
+        temp = "work"
     return temp
 
 
