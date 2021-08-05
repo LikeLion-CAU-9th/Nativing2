@@ -38,6 +38,7 @@ class CustomAccountManager(BaseUserManager):
             name=name,
             nickname=nickname, 
             password=password)
+        user.set_password(password)
         user.is_admin = True
         user.is_superuser = True
         user.save(using=self._db)
