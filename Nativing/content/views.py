@@ -5,6 +5,7 @@ from django.db.models import Q
 from . models import ContentUpload, RELATION_CHOICES
 from .forms import ContentUploadForm
 from django.http import JsonResponse
+from taggit.models import Tag
 
 import numpy as np
 
@@ -63,9 +64,11 @@ def explore(request):
 
                                              
 def explore_filter(request):
-    content_all = ContentUpload.objects.all()
+    content_all = ContentUpload.objects.all().prefetch_related('tag')
+    # content_all = ContentUpload.objects.raw("SELECT * FROM content_ContentUpload")
     data = content_all.values()
-    # print(content_all)
+    # print("", data)
+    
     return JsonResponse(list(data), safe = False)
 
 def content_detail(request, content_id):

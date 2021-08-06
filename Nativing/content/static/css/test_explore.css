@@ -32,6 +32,12 @@
     padding-bottom: 10px;
 }
 
+.age {
+    display: flex;
+    flex-direction: column;
+    border-bottom: black 1px solid;
+    padding-bottom: 10px;
+}
 
 .main-sections {
     display: flex;
