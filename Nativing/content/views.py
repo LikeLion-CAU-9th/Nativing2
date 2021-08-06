@@ -62,6 +62,9 @@ def explore(request):
                                              "keyword": keyword_query,
                                              "relationships" : relationships},)
 
+def explore2(request):
+    return render(request, "explore.html")
+
                                              
 def explore_filter(request):
     content_all = ContentUpload.objects.all().prefetch_related('tag')

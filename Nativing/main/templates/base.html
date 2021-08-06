@@ -19,18 +19,21 @@
             Nativing
         </a>
         <div class="nav__search">
-            <img src="../static/img/loupe.png">
-            <input tpye="text" placeholder="What do you want to learn?">
+            <form action = "{% url 'explore' %}">
+                <img src="../static/img/loupe.png">
+                <input tpye="text" name = "keyword" placeholder="What do you want to learn?">
+                <button type="submit"></button>
+            </form>
         </div>
         <ul class="nav__menu">
             <li>
-                <a href="#">Explore</a>    
+                <a href="{% url 'explore' %}">Explore</a>    
             </li>
             <li>
                 <a href="#">My Learning Center</a>
             </li>
             <li>
-                <a href="#">Upload</a>
+                <a href="{% url 'content_upload' %}">Upload</a>
             </li>
         </ul>
         <div class="nav__account">
@@ -42,17 +45,6 @@
             </button>
         </div>
     </div>
-    <a href = "{% url 'index' %}">홈페이지</a>
-    <a href = "{% url 'content_upload' %}">글 작성</a>
-    <a href = "{% url 'explore' %}">explore</a>
-    <form action = "{% url 'explore' %}">
-        <input type="text" name = "keyword" placeholder="검색하셈">
-        <button type="submit"></button>
-    </form>
-
-    <a href = "{% url 'explore_filter' %}">json</a>
-    <br>
-
     {% block mainContent %}
     {% endblock %}
     <div class="footer">
