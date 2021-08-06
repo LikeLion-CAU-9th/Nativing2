@@ -25,6 +25,10 @@ button:hover {
     display: none;
 }
 
+.hidden {
+    display: none;
+}
+
 .button--orange {
     background-color: var(--nativing-orange);
     color: white;
@@ -34,7 +38,7 @@ button:hover {
     width: 15.625em;
     height: 11.25em;
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 14px;
     background-color: white;
     box-sizing: border-box;
     border-radius: 1em;
@@ -63,9 +67,10 @@ button:hover {
     margin: 1em 0px 2em;
 }
 
-.content__tags__tag {
-    width: 3.6em;
+.tag {
+    min-width: 2em;
     height: 1.25em;
+    padding: 0 0.5em;
     background-color: #51CE3E;
     border-radius: 0.625em;
     margin-right: 0.9em;
@@ -79,7 +84,7 @@ button:hover {
 }
 
 .content__author {
-    height: 4.5em;
+    height: 2.5em;
     display: flex;
 }
 
