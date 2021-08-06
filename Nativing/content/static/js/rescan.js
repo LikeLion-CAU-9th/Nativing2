@@ -39,6 +39,7 @@ function delEvent(event) {
     })
 
     setLocalStorageRescan();
+    fetchContent();
     console.log(reScanList);
 }
 
@@ -56,6 +57,7 @@ function rescanEvent(event){
     reScan.value = "";
 
     setLocalStorageRescan();
+    fetchContent();
 }
 
 function init(){

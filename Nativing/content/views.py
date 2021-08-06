@@ -54,10 +54,7 @@ def explore(request):
         print("키워드 없")
     
     relationships  = np.array(RELATION_CHOICES)[:, 0]
-
-    request.session['test'] = "acs"
-    
-    
+        
     print("relation tag들: ", relationships,type(relationships))
             
     return render(request, 'test_explore.html', {'content_all' : content_all,

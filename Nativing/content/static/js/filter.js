@@ -7,8 +7,6 @@ try {
     console.log(e);
 };
 
-let relation = [];
-
 const filterProperty = {
     keyword : [],
     relation : [],
@@ -19,11 +17,6 @@ const filterProperty = {
 
 // 새로고침시 남아있던 localStorage clear
 localStorage.clear();
-
-function setLocalStorageRel(){
-    localStorage.setItem("relation", relation);
-}
-
 
 // 검색어가 있으면, 검색어대로 filter + 검색어 filterProperty에 추가
 // 없으면 모든 모델 가져오고, filterProperty.keyword 초기화
@@ -55,7 +48,7 @@ function fetchContent() {
         .then((res) => res.json())
         .then((res) => {
             console.log(res);
-            let filtered_content = [];
+            let filtered_content = res;
             // relation tag에 해당하는 글
             // for (let relationIter of filterProperty.relation){
             //     // console.log(relation);
@@ -66,9 +59,14 @@ function fetchContent() {
             //     }
             // }
             const tempRescan = localStorage.getItem("reScanList");
+            const tempRelation = localStorage.getItem("relation");
 
-
-            filtered_content = res.filter((value) => value.relation_select.includes(relation) && value.title.includes(tempRescan));
+            if (tempRelation) {
+                filtered_content = filtered_content.filter((value) => value.relation_select.includes(tempRelation));
+            }
+            if (tempRescan) {
+                filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan));
+            }
             // keyword search에 해당하는 글
             for (let keywordIter of filterProperty.keyword) {
                 let filteredArray = res.filter((value) => value.title.includes(keywordIter))
@@ -142,36 +140,8 @@ function toggleTags(value) {
     }
 }
 
-// checklist에 eventlistner 추가
-function checkEventRelation() {
-    for (var i = 0; i < relationshipTag.length ; i ++){
-        // IIFE (Immediate Invoked Function Expression 이용)
-        (function (x) {
-            relationshipTag[x].addEventListener("click", (event) =>{
-                if (event.target.checked) {
-                    // filterProperty.relation.push(event.target.value);
-                    relation.push(event.target.value);
-                }
-                else {
-                    // filterProperty.relation = filterProperty.relation.filter((value) => {
-                    //     return value != event.target.value;
-                    // })
-                    relation = relation.filter((value) => {
-                        return value !== event.target.value;
-                    })
-                }
-                // fetchContent();
-                setLocalStorageRel();
-                console.log("체크된 relation: ", filterProperty.relation);
-                fetchContent();
-            })
-        })(i);
-    }
-}
-
 function init(){
     initialView();
-    checkEventRelation();
 }
 
 
