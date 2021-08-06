@@ -70,11 +70,19 @@ def explore_filter(request):
     content_all = ContentUpload.objects.all().prefetch_related('tag')
     # content_all = ContentUpload.objects.raw("SELECT * FROM content_ContentUpload")
     data = content_all.values()
+<<<<<<< HEAD
     # print("", data)
 
 
 
     
+=======
+    for content in data:
+        new_content = content
+        new_content['tag'] = []
+        for tag in ContentUpload.objects.get(id=1).tag.all():
+             new_content['tag'].append(str(tag))
+>>>>>>> 8baadead3f5a47c686de6fff905b27559d5f006f
     return JsonResponse(list(data), safe = False)
 
 def content_detail(request, content_id):
