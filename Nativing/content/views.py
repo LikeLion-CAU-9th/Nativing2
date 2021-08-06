@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import CreateView
 from django.db.models import Q
@@ -6,6 +7,7 @@ from .forms import ContentUploadForm
 from django.http import JsonResponse
 
 import numpy as np
+
 
 class CreateContentUploadView(CreateView):
     model = ContentUpload
@@ -29,6 +31,10 @@ def relationENG(request):
         temp = "family"
     if relation == "FRIEND":
         temp = "friend"
+    if relation == "SENIOR":
+        temp = "senior"
+    if relation == "WORK":
+        temp = "work"
     return temp
 
 
