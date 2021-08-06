@@ -87,3 +87,20 @@
 .display {
     display: none;
 }
+
+#re-scan-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding-bottom: 10px;
+    border-bottom: black solid 1px;
+}
+
+.keyword-box {
+    display: flex;
+    flex-direction: row;
+}
+
+.keyword-del {
+    cursor: pointer;
+}

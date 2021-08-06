@@ -18,10 +18,12 @@
 </div>
 <div class = "under">
     <div class = "side-bar">
-        <form action="#">
-            <input type="text" placeholder="결과 내 재검색">
-            
+        <form id = "re-scan-form">
+            <input type="text" placeholder="결과 내 재검색" id = "re-scan">
         </form>
+        <div id = "re-scan-keywords">
+            <!-- JS로 결과 내 재검색 구현 -->
+        </div>
         <div class = "gender">
             <div>
                 <input type="checkbox" class = "gender-check" id = "male" value="male">
@@ -89,5 +91,6 @@
 
 <script src="{% static 'js/filter.js' %}"></script>
 <script src= "{% static 'js/gender.js' %}"></script>
+<script src= "{% static 'js/rescan.js' %}"></script>
 
 {% endblock %}
