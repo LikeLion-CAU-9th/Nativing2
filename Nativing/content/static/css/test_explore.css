@@ -25,6 +25,14 @@
     border-right: 1px black solid;
 }
 
+.gender {
+    display: flex;
+    flex-direction: column;
+    border-bottom: black 1px solid;
+    padding-bottom: 10px;
+}
+
+
 .main-sections {
     display: flex;
     flex-direction: row;

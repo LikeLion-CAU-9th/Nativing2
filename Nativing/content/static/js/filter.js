@@ -9,8 +9,12 @@ try {
 const filterProperty = {
     keyword : [],
     relation : [],
-    tag : []
+    tag : [],
+    gender : [],
+    age : [],    
 }
+
+
 
 // 검색어가 있으면, 검색어대로 filter + 검색어 filterProperty에 추가
 // 없으면 모든 모델 가져오고, filterProperty.keyword 초기화
@@ -44,14 +48,15 @@ function fetchContent() {
             console.log(res);
             let filtered_content = [];
             // relation tag에 해당하는 글
-            for (let relationIter of filterProperty.relation){
-                // console.log(relation);
-                // filter() 가 Array로 return 하므로 다시 한번 for문으로 추가해줌,,
-                let filteredArray = res.filter((value) => value.relation_select === relationIter);
-                for (let arrayComponent of filteredArray) {
-                    filtered_content.push(arrayComponent);
-                }
-            }
+            // for (let relationIter of filterProperty.relation){
+            //     // console.log(relation);
+            //     // filter() 가 Array로 return 하므로 다시 한번 for문으로 추가해줌,,
+            //     let filteredArray = res.filter((value) => value.relation_select === relationIter);
+            //     for (let arrayComponent of filteredArray) {
+            //         filtered_content.push(arrayComponent);
+            //     }
+            // }
+            filtered_content = res.filter((value) => value.relation_select.includes(filterProperty.relation))
             // keyword search에 해당하는 글
             for (let keywordIter of filterProperty.keyword) {
                 let filteredArray = res.filter((value) => value.title.includes(keywordIter))

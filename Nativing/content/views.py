@@ -50,7 +50,7 @@ def explore(request):
     relationships  = np.array(RELATION_CHOICES)[:, 0]
     
     print("relation tag들: ", relationships,type(relationships))
-    
+            
     return render(request, 'test_explore.html', {'content_all' : content_all,
                                              "keyword": keyword_query,
                                              "relationships" : relationships},)

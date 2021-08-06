@@ -22,6 +22,16 @@
             <input type="text" placeholder="결과 내 재검색">
             
         </form>
+        <div class = "gender">
+            <div>
+                <input type="checkbox" class = "gender-check" id = "male" value="male">
+                <span>Male</span>
+            </div>
+            <div>
+                <input type="checkbox" class = "gender-check" id = "female" value="female">
+                <span>Female</span>
+            </div>
+        </div>
         <div class = "relationships">
             {% for relationship in relationships %}
                 <div>
@@ -78,5 +88,6 @@
 </div>
 
 <script src="{% static 'js/filter.js' %}"></script>
+<script src= "{% static 'js/gender.js' %}"></script>
 
 {% endblock %}
