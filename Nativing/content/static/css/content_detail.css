@@ -1,0 +1,113 @@
+.detail-page {
+    background-color: #FAFAFA;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.detail {
+    width: 68.75em;
+    height: 43.75em;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 2em;
+    box-shadow: 0 0 1em 0em var(--shadow);
+    margin-top: 1.4em;
+    padding: 4.625em 2.5em 0 2.8125em;
+    display: flex;
+    gap: 9em;
+}
+
+.detail__image {
+    width: 22em;
+    height: 90%;
+    background-color: black;
+}
+
+.detail__contents {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail__contents__head {
+    font-size: 1.5em;
+    font-family: "NanumSquareRoundB";
+    display: flex;
+    justify-content: space-between;
+}
+
+.uploader-label {
+    font-size: 0.9em;
+    font-family: 'Quicksand';
+    font-weight: bold;
+    margin: 2.78em 0 0.7em;
+}
+
+.save-button {
+    font-size: 0.57em;
+    font-family: 'Quicksand';
+    border-radius: 2.5em;
+    padding: 0.6em 1em;
+}
+
+.detail__contents__uploader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.follow-button {
+    font-size:0.75em;
+    font-family: 'Quicksand';
+    border-radius: 2.5em;
+    background-color: #EAEAEA;
+    padding: 0.6em 1em;
+}
+
+.detail__contents__category {
+   margin-top: 3em;
+    display: flex;
+}
+
+.detail__contents__category__child {
+    width: 50%;
+}
+
+.detail__contents__category__child__head {
+    font-size: 0.9em;
+    font-family: 'Quicksand';
+    font-weight: bold;
+}
+
+.detail__contents__description {
+    margin-top: 4.5em;
+}
+
+.detail__contents__description__head {
+    font-size: 0.9em;
+    font-family: 'Quicksand';
+    font-weight: bold;
+}
+
+.detail__contents__description__body {
+    height: 5em;
+    border-radius: 1em;
+    background-color: #FAFAFA;
+    margin-top: 1em;
+    padding: 1em;
+    font-size: 0.9em;
+    font-family: 'NanumSquareRoundB';
+}
+
+.recommended {
+    width: 34.375em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3em 0;
+    gap: 1.25em;
+}
+
+.recommended > span {
+    font-size: 1.1em;
+    font-family: 'Quicksand';
+}

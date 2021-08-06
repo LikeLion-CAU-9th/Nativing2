@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+<link rel="stylesheet" href="{% static 'css/content_detail.css' %}">
+{% endblock %}
+
+
+{% block mainContent %}
+<div class="detail-page">
+    <div class="detail">
+        <div class="detail__image">
+
+        </div>
+        <div class="detail__contents">
+            <div class="detail__contents__head">
+                <span>{{detail.title}}</span>
+                <button class="save-button button button--orange">SAVE</button>
+            </div>
+            <span class="uploader-label">Uploader</span>
+            <div class="detail__contents__uploader">
+               <div class="content__author"> 
+                   <div class="content__author__left"> 
+                       <img src="../static/img/tarakyu.png" class="content__author__left__image"> 
+                    </div> 
+                    <div class="content__author__right"> 
+                        <div class="content__author__right__name"> 따라큐 </div> 
+                        <div class="content__author__right__detail">
+                            <span class="nativing-orange">3.4k</span> followers <span class="skyblue"> Male</span> 26 
+                        </div> 
+                    </div> 
+                </div>
+                <button class="follow-button button">FOLLOW</button>
+            </div>
+            <div class="detail__contents__category">
+                <div class="detail__contents__category__child">
+                    <div class="detail__contents__category__child__head">
+                        Relationship
+                    </div>
+                    <div class="detail__contents__category__child__tags">
+                        <span class="tag">
+                            {{ detail.relation_select }}
+                        </span>
+                    </div>
+                </div>
+                <div class="detail__contents__category__child">
+                    <div class="detail__contents__category__child__head">
+                        Tags
+                    </div>
+                    <div class="detail__contents__category__child__tags">
+                        {% for tag in detail.tag.all %}
+                        <span class="tag">
+                            {{ tag.en_name }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="detail__contents__description">
+                <div class="detail__contents__description__head">
+                    Key expression
+                </div>
+                <div class="detail__contents__description__body">
+                    {{ detail.expression }}
+                    <span style="font-weight: bold;">is {{detail.expression_descript_select}} of</span>
+                    {{ detail.expression_descript }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="recommended">
+        <span>Featured Content</span>
+        <div class="content"></div>
+        <div class="content"></div>
+        <div class="content"></div>
+        <div class="content"></div>
+        <div class="content"></div>
+    </div>
+</div>
+
+
+<script src="{% static 'js/creator.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+<link rel="stylesheet" href="{% static 'css/explore.css' %}">
+{% endblock %}
+
+{% block mainContent %}
+<div class="explore">
+    <div class="menu">
+        <div class="menu__title">
+            Explore
+        </div>
+        <div class="menu__search">
+            <input tpye="text" name = "keyword" placeholder="Filter by Keyword">
+            <img src="../static/img/loupe.png">
+        </div>
+        <div class="menu__filter-list">
+            <div class="menu__filter-title">
+                Gender
+            </div>
+            <div class="menu__filter-items">
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="radio" name="gender" value="male">
+                            <div></div>
+                        </div><span>Male</span>
+                    </label>
+                </div>
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="radio" name="gender" value="female">
+                            <div></div>
+                        </div><span>Female</span>
+                    </label>
+                </div>
+            </div>
+            <div class="menu__filter-title">
+                Age
+            </div>
+            <div class="menu__filter-items">
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="radio" name="age" value="~19">
+                            <div></div>
+                        </div><span>~19</span>
+                    </label>
+                </div>
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="radio" name="age" value="20~24">
+                            <div></div>
+                        </div><span>20~24</span>
+                    </label>
+                </div>
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="radio" name="age" value="25~29">
+                            <div></div>
+                        </div><span>25~29</span>
+                    </label>
+                </div>
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="radio" name="age" value="30~">
+                            <div></div>
+                        </div><span>30~</span>
+                    </label>
+                </div>
+            </div>
+            <div class="menu__filter-title">
+                Relationship
+            </div>
+            <div class="menu__filter-items">
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="radio" name="relationship" value="Friends">
+                            <div></div>
+                        </div><span>Friends</span>
+                    </label>
+                </div>
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="radio" name="relationship" value="Senior">
+                            <div></div>
+                        </div><span>Senior</span>
+                    </label>
+                </div>
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="radio" name="relationship" value="Family">
+                            <div></div>
+                        </div><span>Family</span>
+                    </label>
+                </div>
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="radio" name="relationship" value="At Work">
+                            <div></div>
+                        </div><span>At Work</span>
+                    </label>
+                </div>
+            </div>
+            <div class="menu__filter-title">
+                Tags
+            </div>
+            <div class="menu__filter-items">
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="checkbox" name="tag" value="Friends">
+                            <div></div>
+                        </div><span>Friends</span>
+                    </label>
+                </div>
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="checkbox" name="tag" value="Senior">
+                            <div></div>
+                        </div><span>Senior</span>
+                    </label>
+                </div>
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="checkbox" name="tag" value="Family">
+                            <div></div>
+                        </div><span>Family</span>
+                    </label>
+                </div>
+                <div class="menu__filter-items__item">
+                    <label>
+                        <div class="radio-button"><input type="checkbox" name="tag" value="At Work">
+                            <div></div>
+                        </div><span>At Work</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-list">
+        <div class="content-list__result">
+            <span class="nativing-orange">2377</span> content meet your condition
+        </div>
+        <div class="content-list__content-box">
+            <div class="content-list__content-box__grid">
+                <div class="content"></div>
+                <div class="content"></div>
+                <div class="content"></div>
+                <div class="content"></div>
+                <div class="content"></div>
+                <div class="content"></div>
+                <div class="content"></div>
+                <div class="content"></div>
+                <div class="content"></div>
+                <div class="content"></div>
+                <div class="content"></div>
+                <div class="content"></div>
+            </div>
+            <!-- pagenation 어케하징.. -->
+            <ul class="pagination"> 
+                {% if content_all.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ content_all.previous_page_number }}">이전</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                </li>
+                {% endif %}
+                {% for page_number in content_all.paginator.page_range %}
+                    {% if page_number == content_all.number %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                {% if content_all.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ content_all.next_page_number }}">다음</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/creator.js' %}"></script>
+{% endblock %}
