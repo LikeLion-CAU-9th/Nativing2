@@ -3,6 +3,10 @@ const femaleCheck = document.getElementById('female');
 
 let gender = [];
 
+function setLocalStorageGen(){
+    localStorage.setItem("gender", gender);
+}
+
 function addGenderEvent() {
     maleCheck.addEventListener("click", (event) => {
         if (event.target.checked){
@@ -19,6 +23,7 @@ function addGenderEvent() {
                 return value !== event.target.value;
             })
         }
+        setLocalStorageGen();
         console.log(gender);
     })
 
@@ -36,6 +41,7 @@ function addGenderEvent() {
                 return value !== event.target.value;
             })
         }
+        setLocalStorageGen();
         console.log(gender); 
     })
 }

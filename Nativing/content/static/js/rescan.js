@@ -2,8 +2,11 @@ const reScanForm = document.getElementById("re-scan-form");
 const reScan = document.getElementById("re-scan");
 const reScanDiv = document.getElementById("re-scan-keywords");
 
-
 let reScanList = [];
+
+function setLocalStorageRescan(){
+    localStorage.setItem("reScanList", reScanList);
+}
 
 function printKeywords(word) {
     const keywordBox = document.createElement("div");
@@ -35,6 +38,7 @@ function delEvent(event) {
         return value !== delWord;
     })
 
+    setLocalStorageRescan();
     console.log(reScanList);
 }
 
@@ -50,6 +54,8 @@ function rescanEvent(event){
         alert("이미 검색한 검색어입니다.")
     }
     reScan.value = "";
+
+    setLocalStorageRescan();
 }
 
 function init(){

@@ -6,6 +6,9 @@ try {
 } catch (e) {
     console.log(e);
 };
+
+let relation = [];
+
 const filterProperty = {
     keyword : [],
     relation : [],
@@ -14,6 +17,12 @@ const filterProperty = {
     age : [],    
 }
 
+// 새로고침시 남아있던 localStorage clear
+localStorage.clear();
+
+function setLocalStorageRel(){
+    localStorage.setItem("relation", relation);
+}
 
 
 // 검색어가 있으면, 검색어대로 filter + 검색어 filterProperty에 추가
@@ -56,7 +65,10 @@ function fetchContent() {
             //         filtered_content.push(arrayComponent);
             //     }
             // }
-            filtered_content = res.filter((value) => value.relation_select.includes(filterProperty.relation))
+            const tempRescan = localStorage.getItem("reScanList");
+
+
+            filtered_content = res.filter((value) => value.relation_select.includes(relation) && value.title.includes(tempRescan));
             // keyword search에 해당하는 글
             for (let keywordIter of filterProperty.keyword) {
                 let filteredArray = res.filter((value) => value.title.includes(keywordIter))
@@ -137,15 +149,19 @@ function checkEventRelation() {
         (function (x) {
             relationshipTag[x].addEventListener("click", (event) =>{
                 if (event.target.checked) {
-                    filterProperty.relation.push(event.target.value);
+                    // filterProperty.relation.push(event.target.value);
+                    relation.push(event.target.value);
                 }
                 else {
-                    filterProperty.relation = filterProperty.relation.filter((value) => {
-                        return value != event.target.value;
+                    // filterProperty.relation = filterProperty.relation.filter((value) => {
+                    //     return value != event.target.value;
+                    // })
+                    relation = relation.filter((value) => {
+                        return value !== event.target.value;
                     })
                 }
                 // fetchContent();
-
+                setLocalStorageRel();
                 console.log("체크된 relation: ", filterProperty.relation);
                 fetchContent();
             })
