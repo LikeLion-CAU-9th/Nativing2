@@ -37,12 +37,16 @@
             </li>
         </ul>
         <div class="nav__account">
-            <button class="nav__account__button button--white">
-                Sign in
-            </button>
-            <button class="nav__account__button button--orange">
-                Register
-            </button>
+            <a href="{% url 'accounts_login' %}">
+                <button class="nav__account__button button--white">
+                    Sign in
+                </button>
+            </a>
+            <a href="{% url 'accounts_signup' %}">
+                <button class="nav__account__button button--orange">
+                    Register
+                </button>
+            </a>    
         </div>
     </div>
     {% block mainContent %}

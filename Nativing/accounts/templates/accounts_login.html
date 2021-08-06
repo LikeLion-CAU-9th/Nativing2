@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+
+{% block mainContent %}
+<form method="POST" action="{% url 'accounts_login' %}">
+    <div class="account-area">
+        {% csrf_token %}
+        <div class="form-box">
+            <div class="form-box__title">
+                Sign In
+            </div>
+            <div class="form-box__label">
+                Username
+            </div>
+            <input name="{{ form.name.name }}" class="form-box__input">
+            <div class="form-box__label">
+                Password
+            </div>
+            <input name="{{ form.password.name }}" type="password" class="form-box__input">
+            <div class="form-box__remember-me">
+                <input type="checkbox"> 
+                <span>Remeber me</span>
+            </div>
+            <button type="submit" class="form-box__subimt-button">Sign in</button>
+            <div class="form-box__social-login-box">
+                <div class="form-box__social-login-box__top">
+                    <hr>
+                    <span>or</span>
+                    <hr>
+                </div>
+                <div class="form-box__social-login-box__icon-box">
+                    <div class="icon"></div>
+                    <div class="icon"></div>
+                    <div class="icon"></div>
+                </div>
+                <div class="form-box__login">
+                    Already have ccount? <a href="{% url 'accounts_login' %}">Please log in.</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="{% static 'js/signup.js' %}"></script>
+
+{% endblock %}
