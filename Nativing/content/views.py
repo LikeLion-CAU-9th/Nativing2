@@ -71,6 +71,9 @@ def explore_filter(request):
     # content_all = ContentUpload.objects.raw("SELECT * FROM content_ContentUpload")
     data = content_all.values()
     # print("", data)
+
+
+
     
     return JsonResponse(list(data), safe = False)
 
