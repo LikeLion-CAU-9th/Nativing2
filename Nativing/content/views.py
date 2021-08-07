@@ -72,17 +72,17 @@ def explore_filter(request):
     
     np_tag = np.array(Tag.objects.all().values())
     np_tag_list = np.array(TaggedContent.objects.all().values())
-    
-    for i in np_tag_list:
-        tag_id_temp = i['tag_id'] - 1
-        np_tag[tag_id_temp]['content_id'] = i['content_object_id']
-    
-    for i in np_tag:
-        content_id_temp = i['content_id'] - 1
+
+    for tag_list_iter in np_tag_list:
+        tag_id_temp = tag_list_iter['tag_id'] - 1
+        tag_list_iter['tag'] = np_tag[tag_id_temp]['name'].strip()
+
+    for tag_list_iter in np_tag_list:
+        content_id_temp = tag_list_iter['content_object_id'] - 1
         if 'tag' in data[content_id_temp]:
-            data[content_id_temp]['tag'].append(i['name'])
+            data[content_id_temp]['tag'].append(tag_list_iter['tag'])
         else:
-            data[content_id_temp]['tag'] = [i['name']]
+            data[content_id_temp]['tag'] = [tag_list_iter['tag']]
 
     return JsonResponse(list(data), safe = False)
 
