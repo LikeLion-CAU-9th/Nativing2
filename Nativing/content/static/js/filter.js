@@ -58,22 +58,27 @@ function fetchContent() {
             //         filtered_content.push(arrayComponent);
             //     }
             // }
-            const tempRescan = localStorage.getItem("reScanList");
+            let tempRescan = localStorage.getItem("reScanList");
             const tempRelation = localStorage.getItem("relation");
-            const tempHashtag = localStorage.getItem('hashtag');
-
+            let tempHashtag = localStorage.getItem('hashtag');
+            
             if (tempRelation) {
                 filtered_content = filtered_content.filter((value) => value.relation_select.includes(tempRelation));
             }
             if (tempRescan) {
-                filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan));
+                tempRescan = tempRescan.split(",");
+                for (var i = 0; i < tempRescan.length; i ++){
+                    filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan[i]));
+                }
+                // filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan));
             }
             if (tempHashtag) {
-                filtered_content = filtered_content.filter((value) => value.tag.includes(tempHashtag));
-                console.log("씨발 존재한다고")
-            } else {
-                console.log("없어 씨발아")
+                tempHashtag = tempHashtag.split(",");
+                for (var i = 0; i < tempHashtag.length ; i ++) {
+                    filtered_content = filtered_content.filter((value) => value.tag.includes(tempHashtag[i]));
+                }
             }
+
             // keyword search에 해당하는 글
             for (let keywordIter of filterProperty.keyword) {
                 let filteredArray = res.filter((value) => value.title.includes(keywordIter))
