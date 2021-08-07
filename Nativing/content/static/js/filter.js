@@ -27,12 +27,15 @@ function initialView(){
                 let filtered_content = res;
                 filtered_content = filtered_content.filter((value) => value.title.includes(keyword))
                 console.log(filtered_content);
+                printKeyword(keyword);
                 printContent(filtered_content);
+                printCount(res);
   
             } else {
                 console.log("안됐음");
-                filterProperty.keyword = [];
+                // filterProperty.keyword = [];
                 printContent(res);
+                // printCount(res);
             }
         })
 }
@@ -59,9 +62,10 @@ function fetchContent() {
             const tempRelation = localStorage.getItem("relation");
             let tempHashtag = localStorage.getItem('hashtag');
             
-
             if (tempKeyword) {
                 filtered_content = filtered_content.filter((value) => value.title.includes(tempKeyword));
+                console.log(tempKeyword);
+                // printKeyword(tempKeyword);
             }
             if (tempRelation) {
                 filtered_content = filtered_content.filter((value) => value.relation_select.includes(tempRelation));
@@ -94,8 +98,34 @@ function fetchContent() {
         .then((res) => {
             console.log("체크된 컨텐츠", res)
             clearChildNode();
-            printContent(res)
+            printCount(res);
+            printContent(res);
         })
+}
+
+function printKeyword(value) {
+    const keywordPlace = document.getElementById("keyword-text");
+    // let keywordSelf = document.createElement("div");
+    keywordPlace.innerText = `Keyword : ${value}`;
+    
+}
+
+function printCount(result) {
+    window.onload = function() {
+        const keywordCount = document.getElementById("keyword-count");
+        const keywordDiv = document.createElement('div');
+        const countSelf = result.length;
+        console.log(keywordCount);
+        if (countSelf === 0) {
+            keywordDiv.innerHTML = "Nothing matches your condition. Try again."
+        } else if (countSelf === 1) {
+            keywordDiv.innerHTML = `${countSelf} content meets your condition.`
+        } else {
+            keywordDiv.innerHTML = `${countSelf} content meet your condition.`
+        }
+        keywordCount.appendChild(keywordDiv);
+        console.log("씨발 왜 안보임", keywordCount);
+    }
 }
 
 // filter한 결과를 html에 print해주는
@@ -131,20 +161,6 @@ function clearChildNode() {
     var cell = document.querySelector('.main-sections');
     while (cell.hasChildNodes()){
         cell.removeChild( cell.firstChild );
-    }
-}
-
-
-function toggleTags(value) {
-    const keywordSort = document.getElementsByClassName(value)
-    console.log("키워드로 솎은 값: ",keywordSort);
-    console.log("태그 값은 :", value)
-
-    for (var i = 0; i < keywordSort.length ;i ++){
-        (function (x) {
-            const classes = keywordSort[i].classList;
-            classes.toggle("display");
-        })(i);
     }
 }
 
