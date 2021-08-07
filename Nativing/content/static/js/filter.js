@@ -1,22 +1,17 @@
+
+// 새로고침시 남아있던 localStorage clear
+localStorage.clear();
+
 const relationshipTag = document.getElementsByClassName("relationship-check")
 const searchResults = document.getElementsByClassName("content-box");
-let keyword = null;
+
 try {
-    keyword = document.getElementById("just-for-keyword").innerText;
+    let keyword = document.getElementById("just-for-keyword").innerText;
+    localStorage.setItem("keyword", keyword);
 } catch (e) {
     console.log(e);
 };
 
-const filterProperty = {
-    keyword : [],
-    relation : [],
-    tag : [],
-    gender : [],
-    age : [],    
-}
-
-// 새로고침시 남아있던 localStorage clear
-localStorage.clear();
 
 // 검색어가 있으면, 검색어대로 filter + 검색어 filterProperty에 추가
 // 없으면 모든 모델 가져오고, filterProperty.keyword 초기화
@@ -24,12 +19,13 @@ function initialView(){
     fetch('/explore-filter',)
         .then((res) => res.json())
         .then((res) => {
+            let keyword = localStorage.getItem("keyword");
             if (keyword)  {
                 console.log("키워드는 :", keyword);
                 console.log("됐음");
-                filterProperty.keyword.push(keyword);
-                let filtered_content = [];
-                filtered_content = res.filter((value) => value.title.includes(keyword))
+
+                let filtered_content = res;
+                filtered_content = filtered_content.filter((value) => value.title.includes(keyword))
                 console.log(filtered_content);
                 printContent(filtered_content);
   
@@ -58,10 +54,15 @@ function fetchContent() {
             //         filtered_content.push(arrayComponent);
             //     }
             // }
+            let tempKeyword = localStorage.getItem("keyword");
             let tempRescan = localStorage.getItem("reScanList");
             const tempRelation = localStorage.getItem("relation");
             let tempHashtag = localStorage.getItem('hashtag');
             
+
+            if (tempKeyword) {
+                filtered_content = filtered_content.filter((value) => value.title.includes(tempKeyword));
+            }
             if (tempRelation) {
                 filtered_content = filtered_content.filter((value) => value.relation_select.includes(tempRelation));
             }
@@ -70,7 +71,6 @@ function fetchContent() {
                 for (var i = 0; i < tempRescan.length; i ++){
                     filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan[i]));
                 }
-                // filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan));
             }
             if (tempHashtag) {
                 tempHashtag = tempHashtag.split(",");
@@ -80,14 +80,14 @@ function fetchContent() {
             }
 
             // keyword search에 해당하는 글
-            for (let keywordIter of filterProperty.keyword) {
-                let filteredArray = res.filter((value) => value.title.includes(keywordIter))
-                for (let arrayComponent of filteredArray) {
-                    if (!filtered_content.includes(arrayComponent)){
-                        filtered_content.push(arrayComponent);
-                    }
-                }
-            }
+            // for (let keywordIter of filterProperty.keyword) {
+            //     let filteredArray = res.filter((value) => value.title.includes(keywordIter))
+            //     for (let arrayComponent of filteredArray) {
+            //         if (!filtered_content.includes(arrayComponent)){
+            //             filtered_content.push(arrayComponent);
+            //         }
+            //     }
+            // }
             return filtered_content
 
         })

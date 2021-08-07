@@ -23,11 +23,12 @@ function showTags() {
 function addEventViewMore(){
     viewMoreBtn.addEventListener("click", (event) => {
         showTags();
-        viewMoreBtn.classList.add(HIDE_TAG);
+        viewMoreBtn[0].classList.add(HIDE_TAG);
     })
 }
 function viewMoreHandler(event){
     showTags();
+
 }
 
 function checkEventHashtag() {
@@ -51,10 +52,10 @@ function checkEventHashtag() {
 }
 
 function init(){
+    // viewMoreBtn.addEventListener("click", viewMoreHandler);
+    addEventViewMore();
+    checkEventHashtag();
     hideTagsInit();   
-    // checkEventHashtag();
 }
-viewMoreBtn.addEventListener("click", viewMoreHandler);
-checkEventHashtag();
 
 init();
