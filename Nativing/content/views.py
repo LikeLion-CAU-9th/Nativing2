@@ -1,11 +1,11 @@
+from django.db.models.expressions import Exists
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import CreateView
 from django.db.models import Q
-from . models import ContentUpload, RELATION_CHOICES
+from . models import ContentUpload, RELATION_CHOICES, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
-from taggit.models import Tag
 
 import numpy as np
 
@@ -67,22 +67,23 @@ def explore2(request):
 
                                              
 def explore_filter(request):
-    content_all = ContentUpload.objects.all().prefetch_related('tag')
-    # content_all = ContentUpload.objects.raw("SELECT * FROM content_ContentUpload")
-    data = content_all.values()
-<<<<<<< HEAD
-    # print("", data)
-
-
-
+    content_all = ContentUpload.objects.all()
+    data = np.array(content_all.values())
     
-=======
-    for content in data:
-        new_content = content
-        new_content['tag'] = []
-        for tag in ContentUpload.objects.get(id=1).tag.all():
-             new_content['tag'].append(str(tag))
->>>>>>> 8baadead3f5a47c686de6fff905b27559d5f006f
+    np_tag = np.array(Tag.objects.all().values())
+    np_tag_list = np.array(TaggedContent.objects.all().values())
+    
+    for i in np_tag_list:
+        tag_id_temp = i['tag_id'] - 1
+        np_tag[tag_id_temp]['content_id'] = i['content_object_id']
+    
+    for i in np_tag:
+        content_id_temp = i['content_id'] - 1
+        if 'tag' in data[content_id_temp]:
+            data[content_id_temp]['tag'].append(i['name'])
+        else:
+            data[content_id_temp]['tag'] = [i['name']]
+
     return JsonResponse(list(data), safe = False)
 
 def content_detail(request, content_id):
