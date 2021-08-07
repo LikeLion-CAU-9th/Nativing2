@@ -110,3 +110,13 @@
 .keyword-del {
     cursor: pointer;
 }
+
+.relationships {
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+
+.do-not-show {
+    display: none;
+}

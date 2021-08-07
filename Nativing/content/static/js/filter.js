@@ -47,7 +47,7 @@ function fetchContent() {
     fetch('/explore-filter',)
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
+            // console.log(res);
             let filtered_content = res;
             // relation tag에 해당하는 글
             // for (let relationIter of filterProperty.relation){
@@ -60,12 +60,19 @@ function fetchContent() {
             // }
             const tempRescan = localStorage.getItem("reScanList");
             const tempRelation = localStorage.getItem("relation");
+            const tempHashtag = localStorage.getItem('hashtag');
 
             if (tempRelation) {
                 filtered_content = filtered_content.filter((value) => value.relation_select.includes(tempRelation));
             }
             if (tempRescan) {
                 filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan));
+            }
+            if (tempHashtag) {
+                filtered_content = filtered_content.filter((value) => value.tag.includes(tempHashtag));
+                console.log("씨발 존재한다고")
+            } else {
+                console.log("없어 씨발아")
             }
             // keyword search에 해당하는 글
             for (let keywordIter of filterProperty.keyword) {
@@ -76,10 +83,6 @@ function fetchContent() {
                     }
                 }
             }
-            // 일반 상황 tag에 해당하는 글
-            for (let tagIter of filterProperty.tag) {
-            }
-
             return filtered_content
 
         })

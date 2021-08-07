@@ -1,4 +1,4 @@
-from django.db.models.expressions import Exists
+from django.db.models.expressions import Exists, F
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import CreateView
@@ -55,12 +55,19 @@ def explore(request):
         print("키워드 없")
     
     relationships  = np.array(RELATION_CHOICES)[:, 0]
+
+    tag_db = Tag.objects.all().values() 
+    tag_list = list()
+    for tag_db_iter in tag_db:
+        if tag_db_iter['name'] not in tag_list:
+            tag_list.append(tag_db_iter['name'])
         
     print("relation tag들: ", relationships,type(relationships))
-            
+               
     return render(request, 'test_explore.html', {'content_all' : content_all,
                                              "keyword": keyword_query,
-                                             "relationships" : relationships},)
+                                             "relationships" : relationships,
+                                             "tags" : tag_list},)
 
 def explore2(request):
     return render(request, "explore.html")
@@ -85,6 +92,19 @@ def explore_filter(request):
             data[content_id_temp]['tag'] = [tag_list_iter['tag']]
 
     return JsonResponse(list(data), safe = False)
+
+def tags_to_json(request):
+    tag_db = Tag.objects.all().values()
+    tag_list = list()
+    for tag_db_iter in tag_db:
+        if tag_db_iter['name'] not in tag_list:
+            tag_list.append(tag_db_iter['name'])
+    print("상황 tag들: ", tag_list)
+    tag_dict = dict({
+        "tags" : tag_list,
+    })
+    print(tag_dict)
+    return JsonResponse(list(tag_list), safe= False)
 
 def content_detail(request, content_id):
     content_detail = get_object_or_404(ContentUpload, pk = content_id)
