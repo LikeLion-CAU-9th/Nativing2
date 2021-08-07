@@ -20,7 +20,7 @@
         </a>
         <div class="nav__search">
             <form action = "{% url 'explore' %}">
-                <img src="../static/img/loupe.png">
+                <img src="{% static 'img/loupe.png' %}">
                 <input tpye="text" name = "keyword" placeholder="What do you want to learn?">
                 <button type="submit"></button>
             </form>
