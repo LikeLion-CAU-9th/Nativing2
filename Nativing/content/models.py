@@ -1,9 +1,12 @@
+from django.db.models.deletion import CASCADE
 from django.db.models.fields import BooleanField
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.utils import timezone
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
+from accounts.models import User
+
 from accounts.models import User
 
 EXPRESSION_CHOICES = (

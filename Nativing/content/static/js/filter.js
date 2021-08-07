@@ -47,7 +47,7 @@ function fetchContent() {
     fetch('/explore-filter',)
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
+            // console.log(res);
             let filtered_content = res;
             // relation tag에 해당하는 글
             // for (let relationIter of filterProperty.relation){
@@ -58,15 +58,27 @@ function fetchContent() {
             //         filtered_content.push(arrayComponent);
             //     }
             // }
-            const tempRescan = localStorage.getItem("reScanList");
+            let tempRescan = localStorage.getItem("reScanList");
             const tempRelation = localStorage.getItem("relation");
-
+            let tempHashtag = localStorage.getItem('hashtag');
+            
             if (tempRelation) {
                 filtered_content = filtered_content.filter((value) => value.relation_select.includes(tempRelation));
             }
             if (tempRescan) {
-                filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan));
+                tempRescan = tempRescan.split(",");
+                for (var i = 0; i < tempRescan.length; i ++){
+                    filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan[i]));
+                }
+                // filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan));
             }
+            if (tempHashtag) {
+                tempHashtag = tempHashtag.split(",");
+                for (var i = 0; i < tempHashtag.length ; i ++) {
+                    filtered_content = filtered_content.filter((value) => value.tag.includes(tempHashtag[i]));
+                }
+            }
+
             // keyword search에 해당하는 글
             for (let keywordIter of filterProperty.keyword) {
                 let filteredArray = res.filter((value) => value.title.includes(keywordIter))
@@ -76,10 +88,6 @@ function fetchContent() {
                     }
                 }
             }
-            // 일반 상황 tag에 해당하는 글
-            for (let tagIter of filterProperty.tag) {
-            }
-
             return filtered_content
 
         })

@@ -65,6 +65,17 @@
             {% endfor %}
         </div>
         <div class="tags">
+            {% for tag in tags %}
+                <div class = "tag-iter">
+                    <input type="checkbox" class = "tags-check" value="{{ tag }}" id = "tag{{ forloop.counter }}">
+                    <span>
+                        {{tag}}
+                    </span>
+                </div>
+            {% endfor %}
+            <button id = "viewtags-btn">
+                View all tags
+            </button>
         </div>
         
     </div>
@@ -114,5 +125,6 @@
 <script src= "{% static 'js/rescan.js' %}"></script>
 <script src= "{% static 'js/relation.js' %}"></script>
 <script src = "{% static 'js/age.js' %}"></script>
+<script src = "{% static 'js/tags.js' %}"></script>
 
 {% endblock %}
