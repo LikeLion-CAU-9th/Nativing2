@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
+from accounts.models import User
 
 from accounts.models import User
 
@@ -34,6 +35,7 @@ class TaggedContent(TaggedItemBase):
     )
 
 class ContentUpload(models.Model):
+    writer = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
     title = models.CharField(max_length = 40, )
     expression = models.TextField()
     expression_descript = models.TextField()

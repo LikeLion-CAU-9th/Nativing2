@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, TextInput, Select, FileInput
-from . models import ContentUpload
+from . models import ContentUpload 
 
 class ContentUploadForm(forms.ModelForm):
     class Meta:
