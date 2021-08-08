@@ -7,6 +7,8 @@ const searchResults = document.getElementsByClassName("content-box");
 const loadMoreBtn = document.getElementById("load-more-content");
 var loadCount = 1;
 
+const LOADMORE_NUM = 2;
+
 try {
     let keyword = document.getElementById("just-for-keyword").innerText;
     localStorage.setItem("keyword", keyword);
@@ -134,10 +136,25 @@ function printCount(result) {
     }
 }
 
+
+// filtered content 개수 vs Load more count로 불러오는 개수 중 작은 것 return
+//  + 모두 불러오면 loadmore 버튼 안보이도록
+function HowMuchToLoadMore(contentNum, loadCnt) {
+    const biggerInt = (loadCnt * LOADMORE_NUM > contentNum) ? contentNum : loadCnt * LOADMORE_NUM;
+    if (biggerInt === contentNum) {
+        loadMoreBtn.classList.add("do-not-show");
+    } else {
+        loadMoreBtn.classList.remove("do-not-show");
+    }
+    return biggerInt
+}
+
+
 // filter한 결과를 html에 print해주는
 function printContent(value, count) {
     let mainSection = document.querySelector('.main-sections');
-    const biggerInt = (count * 2 > value.length) ? value.length : count * 2;    
+
+    const biggerInt = HowMuchToLoadMore(value.length, count);
 
     console.log(biggerInt, "is bigger int");
     for (var i = 0; i < biggerInt; i ++){
@@ -178,6 +195,7 @@ function clearChildNode() {
 
 
 function init(){
+    // loadmore 세주기
     loadMoreBtn.addEventListener("click", (event) => {
         loadCount += 1;
         console.log(loadCount);
