@@ -8,6 +8,7 @@
 {% block mainContent %}
 <form method="POST" action="{% url 'accounts_login' %}">
     <div class="account-area">
+        {{ error }}
         {% csrf_token %}
         <div class="form-box">
             <div class="form-box__title">

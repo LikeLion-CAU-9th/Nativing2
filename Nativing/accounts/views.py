@@ -12,7 +12,6 @@ def accounts_signup(request):
         if form.is_valid():
             form.save()
             return redirect("main")
-            #TODO 추후 회원가입 후 개인 프로필로 redirect 되도록 설정 필요
         else:
             ctx = {
                 "form": form,
@@ -32,6 +31,12 @@ def accounts_login(request):
         form = LoginForm(request.POST)
         email = request.POST.get("email")
         password = request.POST["password"]
+        if not (email and password):
+            ctx = {
+                "form": form,
+                "error": "Please enter your email and password",
+            }
+            return render(request, "accounts_login.html", ctx)            
         user = authenticate(email=email, password=password)
         print(user)
         print(form.errors)
