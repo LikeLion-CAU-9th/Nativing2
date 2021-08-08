@@ -81,8 +81,8 @@
     </div>
     
 
-    <div class = "main-sections">
-        {% if keyword %}
+    <div class = "main-part">
+        <!-- {% if keyword %}
             {% if content_all %}
             <div>
                 "{{keyword}}"에 대한 검색결과 입니다.
@@ -93,7 +93,17 @@
             </div>
             {% endif%}
 
-        {% endif %}
+        {% endif %} -->
+        <div id = "keyword-text">
+            ㄹ
+        </div>
+        <div id = "keyword-count">
+            ㄹ
+        </div>
+
+        <div class= "main-sections">
+            <!-- content card 들어가는 곳 -->
+        </div>
 
         <!-- {% for content in content_all %}
         <div class = "content-box {{ content.relation_select }}">
@@ -115,6 +125,9 @@
             </div>
         </div>
         {% endfor %} -->
+        <button id = "load-more-content" type="button">
+            Load More
+        </button>
     
     </div>
 

@@ -39,11 +39,18 @@
     padding-bottom: 10px;
 }
 
+.main-part{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto 0 auto;
+}
+
 .main-sections {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 70%;
+    /* width: 70%; */
     margin: 0 auto 0 auto;
 }
 
