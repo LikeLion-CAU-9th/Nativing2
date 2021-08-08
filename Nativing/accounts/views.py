@@ -11,7 +11,7 @@ def accounts_signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("signup_success")
+            return redirect("main")
             #TODO 추후 회원가입 후 개인 프로필로 redirect 되도록 설정 필요
         else:
             ctx = {
