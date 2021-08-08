@@ -9,10 +9,12 @@
 <form method="POST" action="{% url 'accounts_login' %}">
     <div class="account-area">
         {% csrf_token %}
+        
         <div class="form-box">
             <div class="form-box__title">
                 Sign In
             </div>
+            {{form.as_p}}
             <div class="form-box__label">
                 Email
             </div>

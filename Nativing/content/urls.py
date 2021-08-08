@@ -4,7 +4,7 @@ from . import views
 from .views import *
 
 urlpatterns = [
-     path('upload/', views.CreateContentUploadView.as_view(), name='content_upload'),
+     path('upload/', CreateContentUploadView, name='content_upload'),
      path('explore/', explore, name = "explore"),
      path('explore2/', explore2, name = "explore2"),
      path('explore-filter/', explore_filter, name = "explore_filter"),

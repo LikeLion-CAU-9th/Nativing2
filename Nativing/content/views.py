@@ -1,20 +1,31 @@
+
 from django.db.models.expressions import Exists, F
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse
 from django.views.generic import CreateView
 from django.db.models import Q
+from accounts.models import User
 from . models import ContentUpload, RELATION_CHOICES, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
 
+
 import numpy as np
 
-
-class CreateContentUploadView(CreateView):
-    model = ContentUpload
-    form_class = ContentUploadForm
-    template_name = 'content_upload.html'
-    success_url = '/'
+def CreateContentUploadView(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts/login')
+    name_temp = request.user.name
+    if request.method == "POST":
+        form = ContentUploadForm(request.POST)       
+        if form.is_valid():   
+            new_content = form.save(commit=False)      
+            new_content.save()
+            return redirect('/')
+    else:
+        form = ContentUploadForm()
+    return render(request, 'content_upload.html', {'name': name_temp, 'form': form})
 
 
 def expresstionENG(request):

@@ -13,7 +13,7 @@
         <div class="circle">
          
         </div>
-        <p class="username">따라큐<p><br>
+        <p class="username">{{name}}<p><br>
         <p class="side_head">업로드한 컨텐츠</p>
         <p class="side">Playlists</p>
         <p class="side">Community</p>
@@ -31,7 +31,8 @@
                 <div class="card_left">
                     <div class="picture">          
                         <img style="width: 14.2em;" id="preview-image" src="">
-                    </div>                   
+                    </div>        
+                    {{form.writer}}           
                    {{form.image}}                
                 </div>
 
@@ -96,7 +97,7 @@
                     <a class="caution">2. 대화 상대의 이름과 프로필이 노출되지 않도록 해주세요.</a><br>
                     <a class="caution">3. 대화 내용이 잘 보이지 않는 배경화면 (예:얼굴 사진)은 학습에 부적절합니다.</a><br>
                     <a class="caution">4. 대화 상대의 동의가 있어야 합니다.</a><br>
-                    <label style="font-size: 0.8em"> {{form.agree}} 상기내용을 준수했음을 확인합니다.</label><br>
+                    <label style="font-size: 0.8em" id="choix" name="choix"> {{form.agree}} 상기내용을 준수했음을 확인합니다.</label><br>
                     <button class="cancel_button" type="button" onclick="window.history.back()">취소</button>
                     <button class="upload_button button--orange" type="submit">업로드</button>
                 </div>
