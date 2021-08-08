@@ -15,8 +15,10 @@ function hideTagsInit(){
 }
 
 function showTags() {
+    // console.log(hashtag);
     for (var i = 5; i < hashtag.length + 1 ; i ++ ){
         hashtag[i].classList.remove(HIDE_TAG);
+        // console.log(hashtag[i]);
     }
 }
 

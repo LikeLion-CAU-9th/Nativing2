@@ -35,7 +35,7 @@ class TaggedContent(TaggedItemBase):
     )
 
 class ContentUpload(models.Model):
-    writer = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
+    # writer = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
     title = models.CharField(max_length = 40, )
     expression = models.TextField()
     expression_descript = models.TextField()

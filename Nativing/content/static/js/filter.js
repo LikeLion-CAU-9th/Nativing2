@@ -4,6 +4,8 @@ localStorage.clear();
 
 const relationshipTag = document.getElementsByClassName("relationship-check")
 const searchResults = document.getElementsByClassName("content-box");
+const loadMoreBtn = document.getElementById("load-more-content");
+var loadCount = 1;
 
 try {
     let keyword = document.getElementById("just-for-keyword").innerText;
@@ -28,21 +30,20 @@ function initialView(){
                 filtered_content = filtered_content.filter((value) => value.title.includes(keyword))
                 console.log(filtered_content);
                 printKeyword(keyword);
-                printContent(filtered_content);
+                printContent(filtered_content, loadCount);
                 printCount(res);
   
             } else {
                 console.log("안됐음");
                 // filterProperty.keyword = [];
-                printContent(res);
-                // printCount(res);
+                printContent(res, loadCount);
+                printCount(res);
             }
         })
 }
 
 
-
-function fetchContent() {
+function fetchContent(isLoadMore = false) {
     fetch('/explore-filter',)
         .then((res) => res.json())
         .then((res) => {
@@ -57,6 +58,7 @@ function fetchContent() {
             //         filtered_content.push(arrayComponent);
             //     }
             // }
+
             let tempKeyword = localStorage.getItem("keyword");
             let tempRescan = localStorage.getItem("reScanList");
             const tempRelation = localStorage.getItem("relation");
@@ -99,7 +101,11 @@ function fetchContent() {
             console.log("체크된 컨텐츠", res)
             clearChildNode();
             printCount(res);
-            printContent(res);
+            if (isLoadMore) printContent(res, loadCount);
+            else {
+                loadCount = 1;
+                printContent(res, loadCount);
+            }
         })
 }
 
@@ -129,27 +135,33 @@ function printCount(result) {
 }
 
 // filter한 결과를 html에 print해주는
-function printContent(value) {
+function printContent(value, count) {
     let mainSection = document.querySelector('.main-sections');
-    for (var i = 0; i < value.length; i ++){
+    const biggerInt = (count * 2 > value.length) ? value.length : count * 2;    
+
+    console.log(biggerInt, "is bigger int");
+    for (var i = 0; i < biggerInt; i ++){
         let linkDetail = document.createElement('a');
         let contentBox = document.createElement('div');
         let contentTitle = document.createElement('div');    
         let contentRelation = document.createElement('div');    
         let contentBody = document.createElement('div');
+        let contentTag = document.createElement('div');
         
         linkDetail.href = `/explore/${value[i].id}`;
         contentBox.classList.add('content-box');
         contentTitle.classList.add('content-title');
         contentRelation.classList.add('content-relation');
         contentBody.classList.add('content-body');
+        contentTag.classList.add('content-tag');
 
         contentTitle.innerHTML = value[i].title;
         contentRelation.innerHTML = value[i].relation_select;
         contentBody.innerHTML = 
             `${value[i].expression} <span>is ${value[i].expression_descript_select}</span> of ${value[i].expression_descript}`
+        contentTag.innerHTML = value[i].tag;
 
-        contentBox.append(contentTitle, contentRelation, contentBody);
+        contentBox.append(contentTitle, contentRelation, contentBody, contentTag);
         linkDetail.append(contentBox);
         
         mainSection.appendChild(linkDetail);
@@ -164,7 +176,13 @@ function clearChildNode() {
     }
 }
 
+
 function init(){
+    loadMoreBtn.addEventListener("click", (event) => {
+        loadCount += 1;
+        console.log(loadCount);
+        fetchContent(isLoadMore = true);
+    })
     initialView();
 }
 
