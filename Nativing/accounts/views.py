@@ -13,8 +13,10 @@ def accounts_signup(request):
             form.save()
             return redirect("main")
         else:
+            print(form.errors)
             ctx = {
                 "form": form,
+                "error": form.errors
             }
             return render(request, "accounts_signup.html", ctx)
 
