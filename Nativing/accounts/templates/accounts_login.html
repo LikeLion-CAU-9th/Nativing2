@@ -8,7 +8,6 @@
 {% block mainContent %}
 <form method="POST" action="{% url 'accounts_login' %}">
     <div class="account-area">
-        {{ error }}
         {% csrf_token %}
         <div class="form-box">
             <div class="form-box__title">
@@ -26,6 +25,11 @@
                 <input type="checkbox"> 
                 <span>Remeber me</span>
             </div>
+
+            {% comment %} 에러 css 먹이시면 됩니다! {% endcomment %}
+            {{ error }} 
+
+
             <button type="submit" class="form-box__subimt-button">Sign in</button>
             <div class="form-box__social-login-box">
                 <div class="form-box__social-login-box__top">
