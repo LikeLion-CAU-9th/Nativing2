@@ -37,7 +37,7 @@ def accounts_login(request):
         print(form.errors)
         if user is not None:
             auth_login(request, user)
-            return redirect("login_success")
+            return redirect("main")
         else:
             ctx = {
                 "form": form,
