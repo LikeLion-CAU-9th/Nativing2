@@ -1,0 +1,5 @@
+,id,writer_id,title,expression,expression_descript,datetime,expression_descript_select,relation_select,user_name,user_gender,user_age,content_id,tag
+0,1,1,가나다라,가나다라,"가나,ㄴ가느",2021-08-09 08:25:26.424028+00:00,ABBREVIATION,FAMILY,leo,male,7,1,"['가나다라', '가나다']"
+1,2,1,r,r,r,2021-08-09 08:25:40.249907+00:00,ABBREVIATION,FAMILY,leo,male,7,2,['r']
+2,3,2,누가썼게,누가썼게,누가썼게,2021-08-09 08:26:45.133166+00:00,ABBREVIATION,FAMILY,elelelfo,male,24,3,"['나', '가', '다']"
+3,4,1,가나다라,가나다라,가나다,2021-08-09 08:29:03.868273+00:00,ABBREVIATION,FAMILY,leo,male,7,4,"['나', '가', '다']"

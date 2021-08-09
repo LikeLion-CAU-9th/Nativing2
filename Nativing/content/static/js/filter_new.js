@@ -20,7 +20,11 @@ try {
 // 검색어가 있으면, 검색어대로 filter + 검색어 filterProperty에 추가
 // 없으면 모든 모델 가져오고, filterProperty.keyword 초기화
 function initialView(){
-    fetch('/explore-filter',)
+    fetch('/explore-filter/', {
+        headers : {
+            "Accept" : "application/json"
+        }
+        })
         .then((res) => res.json())
         .then((res) => {
             let keyword = localStorage.getItem("keyword");

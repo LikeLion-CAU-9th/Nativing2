@@ -73,7 +73,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_of_birth =models.DateField(null=True)
     user_image = models.ImageField(upload_to='images/', blank=True, null=True)
     user_gender = models.CharField(max_length=10, choices=Gender.GENDER_TYPES)
-    user_age = models.PositiveIntegerField(blank=True, null=True)
+    user_age = models.PositiveIntegerField(blank=True, null=True, default= 20)
     is_login = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
