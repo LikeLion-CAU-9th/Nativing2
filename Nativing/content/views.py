@@ -24,7 +24,7 @@ def CreateContentUploadView(request):
             new_content.writer = request.user
             new_content.save()
             form.save_m2m()
-            return redirect('/')
+            return redirect('explore')
     else:
         form = ContentUploadForm()
         return render(request, 'content_upload.html', {'form': form})
@@ -52,7 +52,7 @@ def relationENG(request):
     return temp
 
 
-def explore(request):
+def explore_test(request):
     content_all = ContentUpload.objects.all()
     print("type of request : ", type(request))
     print("type of object_all : ", type(content_all))
@@ -83,8 +83,28 @@ def explore(request):
                                              "relationships" : relationships,
                                              "tags" : tag_list},)
 
-def explore2(request):
-    return render(request, "explore.html")
+def explore(request):
+    content_all = ContentUpload.objects.all()
+    keyword_query = request.GET.get('keyword')
+    
+    if keyword_query:
+        content_all = content_all.filter(
+            Q(title__icontains = keyword_query) | 
+            Q(expression__icontains = keyword_query) |
+            Q(expression_descript__icontains = keyword_query)).order_by('-datetime')
+    
+    relationships  = np.array(RELATION_CHOICES)[:, 0]
+
+    tag_db = Tag.objects.all().values() 
+    tag_list = list()
+    for tag_db_iter in tag_db:
+        if tag_db_iter['name'] not in tag_list:
+            tag_list.append(tag_db_iter['name'])
+               
+    return render(request, 'explore.html', {'content_all' : content_all,
+                                             "keyword": keyword_query,
+                                             "relationships" : relationships,
+                                             "tags" : tag_list},)
 
                                              
 def explore_filter(request):

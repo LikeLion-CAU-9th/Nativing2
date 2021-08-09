@@ -64,7 +64,7 @@
 .slick-prev.slick-disabled:before,
 .slick-next.slick-disabled:before
 {
-    opacity: .25;
+    opacity: .0;
 }
 
 .slick-prev:before,
@@ -115,6 +115,14 @@
 [dir='rtl'] .slick-next:before
 {
     content: '←';
+}
+
+.slick-center {
+    -moz-transform:scale(1.2);
+    -ms-transform:scale(1.2);
+    -o-transform:scale(1.2);
+    -webkit-transform:scale(1.2);
+    transform:scale(1.2);
 }
 
 /* Dots */

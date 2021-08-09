@@ -50,7 +50,11 @@
                     <div class="detail__contents__category__child__tags">
                         {% for tag in detail.tag.all %}
                         <span class="tag">
+                            {% if tag.en_name %}
                             {{ tag.en_name }}
+                            {% else %}
+                            {{ tag }}
+                            {% endif %}
                         </span>
                         {% endfor %}
                     </div>
