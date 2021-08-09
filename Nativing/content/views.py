@@ -9,14 +9,13 @@ from accounts.models import User
 from . models import ContentUpload, RELATION_CHOICES, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
-from datetime import date, datetime, timedelta
 
 import numpy as np
 
 def CreateContentUploadView(request):
     if not request.user.is_authenticated:
         return redirect('accounts_login')
-        
+
     if request.method == "POST":
         form = ContentUploadForm(request.POST, request.FILES)       
         if form.is_valid():   
@@ -126,8 +125,13 @@ def explore_filter(request):
             data[content_id_temp]['tag'] = [tag_list_iter['tag']]
     print(np_tag, "태그들")
 
-    writer_all = ContentUpload.objects.select_related("writer__user_age", "writer__user_name")
-    print(writer_all.values()[0])
+    writer_all = ContentUpload.objects.raw('''
+    SELECT * 
+    FROM content_contentupload
+    ''')
+    for i in writer_all:
+        print(i)
+    # print(writer_all.values()\\)
     
 
 
