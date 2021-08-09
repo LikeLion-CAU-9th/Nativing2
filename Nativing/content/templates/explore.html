@@ -20,8 +20,8 @@
         </div>
         <div class="menu__search">
             <form id = "re-scan-form">
-                <input tpye="text" name = "keyword" id = "re-scan" placeholder="Filter by Keyword">
-                <img src="../static/img/loupe.png">
+                <input type="text" name = "keyword" id = "re-scan" placeholder="Filter by Keyword">
+                <label><input type="submit" class="hidden"><img src="../static/img/loupe.png"></label>
             </form>
             <div id = "re-scan-keywords">
                 <!-- JS로 결과 내 재검색 구현 -->
@@ -114,7 +114,7 @@
         </div>
     </div>
     <div class="content-list">
-        <div id = "keyword-text">
+        <div class="content-list__keyword" id = "keyword-text" >
             <!-- nav바를 통해 검색한 결과가 무엇인지 -->
         </div>
         <div id = "keyword-count">

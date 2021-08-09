@@ -111,7 +111,7 @@ function fetchContent(isLoadMore = false) {
 
 function printKeyword(value) {
     const keywordPlace = document.getElementById("keyword-text");
-    keywordPlace.innerText = `Keyword : ${value}`;
+    keywordPlace.innerHTML = `Keyword: <span class="nativing-orange">${value}</span>`;
 }
 
 
