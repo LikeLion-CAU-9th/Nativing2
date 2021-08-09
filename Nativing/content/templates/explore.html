@@ -23,6 +23,9 @@
                 <input tpye="text" name = "keyword" id = "re-scan" placeholder="Filter by Keyword">
                 <img src="../static/img/loupe.png">
             </form>
+            <div id = "re-scan-keywords">
+                <!-- JS로 결과 내 재검색 구현 -->
+            </div>
         </div>
         <div class="menu__filter-list">
             <div class="menu__filter-title">
@@ -117,9 +120,7 @@
         <div id = "keyword-count">
             <!-- 검색 조건에 맞는 content가 몇 개인지 -->
         </div>
-        <div class="content-list__result" id="content-list__result">
-            <span class="nativing-orange">2377</span> content meet your condition
-        </div>
+        <div class="content-list__result" id="content-list__result"></div>
         <div class="content-list__content-box">
             <div class="content-list__content-box__grid">
             </div>

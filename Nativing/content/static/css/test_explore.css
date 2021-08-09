@@ -114,8 +114,8 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    padding-bottom: 10px;
-    border-bottom: black solid 1px;
+    gap: 0.2em;
+    padding: 10px 0;
 }
 
 .keyword-box {
