@@ -53,15 +53,6 @@ function fetchContent(isLoadMore = false) {
         .then((res) => res.json())
         .then((res) => {
             let filtered_content = res;
-            // relation tag에 해당하는 글
-            // for (let relationIter of filterProperty.relation){
-            //     // console.log(relation);
-            //     // filter() 가 Array로 return 하므로 다시 한번 for문으로 추가해줌,,
-            //     let filteredArray = res.filter((value) => value.relation_select === relationIter);
-            //     for (let arrayComponent of filteredArray) {
-            //         filtered_content.push(arrayComponent);
-            //     }
-            // }
 
             let tempKeyword = localStorage.getItem("keyword");
             let tempRescan = localStorage.getItem("reScanList");
@@ -88,15 +79,6 @@ function fetchContent(isLoadMore = false) {
                 }
             }
 
-            // keyword search에 해당하는 글
-            // for (let keywordIter of filterProperty.keyword) {
-            //     let filteredArray = res.filter((value) => value.title.includes(keywordIter))
-            //     for (let arrayComponent of filteredArray) {
-            //         if (!filtered_content.includes(arrayComponent)){
-            //             filtered_content.push(arrayComponent);
-            //         }
-            //     }
-            // }
             return filtered_content
 
         })
