@@ -3,16 +3,23 @@
 
 {% block htmlHead %}
 <link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
 {% endblock %}
 
 {% block mainContent %}
 
 <div class="featured-content">
-    <span><span class="nativing-orange">Featured</span> content</span>
+    <span style="text-align: center;"><span class="nativing-orange">Featured</span> content</span>
+    <div class="screen">
     <div class="featured-content__content-box">
         <div class="content content--big"></div>
         <div class="content content--big"></div>
         <div class="content content--big"></div>
+        <div class="content content--big"></div>
+        <div class="content content--big"></div>
+        <div class="content content--big"></div>
+    </div>
     </div>
 </div>
 
@@ -31,7 +38,7 @@
     </div>
 
     <div class="filtered-content">
-        <sapn class="nativing-orange">Newest</sapn> Content
+        <span class="nativing-orange">Newest</span> Content
         <div class="filtered-content__content-box">
             <div class="content"></div>
             <div class="content"></div>
@@ -45,4 +52,30 @@
 </div>
 
 <script src="../static/js/creator.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
+
+<script type="text/javascript">
+        $(document).ready(function(){
+          $('.featured-content__content-box').slick({
+            infinite: true,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            draggable: false,
+            variableWidth: true,
+            arrows:true,
+            centerMode: true,
+          });
+        });
+    $(document).ready(function(){
+      $('.filtered-content__content-box').slick({
+        infinite: true,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        draggable: false,
+        variableWidth: true,
+      });
+    });
+  </script>
 {% endblock %}
