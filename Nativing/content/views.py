@@ -22,6 +22,7 @@ def CreateContentUploadView(request):
         form = ContentUploadForm(request.POST, request.FILES)       
         if form.is_valid():   
             new_content = form.save(commit=False)      
+            new_content.writer = request.user
             new_content.save()
             form.save_m2m()
             return redirect('/')
@@ -77,14 +78,6 @@ def explore(request):
         
     print("relation tag들: ", relationships,type(relationships))
 
-    date1 = date(2012, 2, 7)
-    date2 = date(2014, 6, 20)
-    print((date2 - date1).days)
-    date3 = datetime.now().date()
-    date4 = date.today()
-    print(date4, "ffff")
-    print(date3)
-    print(date2)
                
     return render(request, 'test_explore.html', {'content_all' : content_all,
                                              "keyword": keyword_query,
@@ -113,6 +106,12 @@ def explore_filter(request):
         else:
             data[content_id_temp]['tag'] = [tag_list_iter['tag']]
     print(np_tag, "태그들")
+
+    writer_all = ContentUpload.objects.select_related("writer__user_age", "writer__user_name")
+    print(writer_all.values()[0])
+    
+
+
     return JsonResponse(list(data), safe = False)
 
 def tags_to_json(request):

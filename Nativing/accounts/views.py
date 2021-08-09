@@ -9,9 +9,7 @@ from django.contrib.auth.decorators import login_required
 def accounts_signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
-        a = request.POST.get("date_of_birth")
-        print(a)
-        print(type(a))
+
         if form.is_valid():
             instance = form.save(commit=False)
             if request.POST.get("date_of_birth"):
