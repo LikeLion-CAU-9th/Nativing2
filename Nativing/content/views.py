@@ -16,8 +16,7 @@ import numpy as np
 def CreateContentUploadView(request):
     if not request.user.is_authenticated:
         return redirect('accounts_login')
-    name_temp = request.user.name
-    print(name_temp)
+        
     if request.method == "POST":
         form = ContentUploadForm(request.POST, request.FILES)       
         if form.is_valid():   
@@ -28,7 +27,7 @@ def CreateContentUploadView(request):
             return redirect('/')
     else:
         form = ContentUploadForm()
-    return render(request, 'content_upload.html', {'name': name_temp, 'form': form})
+        return render(request, 'content_upload.html', {'form': form})
 
 
 def expresstionENG(request):
