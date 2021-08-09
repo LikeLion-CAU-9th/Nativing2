@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseUserManager
+from datetime import date, datetime, timedelta
 
 
 class CustomAccountManager(BaseUserManager):
@@ -21,6 +22,7 @@ class CustomAccountManager(BaseUserManager):
             user_image=user_image,
             user_gender=user_gender,
         )
+        
         user.set_password(password)
         user.is_superuser = False
         user.save(using=self._db)
@@ -82,7 +84,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
+        
     @property
     def is_staff(self):
         return self.is_admin

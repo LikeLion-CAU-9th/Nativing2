@@ -9,6 +9,7 @@ from accounts.models import User
 from . models import ContentUpload, RELATION_CHOICES, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
+from datetime import date, datetime, timedelta
 
 import numpy as np
 
@@ -75,6 +76,15 @@ def explore(request):
             tag_list.append(tag_db_iter['name'])
         
     print("relation tag들: ", relationships,type(relationships))
+
+    date1 = date(2012, 2, 7)
+    date2 = date(2014, 6, 20)
+    print((date2 - date1).days)
+    date3 = datetime.now().date()
+    date4 = date.today()
+    print(date4, "ffff")
+    print(date3)
+    print(date2)
                
     return render(request, 'test_explore.html', {'content_all' : content_all,
                                              "keyword": keyword_query,
