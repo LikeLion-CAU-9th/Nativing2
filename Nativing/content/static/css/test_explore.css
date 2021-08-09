@@ -46,6 +46,15 @@
     margin: 0 auto 0 auto;
 }
 
+#keyword-count {
+    font-size: 18px;
+}
+
+#keyword-count span {
+    color: orange;
+    font-weight: bold;
+}
+
 .main-sections {
     display: flex;
     flex-direction: row;

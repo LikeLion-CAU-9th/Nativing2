@@ -1,4 +1,3 @@
-
 // 새로고침시 남아있던 localStorage clear
 localStorage.clear();
 
@@ -7,6 +6,7 @@ const searchResults = document.getElementsByClassName("content-box");
 const loadMoreBtn = document.getElementById("load-more-content");
 var loadCount = 1;
 
+// loadmore 할때 몇개 씩 보여줄지
 const LOADMORE_NUM = 2;
 
 try {
@@ -33,11 +33,10 @@ function initialView(){
                 console.log(filtered_content);
                 printKeyword(keyword);
                 printContent(filtered_content, loadCount);
-                printCount(res);
+                printCount(filtered_content);
   
             } else {
                 console.log("안됐음");
-                // filterProperty.keyword = [];
                 printContent(res, loadCount);
                 printCount(res);
             }
@@ -49,7 +48,6 @@ function fetchContent(isLoadMore = false) {
     fetch('/explore-filter',)
         .then((res) => res.json())
         .then((res) => {
-            // console.log(res);
             let filtered_content = res;
             // relation tag에 해당하는 글
             // for (let relationIter of filterProperty.relation){
@@ -69,7 +67,6 @@ function fetchContent(isLoadMore = false) {
             if (tempKeyword) {
                 filtered_content = filtered_content.filter((value) => value.title.includes(tempKeyword));
                 console.log(tempKeyword);
-                // printKeyword(tempKeyword);
             }
             if (tempRelation) {
                 filtered_content = filtered_content.filter((value) => value.relation_select.includes(tempRelation));
@@ -111,28 +108,23 @@ function fetchContent(isLoadMore = false) {
         })
 }
 
+
 function printKeyword(value) {
     const keywordPlace = document.getElementById("keyword-text");
-    // let keywordSelf = document.createElement("div");
     keywordPlace.innerText = `Keyword : ${value}`;
-    
 }
 
+
 function printCount(result) {
-    window.onload = function() {
-        const keywordCount = document.getElementById("keyword-count");
-        const keywordDiv = document.createElement('div');
-        const countSelf = result.length;
-        console.log(keywordCount);
-        if (countSelf === 0) {
-            keywordDiv.innerHTML = "Nothing matches your condition. Try again."
-        } else if (countSelf === 1) {
-            keywordDiv.innerHTML = `${countSelf} content meets your condition.`
-        } else {
-            keywordDiv.innerHTML = `${countSelf} content meet your condition.`
-        }
-        keywordCount.appendChild(keywordDiv);
-        console.log("씨발 왜 안보임", keywordCount);
+    const keywordCount = document.getElementById("keyword-count");
+    const countSelf = result.length;
+
+    if (countSelf === 0) {
+        keywordCount.innerHTML = "Nothing matches your condition. Try again."
+    } else if (countSelf === 1) {
+        keywordCount.innerHTML = `<span>${countSelf}</span> content meets your condition.`
+    } else {
+        keywordCount.innerHTML = `<span>${countSelf}</span> contents meet your condition.`
     }
 }
 
@@ -156,7 +148,6 @@ function printContent(value, count) {
 
     const biggerInt = HowMuchToLoadMore(value.length, count);
 
-    console.log(biggerInt, "is bigger int");
     for (var i = 0; i < biggerInt; i ++){
         let linkDetail = document.createElement('a');
         let contentBox = document.createElement('div');
@@ -185,6 +176,7 @@ function printContent(value, count) {
     }
 }
 
+
 // tag 바뀔 때마다 앞부분 지워주기 
 function clearChildNode() {
     var cell = document.querySelector('.main-sections');
@@ -194,13 +186,16 @@ function clearChildNode() {
 }
 
 
+function loadMoreHandler(event){
+    loadCount += 1;
+    console.log(loadCount);
+    fetchContent(isLoadMore = true);
+}
+
+
 function init(){
     // loadmore 세주기
-    loadMoreBtn.addEventListener("click", (event) => {
-        loadCount += 1;
-        console.log(loadCount);
-        fetchContent(isLoadMore = true);
-    })
+    loadMoreBtn.addEventListener("click", loadMoreHandler)
     initialView();
 }
 
