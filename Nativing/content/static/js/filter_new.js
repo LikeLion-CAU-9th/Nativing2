@@ -194,9 +194,9 @@ function printContent(value, count) {
                     <img src="../static/img/tarakyu.png" class="content__author__left__image"> 
                 </div> 
                 <div class="content__author__right"> 
-                    <div class="content__author__right__name"> 따라큐 </div> 
+                    <div class="content__author__right__name"> ${value[i].user_name} </div> 
                     <div class="content__author__right__detail"> 
-                        <span class="nativing-orange">3.4k</span> followers <span class="skyblue"> Male</span> 26 
+                        <span class="nativing-orange">3.4k</span> followers <span class="skyblue">${value[i].user_gender}</span> ${value[i].user_age} 
                     </div> 
                 </div> 
             </div>
