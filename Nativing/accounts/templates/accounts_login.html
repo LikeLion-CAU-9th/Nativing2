@@ -14,7 +14,7 @@
             <div class="form-box__title">
                 Sign In
             </div>
-            {{form.as_p}}
+            <!-- {{form.as_p}} -->
             <div class="form-box__label">
                 Email
             </div>
@@ -45,6 +45,11 @@
             </div>
         </div>
     </div>
+</form>
+<form method="POST" action = "{% url 'accounts_login' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">submit</button>
 </form>
 
 <script src="{% static 'js/signup.js' %}"></script>

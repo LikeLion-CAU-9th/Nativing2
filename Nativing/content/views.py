@@ -10,18 +10,19 @@ from . models import ContentUpload, RELATION_CHOICES, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
 
-
 import numpy as np
 
 def CreateContentUploadView(request):
     if not request.user.is_authenticated:
-        return redirect('accounts/login')
+        return redirect('accounts_login')
     name_temp = request.user.name
+    print(name_temp)
     if request.method == "POST":
-        form = ContentUploadForm(request.POST)       
+        form = ContentUploadForm(request.POST, request.FILES)       
         if form.is_valid():   
             new_content = form.save(commit=False)      
             new_content.save()
+            form.save_m2m()
             return redirect('/')
     else:
         form = ContentUploadForm()
@@ -101,7 +102,7 @@ def explore_filter(request):
             data[content_id_temp]['tag'].append(tag_list_iter['tag'])
         else:
             data[content_id_temp]['tag'] = [tag_list_iter['tag']]
-
+    print(np_tag, "태그들")
     return JsonResponse(list(data), safe = False)
 
 def tags_to_json(request):
@@ -114,7 +115,7 @@ def tags_to_json(request):
     tag_dict = dict({
         "tags" : tag_list,
     })
-    print(tag_dict)
+    print(tag_dict, "태그딕트")
     return JsonResponse(list(tag_list), safe= False)
 
 def content_detail(request, content_id):
