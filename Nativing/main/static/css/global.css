@@ -29,6 +29,11 @@ button:hover {
     display: none;
 }
 
+.content-link {
+    color: black;
+    text-decoration: none;
+}
+
 .button--orange {
     background-color: var(--nativing-orange);
     color: white;
