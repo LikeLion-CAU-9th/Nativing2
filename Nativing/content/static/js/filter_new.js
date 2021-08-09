@@ -153,27 +153,6 @@ function printContent(value, count) {
     const biggerInt = HowMuchToLoadMore(value.length, count);
 
     for (var i = 0; i < biggerInt; i ++){
-        // let linkDetail = document.createElement('a');
-        // let contentBox = document.createElement('div');
-        // let contentTitle = document.createElement('div');    
-        // let contentRelation = document.createElement('div');    
-        // let contentBody = document.createElement('div');
-        // let contentTag = document.createElement('div');
-        
-        // linkDetail.href = `/explore/${value[i].id}`;
-        // contentBox.classList.add('content-box');
-        // contentTitle.classList.add('content-title');
-        // contentRelation.classList.add('content-relation');
-        // contentBody.classList.add('content-body');
-        // contentTag.classList.add('content-tag');
-
-        // contentTitle.innerHTML = value[i].title;
-        // contentRelation.innerHTML = value[i].relation_select;
-        // contentBody.innerHTML = 
-        //     `${value[i].expression} <span>is ${value[i].expression_descript_select}</span> of ${value[i].expression_descript}`
-        // contentTag.innerHTML = value[i].tag;
-
-        // contentBox.append(contentTitle, contentRelation, contentBody, contentTag);
         const contentBox = document.createElement('a');
         contentBox.href = `/explore/${value[i].id}`;
         contentBox.className = "content-link"
