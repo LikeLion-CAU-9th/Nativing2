@@ -58,10 +58,14 @@ function fetchContent(isLoadMore = false) {
             let tempRescan = localStorage.getItem("reScanList");
             const tempRelation = localStorage.getItem("relation");
             let tempHashtag = localStorage.getItem('hashtag');
-            
+            let tempGender = localStorage.getItem('gender');
+
             if (tempKeyword) {
                 filtered_content = filtered_content.filter((value) => value.title.includes(tempKeyword));
                 console.log(tempKeyword);
+            }
+            if (tempGender) {
+                filtered_content = filtered_content.filter((value) => value.user_gender.includes(tempGender))
             }
             if (tempRelation) {
                 filtered_content = filtered_content.filter((value) => value.relation_select.includes(tempRelation));
