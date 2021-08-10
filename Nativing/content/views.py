@@ -158,5 +158,6 @@ def explore_filter(request):
 
 
 def content_detail(request, content_id):
-    content_detail = get_object_or_404(ContentUpload, pk = content_id)
+    content_writer = ContentUpload.objects.select_related("writer").all()
+    content_detail = get_object_or_404(content_writer, pk = content_id)
     return render(request, 'content_detail.html', {"detail" : content_detail})

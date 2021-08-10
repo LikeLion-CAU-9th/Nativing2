@@ -159,7 +159,6 @@ function printContent(value, count) {
             <ul class="content__tags"> 
                 <li class="tag">${value[i].relation_select}</li> 
                 <li class="tag">${value[i].tag}</li>
-                
             </ul> 
             <div class="content__author"> 
                 <div class="content__author__left"> 
