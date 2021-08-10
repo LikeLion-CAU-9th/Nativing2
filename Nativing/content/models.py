@@ -23,9 +23,9 @@ RELATION_CHOICES = (
 
 class Tag(TagBase):
     unique = True,
-    max_length = 100,
+    max_length = 6,
     allow_unicode = True,
-    en_name = models.CharField(max_length=40, blank=True, null=True)
+    en_name = models.CharField(max_length=6, blank=True, null=True)
 
 # Tag 중개모델
 class TaggedContent(TaggedItemBase):
@@ -36,8 +36,8 @@ class TaggedContent(TaggedItemBase):
 
 class ContentUpload(models.Model):
     writer = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name="작성자", related_name="content")
-    title = models.CharField(max_length = 40, )
-    expression = models.TextField()
+    title = models.CharField(max_length = 12, )
+    expression = models.CharField(max_length = 16, )
     expression_descript = models.TextField()
     datetime = models.DateTimeField(default = timezone.now)
     image = models.ImageField(upload_to='images/', blank=True, null=True)

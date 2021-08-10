@@ -42,6 +42,10 @@
     outline: none;
 }
 
+.file-input {
+    padding: 0.6em 1em;
+}
+
 .form-box__input:focus {
     box-shadow: 0 0 0 2px black;
 }
@@ -55,6 +59,10 @@
 .form-box__remember-me {
     display: flex;
     align-items: center;
+}
+
+.form-box__gender-input {
+    height: 3.5em;
 }
 
 .form-box__gender-button {
