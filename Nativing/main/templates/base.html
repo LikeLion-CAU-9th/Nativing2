@@ -38,10 +38,15 @@
         </ul>
         <div class="nav__account">
             {% if user.is_authenticated %}
+                <div class="nav__account__user">
+                    <img src = "{{ user.user_image.url }}">
+                    <span>{{ user.name }}</span>
+                </div>
                 <a href="{% url 'accounts_logout' %}">
-                    <img src = "{{ user.user_image.url }}" style="width: 2em; height: 2em; border-radius: 70%;">
-                    <span style="font-size: 2em; text-decoration: none; color: black;">{{ user.name }}</span>
-                </a>
+                    <button class="nav__account__button button--orange">
+                        Log out
+                    </button>
+                </a>  
 
             {% else %}
             <a href="{% url 'accounts_login' %}">
