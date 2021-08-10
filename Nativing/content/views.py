@@ -2,12 +2,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
 from django.db.models import Q
 from accounts.models import User
-from . models import ContentUpload, RELATION_CHOICES, Tag, TaggedContent
+from . models import ContentLikes, ContentUpload, RELATION_CHOICES, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
 
 import numpy as np
 import pandas as pd
+import json
 
 def CreateContentUploadView(request):
     if not request.user.is_authenticated:
@@ -116,3 +117,27 @@ def content_detail(request, content_id):
     content_writer = ContentUpload.objects.select_related("writer").all()
     content_detail = get_object_or_404(content_writer, pk = content_id)
     return render(request, 'content_detail.html', {"detail" : content_detail})
+
+
+def content_save(request):
+    if request.method == 'POST':
+        post_data = json.loads(request.body.decode("utf-8"))
+        content_id = post_data['content_id']
+        content = get_object_or_404(ContentUpload, pk = content_id)
+        print(content)
+
+        if content.likes.filter(id = request.user.id).exists():
+            content.likes.remove(request.user)
+            content.save()
+        else: 
+            content_save = ContentLikes(like_user = request.user, like_content = content)
+            content_save.save() 
+
+        content_user_both = ContentLikes.objects.filter(like_content_id = content_id, like_user_id = request.user.id).values()
+        content_saved = ContentLikes.objects.filter(like_content_id = content_id).values()
+        is_saved = (len(content_user_both) == 1)
+        save_count = len(content_saved)
+        
+        result = { "is_saved" : is_saved, "save_count" : save_count}
+
+    return JsonResponse(result, safe=False)
