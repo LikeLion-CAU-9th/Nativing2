@@ -27,10 +27,10 @@ function saveHandler(event) {
         let isSaved = res['is_saved']
         if (isSaved) {
             console.log("저장된 상태")
-            saveBtn.innerText = "Saved";
+            saveBtn.innerText = "SAVED";
         } else {
             console.log("저장 ㄴㄴ ")
-            saveBtn.innerText = "Save";
+            saveBtn.innerText = "SAVE";
         }
     })
     .catch((err) => console.log(err));

@@ -76,6 +76,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_age = models.PositiveIntegerField(blank=True, null=True, default= 20)
     is_login = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
+    # follow = models.ManyToManyField("self", through="Follow")
 
     objects = CustomAccountManager()
 
@@ -88,3 +89,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_admin
+
+class Follow(models.Model):
+    follower = models.ForeignKey("User", verbose_name="팔로잉 하는 사람", related_name = "follower", on_delete=models.CASCADE, null=True)
+    followee = models.ForeignKey("User", verbose_name="팔로잉 당하는 사람", related_name="followee", on_delete=models.CASCADE, null=True)
+    follow_time = models.DateTimeField(auto_now_add=True)

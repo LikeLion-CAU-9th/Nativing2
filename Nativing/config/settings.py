@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'main',
     'accounts',
     'content',
+    'social',
     'taggit',
 ]
 
@@ -133,6 +134,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'accounts', 'static'),
     os.path.join(BASE_DIR, 'content', 'static'),
     os.path.join(BASE_DIR, 'upload', 'static'),
+    os.path.join(BASE_DIR, 'social', 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
