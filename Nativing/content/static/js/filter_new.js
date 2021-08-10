@@ -59,6 +59,7 @@ function fetchContent(isLoadMore = false) {
             const tempRelation = localStorage.getItem("relation");
             let tempHashtag = localStorage.getItem('hashtag');
             let tempGender = localStorage.getItem('gender');
+            let tempAge = localStorage.getItem('age');
 
             if (tempKeyword) {
                 filtered_content = filtered_content.filter((value) => value.title.includes(tempKeyword));
@@ -68,13 +69,19 @@ function fetchContent(isLoadMore = false) {
                 filtered_content = filtered_content.filter((value) => value.user_gender.includes(tempGender))
             }
             if (tempRelation) {
-                filtered_content = filtered_content.filter((value) => value.relation_select.includes(tempRelation));
+                filtered_content = filtered_content.filter((value) => tempRelation.includes(value.relation_select));
             }
             if (tempRescan) {
                 tempRescan = tempRescan.split(",");
                 for (var i = 0; i < tempRescan.length; i ++){
                     filtered_content = filtered_content.filter((value) => value.title.includes(tempRescan[i]));
                 }
+            }
+            if (tempAge) {
+                console.log(tempAge, typeof(tempAge))
+                tempAge = tempAge.split(",");
+                console.log(tempAge, typeof(tempAge))
+                filtered_content = filtered_content.filter((value) => tempAge.includes(String(value.user_age)));
             }
             if (tempHashtag) {
                 tempHashtag = tempHashtag.split(",");
@@ -84,7 +91,6 @@ function fetchContent(isLoadMore = false) {
             }
 
             return filtered_content
-
         })
         .then((res) => {
             console.log("체크된 컨텐츠", res)
@@ -152,11 +158,12 @@ function printContent(value, count) {
             </div> 
             <ul class="content__tags"> 
                 <li class="tag">${value[i].relation_select}</li> 
-                <li class="tag">Game</li>${value[i].tag}
+                <li class="tag">${value[i].tag}</li>
+                
             </ul> 
             <div class="content__author"> 
                 <div class="content__author__left"> 
-                    <img src="../static/img/tarakyu.png" class="content__author__left__image"> 
+                    <img src="${value[i].user_image_url}" class="content__author__left__image"> 
                 </div> 
                 <div class="content__author__right"> 
                     <div class="content__author__right__name"> ${value[i].user_name} </div> 
@@ -166,7 +173,7 @@ function printContent(value, count) {
                 </div> 
             </div>
         </div>
-        `        
+        `     
         mainSection.appendChild(contentBox);
     }
 }

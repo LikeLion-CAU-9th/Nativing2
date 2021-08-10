@@ -116,10 +116,11 @@ def explore_filter(request):
     
     user_values = list()
     for writer_iter in writer_all:
-        temp_iter = {"content_id" : writer_iter.id ,
+        temp_iter = {"content_id" : writer_iter.id,
                      "user_name" : writer_iter.writer.name, 
                      "user_gender" : writer_iter.writer.user_gender, 
-                     "user_age" : writer_iter.writer.user_age
+                     "user_age" : writer_iter.writer.user_age,
+                     "user_image_url" : writer_iter.writer.user_image.url
                      }
         user_values.append(temp_iter)
 
@@ -148,6 +149,10 @@ def explore_filter(request):
     mergedDF.sort_values(by=['id'], inplace=True, ascending=False)
 
     mergedDict = mergedDF.transpose().to_dict()
+    
+    a = writer_all
+    for i in a: 
+        print(i.writer.user_image.url)
 
     return JsonResponse(list(mergedDict.values()), safe = False, json_dumps_params={'ensure_ascii': False})
 

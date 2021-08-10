@@ -3,10 +3,25 @@ const twentyfour = document.getElementById('twentyfour');
 const twentynine = document.getElementById('twentynine');
 const overthirty = document.getElementById('overthirty');
 
-teenager.value = 19;
-twentyfour.value = [[20, 24]];
-twentynine.value = [[25, 29]];
-overthirty.value = [[30, 99]];
+let teenArray = new Array()
+let twentyfourArray = new Array()
+let twentynineArray = new Array()
+let overthirtyArray = new Array()
+for (var i = 0; i < 70 ; i ++ ){
+    if (i < 20){
+        teenArray.push(i)
+    }
+    if (i < 5){
+        twentyfourArray.push(i + 20)
+        twentynineArray.push(i + 25)
+    }
+    overthirtyArray.push(i + 30)
+}
+
+teenager.value = teenArray;
+twentyfour.value = twentyfourArray;
+twentynine.value = twentynineArray;
+overthirty.value = overthirtyArray;
 
 console.log(teenager.value);
 
@@ -36,7 +51,7 @@ function ageEventHandler(event) {
     setLocalStorageAge();
     const isArray = localStorage.getItem('age');
     console.log(isArray);
-    console.log(isArray.length);
+    fetchContent();
 }
 
 function init() {
