@@ -9,8 +9,20 @@ from django.contrib.auth.decorators import login_required
 def accounts_signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
+
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            if request.POST.get("date_of_birth"):
+                date_str = request.POST.get("date_of_birth")
+                date_of_birth = datetime.strptime(date_str, "%Y-%m-%d").date()
+                time_now = datetime.now().date()
+                days_lived = (time_now - date_of_birth).days
+                instance.user_age = days_lived // 365
+            else: 
+                instance.user_age = 20
+
+            instance.save()
+            
             return redirect("signup_success")
             #TODO 추후 회원가입 후 개인 프로필로 redirect 되도록 설정 필요
         else:

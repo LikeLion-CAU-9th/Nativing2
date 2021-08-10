@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseUserManager
+from datetime import date, datetime, timedelta
 
 
 class CustomAccountManager(BaseUserManager):
@@ -21,6 +22,7 @@ class CustomAccountManager(BaseUserManager):
             user_image=user_image,
             user_gender=user_gender,
         )
+        
         user.set_password(password)
         user.is_superuser = False
         user.save(using=self._db)
@@ -69,9 +71,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     joined_on = models.DateTimeField(auto_now_add=True)
     withdrew_at = models.DateTimeField(blank=True, null=True)
     date_of_birth =models.DateField(null=True)
-    user_image = models.ImageField(upload_to='images/', blank=True, null=True)
+    user_image = models.ImageField(upload_to='user_image/', blank=True, null=True, default = "user_image/user_default.jpeg")
     user_gender = models.CharField(max_length=10, choices=Gender.GENDER_TYPES)
-    user_age = models.PositiveIntegerField(blank=True, null=True)
+    user_age = models.PositiveIntegerField(blank=True, null=True, default= 20)
     is_login = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
@@ -82,7 +84,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
+        
     @property
     def is_staff(self):
         return self.is_admin

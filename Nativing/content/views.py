@@ -1,32 +1,35 @@
 
+from os import write
 from django.db.models.expressions import Exists, F
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.views.generic import CreateView
 from django.db.models import Q
+from pandas.core.reshape.merge import merge
 from accounts.models import User
 from . models import ContentUpload, RELATION_CHOICES, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
 
 import numpy as np
+import pandas as pd
 
 def CreateContentUploadView(request):
     if not request.user.is_authenticated:
         return redirect('accounts_login')
-    name_temp = request.user.name
-    print(name_temp)
+
     if request.method == "POST":
         form = ContentUploadForm(request.POST, request.FILES)       
         if form.is_valid():   
             new_content = form.save(commit=False)      
+            new_content.writer = request.user
             new_content.save()
             form.save_m2m()
             return redirect('explore')
     else:
         form = ContentUploadForm()
-    return render(request, 'content_upload.html', {'name': name_temp, 'form': form})
+        return render(request, 'content_upload.html', {'form': form})
 
 
 def expresstionENG(request):
@@ -75,6 +78,7 @@ def explore_test(request):
             tag_list.append(tag_db_iter['name'])
         
     print("relation tag들: ", relationships,type(relationships))
+
                
     return render(request, 'test_explore.html', {'content_all' : content_all,
                                              "keyword": keyword_query,
@@ -107,36 +111,46 @@ def explore(request):
                                              
 def explore_filter(request):
     content_all = ContentUpload.objects.all()
-    data = np.array(content_all.values())
+    writer_all = ContentUpload.objects.select_related("writer").all()
+    tag_all = ContentUpload.objects.prefetch_related("tag").all()
     
-    np_tag = np.array(Tag.objects.all().values())
-    np_tag_list = np.array(TaggedContent.objects.all().values())
+    user_values = list()
+    for writer_iter in writer_all:
+        temp_iter = {"content_id" : writer_iter.id ,
+                     "user_name" : writer_iter.writer.name, 
+                     "user_gender" : writer_iter.writer.user_gender, 
+                     "user_age" : writer_iter.writer.user_age
+                     }
+        user_values.append(temp_iter)
 
-    for tag_list_iter in np_tag_list:
-        tag_id_temp = tag_list_iter['tag_id'] - 1
-        tag_list_iter['tag'] = np_tag[tag_id_temp]['name'].strip()
+    tag_values = list()
+    for tag_iter in tag_all:
+        temp_list = []
+        only_tags = tag_iter.tag.all().values_list("name")
+        
+        for j in only_tags:
+            temp_list.append(j[0])
 
-    for tag_list_iter in np_tag_list:
-        content_id_temp = tag_list_iter['content_object_id'] - 1
-        if 'tag' in data[content_id_temp]:
-            data[content_id_temp]['tag'].append(tag_list_iter['tag'])
-        else:
-            data[content_id_temp]['tag'] = [tag_list_iter['tag']]
-    print(np_tag, "태그들")
-    return JsonResponse(list(data), safe = False)
+        temp_iter = {
+            "content_id" : tag_iter.id,
+            "tag" : temp_list
+        }
+        tag_values.append(temp_iter)
 
-def tags_to_json(request):
-    tag_db = Tag.objects.all().values()
-    tag_list = list()
-    for tag_db_iter in tag_db:
-        if tag_db_iter['name'] not in tag_list:
-            tag_list.append(tag_db_iter['name'])
-    print("상황 tag들: ", tag_list)
-    tag_dict = dict({
-        "tags" : tag_list,
-    })
-    print(tag_dict, "태그딕트")
-    return JsonResponse(list(tag_list), safe= False)
+    contentDF = pd.DataFrame(content_all.values())
+    userDF = pd.DataFrame(user_values)
+    tagDF = pd.DataFrame(tag_values)
+    
+    mergedDF = pd.merge(contentDF, userDF, how="left", left_on ="id", right_on="content_id")
+    mergedDF.drop(["image", "agree", "content_id",], axis=1, inplace= True)
+    
+    mergedDF = pd.merge(mergedDF, tagDF, how = "left", left_on="id", right_on="content_id") 
+    mergedDF.sort_values(by=['id'], inplace=True, ascending=False)
+
+    mergedDict = mergedDF.transpose().to_dict()
+
+    return JsonResponse(list(mergedDict.values()), safe = False, json_dumps_params={'ensure_ascii': False})
+
 
 def content_detail(request, content_id):
     content_detail = get_object_or_404(ContentUpload, pk = content_id)

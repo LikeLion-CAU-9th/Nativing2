@@ -7,7 +7,7 @@ const loadMoreBtn = document.getElementById("load-more-content");
 var loadCount = 1;
 
 // loadmore 할때 몇개 씩 보여줄지
-const LOADMORE_NUM = 2;
+const LOADMORE_NUM = 3;
 
 try {
     let keyword = document.getElementById("just-for-keyword").innerText;

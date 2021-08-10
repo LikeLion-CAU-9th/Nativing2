@@ -24,6 +24,7 @@ function addGenderEvent() {
             })
         }
         setLocalStorageGen();
+        fetchContent();
         console.log(gender);
     })
 
@@ -42,6 +43,7 @@ function addGenderEvent() {
             })
         }
         setLocalStorageGen();
+        fetchContent();
         console.log(gender); 
     })
 }

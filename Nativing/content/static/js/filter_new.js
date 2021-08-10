@@ -20,7 +20,11 @@ try {
 // 검색어가 있으면, 검색어대로 filter + 검색어 filterProperty에 추가
 // 없으면 모든 모델 가져오고, filterProperty.keyword 초기화
 function initialView(){
-    fetch('/explore-filter',)
+    fetch('/explore-filter/', {
+        headers : {
+            "Accept" : "application/json"
+        }
+        })
         .then((res) => res.json())
         .then((res) => {
             let keyword = localStorage.getItem("keyword");
@@ -49,24 +53,19 @@ function fetchContent(isLoadMore = false) {
         .then((res) => res.json())
         .then((res) => {
             let filtered_content = res;
-            // relation tag에 해당하는 글
-            // for (let relationIter of filterProperty.relation){
-            //     // console.log(relation);
-            //     // filter() 가 Array로 return 하므로 다시 한번 for문으로 추가해줌,,
-            //     let filteredArray = res.filter((value) => value.relation_select === relationIter);
-            //     for (let arrayComponent of filteredArray) {
-            //         filtered_content.push(arrayComponent);
-            //     }
-            // }
 
             let tempKeyword = localStorage.getItem("keyword");
             let tempRescan = localStorage.getItem("reScanList");
             const tempRelation = localStorage.getItem("relation");
             let tempHashtag = localStorage.getItem('hashtag');
-            
+            let tempGender = localStorage.getItem('gender');
+
             if (tempKeyword) {
                 filtered_content = filtered_content.filter((value) => value.title.includes(tempKeyword));
                 console.log(tempKeyword);
+            }
+            if (tempGender) {
+                filtered_content = filtered_content.filter((value) => value.user_gender.includes(tempGender))
             }
             if (tempRelation) {
                 filtered_content = filtered_content.filter((value) => value.relation_select.includes(tempRelation));
@@ -84,15 +83,6 @@ function fetchContent(isLoadMore = false) {
                 }
             }
 
-            // keyword search에 해당하는 글
-            // for (let keywordIter of filterProperty.keyword) {
-            //     let filteredArray = res.filter((value) => value.title.includes(keywordIter))
-            //     for (let arrayComponent of filteredArray) {
-            //         if (!filtered_content.includes(arrayComponent)){
-            //             filtered_content.push(arrayComponent);
-            //         }
-            //     }
-            // }
             return filtered_content
 
         })
@@ -149,27 +139,6 @@ function printContent(value, count) {
     const biggerInt = HowMuchToLoadMore(value.length, count);
 
     for (var i = 0; i < biggerInt; i ++){
-        // let linkDetail = document.createElement('a');
-        // let contentBox = document.createElement('div');
-        // let contentTitle = document.createElement('div');    
-        // let contentRelation = document.createElement('div');    
-        // let contentBody = document.createElement('div');
-        // let contentTag = document.createElement('div');
-        
-        // linkDetail.href = `/explore/${value[i].id}`;
-        // contentBox.classList.add('content-box');
-        // contentTitle.classList.add('content-title');
-        // contentRelation.classList.add('content-relation');
-        // contentBody.classList.add('content-body');
-        // contentTag.classList.add('content-tag');
-
-        // contentTitle.innerHTML = value[i].title;
-        // contentRelation.innerHTML = value[i].relation_select;
-        // contentBody.innerHTML = 
-        //     `${value[i].expression} <span>is ${value[i].expression_descript_select}</span> of ${value[i].expression_descript}`
-        // contentTag.innerHTML = value[i].tag;
-
-        // contentBox.append(contentTitle, contentRelation, contentBody, contentTag);
         const contentBox = document.createElement('a');
         contentBox.href = `/explore/${value[i].id}`;
         contentBox.className = "content-link"
@@ -190,9 +159,9 @@ function printContent(value, count) {
                     <img src="../static/img/tarakyu.png" class="content__author__left__image"> 
                 </div> 
                 <div class="content__author__right"> 
-                    <div class="content__author__right__name"> 따라큐 </div> 
+                    <div class="content__author__right__name"> ${value[i].user_name} </div> 
                     <div class="content__author__right__detail"> 
-                        <span class="nativing-orange">3.4k</span> followers <span class="skyblue"> Male</span> 26 
+                        <span class="nativing-orange">3.4k</span> followers <span class="skyblue">${value[i].user_gender}</span> ${value[i].user_age} 
                     </div> 
                 </div> 
             </div>
