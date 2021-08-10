@@ -1,12 +1,6 @@
-
-from os import write
-from django.db.models.expressions import Exists, F
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
-from django.http import HttpResponse
-from django.views.generic import CreateView
 from django.db.models import Q
-from pandas.core.reshape.merge import merge
 from accounts.models import User
 from . models import ContentUpload, RELATION_CHOICES, Tag, TaggedContent
 from .forms import ContentUploadForm
