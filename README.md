@@ -17,41 +17,14 @@ It's been distributed, so please watch it a lot.
 Requirements
 ============
 
-* PHP >= 5.3.7
-* cURL Extension
+* asgiref==3.4.1
+* Django==3.2.5
+* django-taggit==1.5.1
+* numpy==1.21.1
+* pandas==1.3.1
+* Pillow==8.3.1
+* python-dateutil==2.8.2
+* pytz==2021.1
+* six==1.16.0
+* sqlparse==0.4.1
 
-Installation
-============
-
-    composer require buonzz/laravel-4-freegeoip:dev-master
-
-Add the service provider and facade in your config/app.php
-
-Service Provider
-
-    Buonzz\GeoIP\Laravel4\ServiceProviders\GeoIPServiceProvider
-
-Facade
-
-    'GeoIP'            => 'Buonzz\GeoIP\Laravel4\Facades\GeoIP',
-
-
-Usage
-=====
-
-Get country of the visitor
-
-    GeoIP::getCountry();  // returns "United States"
-    
-Get country code of the visitor
-
-    GeoIP::getCountryCode();  // returns "US"
-
-Get region of the visitor
-
-
-Credits
-=======
-
-* Alexandre Fiori for the awesome http://freegeoip.net web api
-* MaxMind for the data
