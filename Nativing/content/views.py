@@ -1,3 +1,143 @@
-from django.shortcuts import render
+from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import get_object_or_404, redirect, render
+from django.db.models import Q
+from accounts.models import User
+from . models import ContentLikes, ContentUpload, RELATION_CHOICES, Tag, TaggedContent
+from .forms import ContentUploadForm
+from django.http import JsonResponse
 
-# Create your views here.
+import numpy as np
+import pandas as pd
+import json
+
+def CreateContentUploadView(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts_login')
+    name = request.user.name
+    if request.method == "POST":
+        form = ContentUploadForm(request.POST, request.FILES)       
+        if form.is_valid():   
+            new_content = form.save(commit=False)      
+            new_content.writer = request.user
+            new_content.save()
+            form.save_m2m()
+            return redirect('explore')
+    else:
+        form = ContentUploadForm()
+        return render(request, 'content_upload.html', {'form': form , 'name' : name})
+
+
+def expresstionENG(request):
+    expression = ContentUpload.expression_descript_select
+    if expression == "ABBREVIATION":
+        temp = "abbreviation"
+    if expression == "NEOLOGISM":
+        temp = "neologism"
+    return temp
+
+
+def relationENG(request):
+    relation = ContentUpload.relation_select
+    if relation == "FAMILY":
+        temp = "family"
+    if relation == "FRIEND":
+        temp = "friend"
+    if relation == "SENIOR":
+        temp = "senior"
+    if relation == "WORK":
+        temp = "work"
+    return temp
+
+
+def explore(request):
+    keyword_query = request.GET.get('keyword')
+
+    relationships  = np.array(RELATION_CHOICES)[:, 0]
+
+    tag_db = Tag.objects.all().values() 
+    tag_list = list()
+    for tag_db_iter in tag_db:
+        if tag_db_iter['name'] not in tag_list:
+            tag_list.append(tag_db_iter['name'])
+               
+    return render(request, 'explore.html', {"keyword": keyword_query,
+                                             "relationships" : relationships,
+                                             "tags" : tag_list},)
+
+                                             
+def explore_filter(request):
+    content_all = ContentUpload.objects.all()
+    writer_all = ContentUpload.objects.select_related("writer").all()
+    tag_all = ContentUpload.objects.prefetch_related("tag").all()
+    
+    user_values = list()
+    for writer_iter in writer_all:
+        temp_iter = {"content_id" : writer_iter.id,
+                     "user_name" : writer_iter.writer.name, 
+                     "user_gender" : writer_iter.writer.user_gender, 
+                     "user_age" : writer_iter.writer.user_age,
+                     "user_image_url" : writer_iter.writer.user_image.url
+                     }
+        user_values.append(temp_iter)
+
+    tag_values = list()
+    for tag_iter in tag_all:
+        temp_list = []
+        only_tags = tag_iter.tag.all().values_list("name")
+        
+        for j in only_tags:
+            temp_list.append(j[0])
+
+        temp_iter = {
+            "content_id" : tag_iter.id,
+            "tag" : temp_list
+        }
+        tag_values.append(temp_iter)
+
+    contentDF = pd.DataFrame(content_all.values())
+    userDF = pd.DataFrame(user_values)
+    tagDF = pd.DataFrame(tag_values)
+    
+    mergedDF = pd.merge(contentDF, userDF, how="left", left_on ="id", right_on="content_id")
+    mergedDF.drop(["image", "agree", "content_id",], axis=1, inplace= True)
+    
+    mergedDF = pd.merge(mergedDF, tagDF, how = "left", left_on="id", right_on="content_id") 
+    mergedDF.sort_values(by=['id'], inplace=True, ascending=False)
+
+    mergedDict = mergedDF.transpose().to_dict()
+    
+    a = writer_all
+    for i in a: 
+        print(i.writer.user_image.url)
+
+    return JsonResponse(list(mergedDict.values()), safe = False, json_dumps_params={'ensure_ascii': False})
+
+
+def content_detail(request, content_id):
+    content_writer = ContentUpload.objects.select_related("writer").all()
+    content_detail = get_object_or_404(content_writer, pk = content_id)
+    return render(request, 'content_detail.html', {"detail" : content_detail})
+
+
+def content_save(request):
+    if request.method == 'POST':
+        post_data = json.loads(request.body.decode("utf-8"))
+        content_id = post_data['content_id']
+        content = get_object_or_404(ContentUpload, pk = content_id)
+        print(content)
+
+        if content.likes.filter(id = request.user.id).exists():
+            content.likes.remove(request.user)
+            content.save()
+        else: 
+            content_save = ContentLikes(like_user = request.user, like_content = content)
+            content_save.save() 
+
+        content_user_both = ContentLikes.objects.filter(like_content_id = content_id, like_user_id = request.user.id).values()
+        content_saved = ContentLikes.objects.filter(like_content_id = content_id).values()
+        is_saved = (len(content_user_both) == 1)
+        save_count = len(content_saved)
+        
+        result = { "is_saved" : is_saved, "save_count" : save_count}
+
+    return JsonResponse(result, safe=False)

@@ -1,0 +1,219 @@
+.explore {
+    display: flex;
+    padding-bottom: 5rem;
+}
+
+.menu {
+    min-width: 20rem;
+    flex: 0 20rem;
+    padding-left: 6rem
+}
+
+.menu__title {
+    margin: 3rem 0;
+    font-size: 1.5625rem;
+    font-family: 'Quicksand';
+}
+
+.menu__search {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.menu__search form {
+    position: relative;
+    left: -1.5em;
+    width: 13.125em;
+    height: 2.5em;
+    border-radius: 1em;
+    padding: 0.5em 1em;
+    background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+}
+
+.menu__search input {
+    background-color: inherit;
+    flex: 1;
+    font-family: 'Quicksand';
+    border: none;
+    outline: none;
+    font-size: 1em;
+}
+
+.menu__search img {
+    width: 1.1em;
+    height: 1.1em;
+}
+
+.menu__search img:hover {
+    cursor: pointer;
+}
+
+.menu__filter-list {
+    margin-top: 2em;
+}
+
+.menu__filter-title {
+    font-size: 1.2rem;
+    font-family: 'Quicksand';
+    color: var(--nativing-orange);
+    font-weight: bold;
+    margin-top: 2rem;
+}
+
+.menu__filter-items {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.625rem;
+}
+
+.menu__filter-items__item {
+    display: flex;
+}
+
+.menu__filter-items label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625em;
+    padding: 0.35em 0;
+    font-size: 0.9em;
+    font-family: 'Quicksand';
+    cursor:pointer;
+}
+
+.menu__filter-items input {
+    display: none;
+}
+
+.radio-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.15em solid #707070;  
+    border-radius: 25%;
+    width: 1em;
+    height: 1em;
+    cursor:pointer;
+}
+
+.menu__filter-items input:checked + div {
+    height: 0.6em;
+    width: 0.6em;
+    border-radius:25%;
+    border:1px solid var(--nativing-orange);
+    background: var(--nativing-orange);
+    margin: auto;
+}
+
+.menu__filter-items input:checked + span {
+    color: var(--nativing-orange)
+}
+
+.content-list {
+    flex: 1;
+}
+
+.content-list__keyword {
+    text-align: center;
+    margin: 3.75rem 0 0 2.5rem;
+    height: 1.5rem;
+    font-size: 1.6em;
+    font-family: 'Quicksand';
+    font-weight: bold;
+}
+
+.content-list__result {
+    margin: 1rem 0 0 2.5rem;
+    height: 1.5rem;
+    font-size: 1.3125em;
+    font-family: 'Quicksand';
+    font-weight: bold;
+}
+
+.content-list__content-box {
+    font-size: 16px;
+    width: 86%;
+    min-height: calc(100vh - 21rem);
+    margin: 1rem 0;
+    padding: 2.5em;
+    background-color: #FAFAFA;
+    border-radius: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+
+.content-list__content-box__grid {
+    width: 100%;
+    font-size: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 15.625em);
+    grid-template-rows: repeat(auto-fill, 11.25em);
+    gap: 2.2rem;
+}
+
+.content {
+    place-self: center;
+}
+
+.pagination {
+    display:-ms-flexbox;
+    display:flex;
+    padding-left:0;
+    list-style:none;
+    border-radius:.25rem;
+    text-decoration: none;
+    margin-top: 35px;
+    justify-content: center;
+}
+
+.page-link {
+    position:relative;
+    display:block;
+    padding:.5rem .75rem;
+    margin-left:10px;
+    line-height:1.25;
+    color:black;
+    background-color:#F5F5F5;
+    text-decoration:none;
+    border-radius: 10px;
+}
+
+.page-link:hover {
+    z-index:2;
+    color:#92009D;
+    text-decoration:none;
+    background-color:#e9ecef;
+    border-color:#dee2e6;
+}
+
+.page-link:focus {
+    z-index:3;
+    outline:0;
+    box-shadow:0 0 0 .2rem rgba(198, 53, 255, 0.25);
+}
+
+.page-item:first-child .page-link {
+    margin-left:0;
+    border-radius: 0;
+}
+
+.page-item:last-child .page-link {
+    border-radius: 0;
+}
+
+.page-item.active .page-link {
+    z-index:3;
+    color:#fff;
+    background-color:var(--nativing-orange);
+    border-color:var(--nativing-orange);
+}
+
+.page-item.disabled .page-link {
+    color:#6c757d;
+    pointer-events:none;
+    cursor:auto;
+    background-color:#F5F5F5;
+}
