@@ -30,7 +30,13 @@
                 <a href="{% url 'explore' %}">Explore</a>    
             </li>
             <li>
-                <a href="{% url 'learning' %}">My Learning Center</a>
+                <a style="cursor: pointer;"
+                {% if user.is_authenticated %}
+                href="{% url 'learning' %}" 
+                {% else %}
+                onclick="signInAlert()"
+                {% endif %}
+                >My Learning Center</a>
             </li>
             <li>
                 <a href="{% url 'content_upload' %}">Upload</a>
@@ -75,5 +81,13 @@
         </div>
     </div>
 </body>
+
+<script>
+    function signInAlert(event){
+        // event.preventDefault();
+        alert("You should sign-in first!");
+    }
+
+</script>
 
 </html>
