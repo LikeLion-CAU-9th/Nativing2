@@ -19,27 +19,47 @@
             Nativing
         </a>
         <div class="nav__search">
-            <img src="../static/img/loupe.png">
-            <input tpye="text" placeholder="What do you want to learn?">
+            <form action = "{% url 'explore' %}">
+                <label><input type="submit" class="hidden"><img src="{% static 'img/loupe.png' %}"></label>
+                <input type="text" name = "keyword" placeholder="What do you want to learn?">
+                <button type="submit"></button>
+            </form>
         </div>
         <ul class="nav__menu">
             <li>
-                <a href="#">Explore</a>    
+                <a href="{% url 'explore' %}">Explore</a>    
             </li>
             <li>
                 <a href="#">My Learning Center</a>
             </li>
             <li>
-                <a href="#">Upload</a>
+                <a href="{% url 'content_upload' %}">Upload</a>
             </li>
         </ul>
         <div class="nav__account">
-            <button class="nav__account__button button--white">
-                Sign in
-            </button>
-            <button class="nav__account__button button--orange">
-                Register
-            </button>
+            {% if user.is_authenticated %}
+                <div class="nav__account__user">
+                    <img src = "{{ user.user_image.url }}">
+                    <span>{{ user.name }}</span>
+                </div>
+                <a href="{% url 'accounts_logout' %}">
+                    <button class="nav__account__button button--orange">
+                        Log out
+                    </button>
+                </a>  
+
+            {% else %}
+            <a href="{% url 'accounts_login' %}">
+                <button class="nav__account__button button--white">
+                    Sign in
+                </button>
+            </a>
+            <a href="{% url 'accounts_signup' %}">
+                <button class="nav__account__button button--orange">
+                    Register
+                </button>
+            </a>    
+            {% endif %}
         </div>
     </div>
     {% block mainContent %}
@@ -51,8 +71,7 @@
         <span class="footer__text">
             Ⓒ 2021, Nativing web site. Developed by cau likelion 9th.
         </span>
-        <div class="footer__logo">
-             
+        <div class="footer__logo">           
         </div>
     </div>
 </body>

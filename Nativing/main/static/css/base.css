@@ -41,6 +41,7 @@
     border: none;
     outline: none;
     font-size: 1em;
+    width: 18em;
 }
 
 .nav__menu {
@@ -63,8 +64,28 @@
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 1.25em;
     padding-left: 3.5em;
+}
+
+.nav__account__user {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.nav__account__user img {
+    width: 2em; 
+    height: 2em; 
+    border-radius: 70%;
+}
+
+.nav__account__user span {
+    font-size: 2em;
+    font-family: 'Quicksand';
+    text-decoration: none; 
+    color: black;
 }
 
 .nav__account__button {

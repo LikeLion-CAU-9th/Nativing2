@@ -41,13 +41,15 @@ INSTALLED_APPS = [
     'main',
     'accounts',
     'content',
-    'upload',
+    'social',
+    'taggit',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -108,7 +110,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+  ('en-us', 'English'),
+  ('ko', 'Korean'),
+]
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -128,7 +133,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'main', 'static'),
     os.path.join(BASE_DIR, 'accounts', 'static'),
     os.path.join(BASE_DIR, 'content', 'static'),
-    os.path.join(BASE_DIR, 'upload', 'static'),
+    os.path.join(BASE_DIR, 'social', 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -140,3 +145,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.User'
