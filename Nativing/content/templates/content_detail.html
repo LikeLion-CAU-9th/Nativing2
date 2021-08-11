@@ -10,7 +10,9 @@
 <div class="detail-page">
     <div class="detail">
         <div class="detail__image">
+            {% if detail.image %}
             <img src="{{ detail.image.url }}">
+            {% endif %}
         </div>
         <div class="detail__contents">
             <div class="detail__contents__head">
@@ -25,7 +27,7 @@
             <div class="detail__contents__uploader">
                <div class="content__author"> 
                    <div class="content__author__left"> 
-                       <img src="{{ detail.writer.user_image.url }}" class="content__author__left__image"> 
+                        <img src="{{ detail.writer.user_image.url }}" class="content__author__left__image"> 
                     </div> 
                     <div class="content__author__right"> 
                         <div class="content__author__right__name"> {{ detail.writer.name }} </div> 
@@ -46,7 +48,7 @@
                         Relationship
                     </div>
                     <div class="detail__contents__category__child__tags">
-                        <span class="tag">
+                        <span class="tag tag--bigger">
                             {{ detail.relation_select }}
                         </span>
                     </div>
@@ -57,7 +59,7 @@
                     </div>
                     <div class="detail__contents__category__child__tags">
                         {% for tag in detail.tag.all %}
-                        <span class="tag">
+                        <span class="tag tag--bigger">
                             {% if tag.en_name %}
                             {{ tag.en_name }}
                             {% else %}
@@ -70,7 +72,8 @@
             </div>
             <div class="detail__contents__description">
                 <div class="detail__contents__description__head">
-                    Key expression
+                    <span>Key expression</span>
+                    <img src="../../static/img/heart.png">
                 </div>
                 <div class="detail__contents__description__body">
                     {{ detail.expression }}
@@ -82,16 +85,40 @@
     </div>
     <div class="recommended">
         <span>Featured Content</span>
-        <div class="content"></div>
-        <div class="content"></div>
-        <div class="content"></div>
-        <div class="content"></div>
-        <div class="content"></div>
+        {% for content in content_list_random %}
+          <div class="content">
+            <a class="content-link" href="{% url 'content_detail' content.id %}">
+                <div class="content__expression"> 
+                    "{{ content.title }}"
+                </div> 
+                <div class="content__title">
+                    {{ content.expression }} 
+                </div> 
+                <ul class="content__tags"> 
+                    <li class="tag">{{ content.relation_select }}</li>
+                    {% for tag in content.tag.all %}
+                    <li class="tag">{{ tag }}</li>
+                    {% endfor %}
+                </ul> 
+                <div class="content__author"> 
+                    <div class="content__author__left"> 
+                        <img src="{{ content.writer.user_image.url }}" class="content__author__left__image"> 
+                    </div> 
+                    <div class="content__author__right"> 
+                        <div class="content__author__right__name"> {{ content.writer.name }} </div> 
+                        <div class="content__author__right__detail"> 
+                            <span class="skyblue">{{ content.writer.user_gender }}</span> {{ content.writer.user_age }} 
+                        </div> 
+                    </div> 
+                </div>
+              </a>
+          </div>
+          {% endfor %}
     </div>
 </div>
 
 
-<script src="{% static 'js/creator.js' %}"></script>
+
 <script src="{% static 'js/save.js' %}"></script>
 <script src="{% static 'js/follow.js' %}"></script>
 
