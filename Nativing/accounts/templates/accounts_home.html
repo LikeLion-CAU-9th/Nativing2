@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+{% endblock %}
+
+{% block mainContent %}
+기본화면
+
+    {% if user.is_active %}
+        <a href="{% url 'accounts_logout' %}">log out</a>
+    {% else %}
+        <a href="{% url 'accounts_signup' %}">sign up</a>
+        <a href="{% url 'accounts_login' %}">log in</a>
+    {% endif %}
+{% endblock %}

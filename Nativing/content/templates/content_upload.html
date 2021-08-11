@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+<link rel="stylesheet" href="{% static 'css/upload.css' %}">
+{% endblock %}
+
+{% block mainContent %}
+<div class="center">
+    <div class="center_left">
+        <br>
+        <p class="mychanel" >My Chanel</p>
+        <img class="circle" src = "{{ user.user_image.url }}">
+        <p class="username">{{name}}<p>
+        <p class="side_head">업로드한 컨텐츠</p>
+        <p class="side">Playlists</p>
+        <p class="side">Community</p>
+        <p class="side">Channel</p>
+        <p class="side">Information</p>
+    </div>
+    <div class="center_right">
+        <br>
+        <a class="content_subject_orange">콘텐츠</a>
+        <a class="content_subject"> 업로드</a>
+        <br>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card_left">
+                    <div class="picture">          
+                        <img class="hidden" id="preview-image" src="">
+                    </div>        
+                    {{form.writer}}           
+                   {{form.image}}                
+                </div>
+
+                <script>
+                    function readImage(input) {                      
+                        if(input.files && input.files[0]) {                          
+                            const reader = new FileReader()                        
+                            reader.onload = e => {
+                                const previewImage = document.getElementById("preview-image")
+                                previewImage.classList.remove('hidden')
+                                previewImage.src = e.target.result
+                            }                        
+                            reader.readAsDataURL(input.files[0])
+                        }
+                    }                
+                    const inputImage = document.getElementById("input-image")
+                    inputImage.addEventListener("change", e => {
+                        readImage(e.target)
+                    })
+                </script>
+
+
+                <div class="card_right">
+                        <div class="Fline_left">
+                            <a class="subject">제목</a> 
+                            <br>
+                            {{form.title}}
+                            <br>
+                        </div>
+                        <div class="Fline_right">
+                            <a class="subject">상대와의 관계</a> 
+                            <br>
+                            {{form.relation_select}}
+                            <br>
+                        </div>
+                    <br>
+                    <br>
+                    <br>
+                    <a class="subject">핵심표현</a> 
+                    <br>
+                    {{form.expression}}
+                    <br>
+                    <div class="Fline_left">
+                    <br>
+                    <a class="subject">핵심표현 설명</a> 
+                    <br>
+                    {{form.expression_descript}}
+                    <br>
+                    </div>
+                    <div class="Fline_right">
+                      {{form.expression_descript_select}}
+                    </div>
+                    <br>
+                    <br>
+                    <br><br>
+                    <a class="subject">해시태그</a> 
+                    <br>
+                    {{form.tag}}
+                    <br>
+                    <a class="subject">⚠ 주의사항</a><br>
+                    <a class="caution">카카오톡의 캡쳐 > 프로필 - 모자이크, 배경 - 기본배경 으로 설정해 주세요!</a><br>
+                    <a class="caution">1. 대화 내용 중 개인 정보를 담은 내용은 블러처리 해주세요.</a><br>
+                    <a class="caution">2. 대화 상대의 이름과 프로필이 노출되지 않도록 해주세요.</a><br>
+                    <a class="caution">3. 대화 내용이 잘 보이지 않는 배경화면 (예:얼굴 사진)은 학습에 부적절합니다.</a><br>
+                    <a class="caution">4. 대화 상대의 동의가 있어야 합니다.</a><br>
+                    <label style="font-size: 0.8em" id="choix" name="choix"> {{form.agree}} 상기내용을 준수했음을 확인합니다.</label><br>
+                    <button class="cancel_button" type="button" onclick="window.history.back()">취소</button>
+                    <button class="upload_button button--orange" type="submit">업로드</button>
+                </div>
+                
+            </div>
+
+    </div>
+</div>
+</form>
+
+
+{% endblock %}

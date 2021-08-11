@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+<link rel="stylesheet" href = "{% static 'css/test_explore.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+{% endblock %}
+
+{% block mainContent %}
+
+{% if keyword %}
+    <div id="just-for-keyword" style="display: none;">{{keyword}}</div>
+{% endif %}
+
+<div class = "upper">
+    <span>구분선</span>
+</div>
+<div class = "under">
+    <div class = "side-bar">
+        <form id = "re-scan-form">
+            <input type="text" placeholder="결과 내 재검색" id = "re-scan">
+        </form>
+        <div id = "re-scan-keywords">
+            <!-- JS로 결과 내 재검색 구현 -->
+        </div>
+        <div class = "gender">
+            <div>
+                <input type="checkbox" class = "gender-check" id = "male" value="male">
+                <span>Male</span>
+            </div>
+            <div>
+                <input type="checkbox" class = "gender-check" id = "female" value="female">
+                <span>Female</span>
+            </div>
+        </div>
+        <div class="age">
+            <div>
+                <input type="checkbox" id = "teenager">
+                <span>   ~ 19</span>
+            </div>
+            <div>
+                <input type="checkbox" id = "twentyfour">
+                <span>20 ~ 24</span>
+                
+            </div>
+            <div>
+                <input type="checkbox" id = "twentynine">
+                <span>25 ~ 29</span>
+                
+            </div>
+            <div>
+                <input type="checkbox" id = "overthirty">
+                <span>30 ~   </span>
+            </div>
+        </div>
+        <div class = "relationships">
+            {% for relationship in relationships %}
+                <div>
+                    <input type="checkbox" class = "relationship-check" value="{{ relationship }}">
+                    <span>
+                        {{ relationship }}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="tags">
+            {% for tag in tags %}
+                <div class = "tag-iter">
+                    <input type="checkbox" class = "tags-check" value="{{ tag }}" id = "tag{{ forloop.counter }}">
+                    <span>
+                        {{tag}}
+                    </span>
+                </div>
+            {% endfor %}
+            <button id = "viewtags-btn">
+                View all tags
+            </button>
+        </div>
+        
+    </div>
+    
+
+    <div class = "main-part">
+    
+        <div id = "keyword-text">
+            <!-- nav바를 통해 검색한 결과가 무엇인지 -->
+        </div>
+        <div id = "keyword-count">
+            <!-- 검색 조건에 맞는 content가 몇 개인지 -->
+        </div>
+
+        <div class= "main-sections">
+            <!-- content card 들어가는 곳 -->
+        </div>
+
+        <!-- {% for content in content_all %}
+        <div class = "content-box {{ content.relation_select }}">
+            <div class = "content-title">
+                {{content.title}}
+            </div>
+            <div class = "content-relation">
+                {{content.relation_select}}
+            </div>
+            <div class = "content-tag">
+                {% for tag in content.tag.all %}
+                    {{ tag }}, 
+                {% endfor %}
+            </div>
+            <div class = "content-body">
+                {{content.expression}} <span>is {{content.expression_descript_select}} of</span> {{content.expression_descript}}
+                <br>
+                작성 시각: {{content.datetime}}
+            </div>
+        </div>
+        {% endfor %} -->
+        <button id = "load-more-content" type="button">
+            Load More
+        </button>
+    
+    </div>
+
+</div>
+
+<script src="{% static 'js/filter.js' %}"></script>
+<script src= "{% static 'js/gender.js' %}"></script>
+<script src= "{% static 'js/rescan.js' %}"></script>
+<script src= "{% static 'js/relation.js' %}"></script>
+<script src = "{% static 'js/age.js' %}"></script>
+<script src = "{% static 'js/tags.js' %}"></script>
+
+{% endblock %}
