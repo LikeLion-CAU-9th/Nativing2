@@ -13,7 +13,7 @@ import json
 def CreateContentUploadView(request):
     if not request.user.is_authenticated:
         return redirect('accounts_login')
-
+    name = request.user.name
     if request.method == "POST":
         form = ContentUploadForm(request.POST, request.FILES)       
         if form.is_valid():   
@@ -24,7 +24,7 @@ def CreateContentUploadView(request):
             return redirect('explore')
     else:
         form = ContentUploadForm()
-        return render(request, 'content_upload.html', {'form': form})
+        return render(request, 'content_upload.html', {'form': form , 'name' : name})
 
 
 def expresstionENG(request):
