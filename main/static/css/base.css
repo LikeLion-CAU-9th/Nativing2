@@ -1,0 +1,120 @@
+
+
+/* navbar */
+.nav {
+    height: 7.5em;
+    box-shadow: 0px 3px 3px 3px var(--shadow);
+    padding: 0 3.5em;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.nav__logo {
+    flex: 0 1 9em;
+    color: var(--nativing-orange);
+    font-family: 'QuentinPro';
+    font-size: 3em;
+    text-decoration: none;
+}
+
+.nav__search {
+    min-width: 25em;
+    width: 25em;
+    height: 2.5em;
+    background-color: #FAFAFA;
+    display: flex;
+    align-items: center;
+}
+
+.nav__search img {
+    width: 1.1em;
+    padding: 0 3em 0 1em;
+}
+
+.nav__search input {
+    background-color: inherit;
+    flex: 1;
+    font-family: 'Lato';
+    border: none;
+    outline: none;
+    font-size: 1em;
+    width: 18em;
+}
+
+.nav__menu {
+    flex: 1 50em;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 2.5em;
+    padding: 0;
+}
+
+.nav__menu li a{
+    text-decoration: none;
+    color: inherit;
+    font-family: 'Quicksand';
+    font-size: 1.1em;
+}
+
+.nav__account {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25em;
+    padding-left: 3.5em;
+}
+
+.nav__account__user {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.nav__account__user img {
+    width: 2em; 
+    height: 2em; 
+    border-radius: 70%;
+}
+
+.nav__account__user span {
+    font-size: 2em;
+    font-family: 'Quicksand';
+    text-decoration: none; 
+    color: black;
+}
+
+.nav__account__button {
+    width: 6.875em;
+    height: 2.5em;
+    border-radius: 1em;
+    box-shadow: 0.06em 0.18em 0.36em 0px var(--shadow);
+    font-family: 'Quicksand';
+    font-size: 1.1em;
+}
+
+.footer {
+    background-color: #202020;
+    height: 6.25em;    
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 0 3.5em;
+}
+
+.footer__logo {
+    width: 9.6rem;
+    color: #EAEAEA;
+    font-family: 'QuentinPro';
+    font-size: 2.5em;
+    padding: 0.01em;
+}
+
+.footer__text {
+    font-family: 'SourceSansPro';
+    color: #909090;
+}

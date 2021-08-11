@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+{% endblock %}
+
+{% block mainContent %}
+
+<div class="featured-content">
+    <span style="text-align: center;"><span class="nativing-orange">Featured</span> content</span>
+    <div class="screen">
+    <div class="featured-content__content-box">
+      {% for content in content_list_random %}
+      <div class="content content--big">
+        <a class="content-link" href="{% url 'content_detail' content.id %}">
+            <div class="content__expression"> 
+              "{{ content.expression }}"
+            </div> 
+            <div class="content__title">
+              {{ content.title }} 
+            </div> 
+            <ul class="content__tags"> 
+                <li class="tag">{{ content.relation_select }}</li>
+                {% for tag in content.tag.all %}
+                <li class="tag">{{ tag }}</li>
+                {% endfor %}
+            </ul> 
+            <div class="content__author"> 
+                <div class="content__author__left"> 
+                    <img src="{{ content.writer.user_image.url }}" class="content__author__left__image"> 
+                </div> 
+                <div class="content__author__right"> 
+                    <div class="content__author__right__name"> {{ content.writer.name }} </div> 
+                    <div class="content__author__right__detail"> 
+                        <span class="skyblue">{{ content.writer.user_gender }}</span> {{ content.writer.user_age }} 
+                    </div> 
+                </div> 
+            </div>
+          </a>
+      </div>
+      {% endfor %}
+    </div>
+    </div>
+</div>
+
+<div class="categorized-content">
+
+    <div class="filtered-content">
+        <span class="nativing-orange">Newest</span> Content
+        <div class="filtered-content__content-box">
+          {% for content in content_list %}
+          <div class="content">
+            <a class="content-link" href="{% url 'content_detail' content.id %}">
+                <div class="content__expression"> 
+                    "{{ content.title }}"
+                </div> 
+                <div class="content__title">
+                    {{ content.expression }} 
+                </div> 
+                <ul class="content__tags"> 
+                    <li class="tag">{{ content.relation_select }}</li>
+                    {% for tag in content.tag.all %}
+                    <li class="tag">{{ tag }}</li>
+                    {% endfor %}
+                </ul> 
+                <div class="content__author"> 
+                    <div class="content__author__left"> 
+                        <img src="{{ content.writer.user_image.url }}" class="content__author__left__image"> 
+                    </div> 
+                    <div class="content__author__right"> 
+                        <div class="content__author__right__name"> {{ content.writer.name }} </div> 
+                        <div class="content__author__right__detail"> 
+                            <span class="skyblue">{{ content.writer.user_gender }}</span> {{ content.writer.user_age }} 
+                        </div> 
+                    </div> 
+                </div>
+              </a>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+<!-- <script src="../static/js/creator.js"></script> -->
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
+
+<script type="text/javascript">
+        $(document).ready(function(){
+          $('.featured-content__content-box').slick({
+            infinite: true,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            draggable: false,
+            variableWidth: true,
+            arrows:true,
+            centerMode: true,
+            centerPadding: '10px'
+          });
+        });
+    $(document).ready(function(){
+      $('.filtered-content__content-box').slick({
+        infinite: false,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        draggable: false,
+        variableWidth: true,
+      });
+    });
+  </script>
+{% endblock %}

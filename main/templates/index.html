@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block mainContent %}
+<div class="center">
+    <div class="center_left">
+        <div style="text-align: right;">
+        <a class="Lword">How to text </a>&nbsp; <br>
+        <a class="Lword"> like a</a>&nbsp; &nbsp;<br><br><br><br><br>
+    </div>
+        <a class="Lword_more">More about us</a>
+        <a data-scroll href="#animation">
+            <div class="arrow"></div>
+          </a>
+    </div>
+    <div class ="center_right">
+        <div class="index__image"></div>
+        <a class="Rword">message</a> <br>
+        <a class="Rword">native Korean</a>       
+    </div>
+</div>
+
+<section class="scroll-content" >
+    <div class="scroll-graphic" id="animation" >      
+        <div class="graphic-item"><img class="scene-img" src="../static/img/11.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/00.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/01.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/02.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/03.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/04.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/05.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/20.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/21.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/22.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/06.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/07.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/08.png" alt=""></div>
+        <div class="graphic-item"><img class="scene-img" src="../static/img/09.png" alt=""></div>
+        <div class="graphic-item">
+        </div>
+        
+    </div>
+    <div class="scroll-text global-width">
+        <div class="step"><h1>we</h1></div>
+        <div class="step"><p>are</p></div>
+        <div class="step"><p>we</p></div>
+        <div class="step"><p>are</p></div>
+        <div class="step"><p>we</p></div>
+        <div class="step"><p>are</p></div>
+        <div class="step"><p>we</p></div>
+        <div class="step"><p>are</p></div>
+        <div class="step"><p>we</p></div>
+        <div class="step"><p>are</p></div>
+        <div class="step"><p>are</p></div>
+        <div class="step"><p>are</p></div>
+        <div class="step"><p>are</p></div>
+        <div class="step"><p>are</p></div>
+        
+    </div>
+</section>
+<a href="{% url 'main' %}" target="_self">
+<img class="" src="../static/img/10.png" alt="">
+</a>
+<section class="normal-content global-width">
+</section>
+
+<script src="../static/js/creator.js"></script>
+<script src="../static/js/index.js"></script>
+
+{% endblock %}
