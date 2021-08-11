@@ -111,3 +111,13 @@
     font-size: 1.1em;
     font-family: 'Quicksand';
 }
+
+.saved {
+    background-color: black;
+    color: white;
+}
+
+.following {
+    background-color: black;
+    color : white;
+}
