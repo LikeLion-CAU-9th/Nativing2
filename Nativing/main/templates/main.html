@@ -35,6 +35,12 @@
                 <div class="content__author__right"> 
                     <div class="content__author__right__name"> {{ content.writer.name }} </div> 
                     <div class="content__author__right__detail"> 
+                        <span>{{ content.writer.followee.count }}</span>
+                        {% if content.writer.followee.count > 1 %}
+                        followers
+                        {% else %}
+                        follower
+                        {% endif %}
                         <span class="skyblue">{{ content.writer.user_gender }}</span> {{ content.writer.user_age }} 
                     </div> 
                 </div> 
@@ -73,6 +79,12 @@
                     <div class="content__author__right"> 
                         <div class="content__author__right__name"> {{ content.writer.name }} </div> 
                         <div class="content__author__right__detail"> 
+                            <span>{{ content.writer.followee.count }}</span>
+                            {% if content.writer.followee.count > 1 %}
+                            followers
+                            {% else %}
+                            follower
+                            {% endif %}
                             <span class="skyblue">{{ content.writer.user_gender }}</span> {{ content.writer.user_age }} 
                         </div> 
                     </div> 

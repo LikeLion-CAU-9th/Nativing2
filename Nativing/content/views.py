@@ -1,14 +1,12 @@
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
-from django.db.models import Q
-from accounts.models import User, Follow
+from accounts.models import Follow
 from . models import ContentUpload, RELATION_CHOICES, SocialLikes, SocialSaves, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
 
 import numpy as np
 import pandas as pd
-import json
 
 def CreateContentUploadView(request):
     if not request.user.is_authenticated:
