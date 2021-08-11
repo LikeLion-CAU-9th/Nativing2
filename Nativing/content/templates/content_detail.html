@@ -36,11 +36,20 @@
                         </div> 
                     </div> 
                 </div>
-                <button class="follow-button button" id = "follow-button" value = "{{ detail.writer.id }}"
+                <button class="follow-button button
+                {% if is_following %}
+                following
+                {% endif %}
+                " id = "follow-button" value = "{{ detail.writer.id }}"
                 {% if user.is_authenticated is False %}
                 onclick= "signinAlert()"
                 {% endif %}
-                >FOLLOW</button>
+                >
+                {% if is_following %}
+                FOLLOWING
+                {% else %}
+                FOLLOW
+                {% endif %}</button>
             </div>
             <div class="detail__contents__category">
                 <div class="detail__contents__category__child">
@@ -73,7 +82,13 @@
             <div class="detail__contents__description">
                 <div class="detail__contents__description__head">
                     <span>Key expression</span>
-                    <img src="../../static/img/heart.png">
+                    <button id = likes-button value="{{ detail.id }}"  
+                    {% if user.is_authenticated is False %}
+                    onclick= "signinAlert()"
+                    {% endif %}
+                    >
+                        <img src="../../static/img/heart.png">
+                    </button>
                 </div>
                 <div class="detail__contents__description__body">
                     {{ detail.expression }}
@@ -118,8 +133,8 @@
 </div>
 
 
-
 <script src="{% static 'js/save.js' %}"></script>
 <script src="{% static 'js/follow.js' %}"></script>
+<script src="{% static 'js/likes.js' %}"></script>
 
 {% endblock %}

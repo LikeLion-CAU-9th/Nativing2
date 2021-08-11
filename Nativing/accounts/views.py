@@ -22,6 +22,7 @@ def accounts_signup(request):
                 instance.user_age = 20
 
             instance.save()
+            form.save_m2m()
             email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(email = email, password = raw_password)

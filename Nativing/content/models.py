@@ -46,7 +46,8 @@ class ContentUpload(models.Model):
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     tag = TaggableManager(through=TaggedContent)
     agree = models.BooleanField(default=False)
-    likes = models.ManyToManyField(User, through="ContentLikes",)
+    saves = models.ManyToManyField(User, through="SocialSaves", related_name="likes")
+    likes = models.ManyToManyField(User, through="SocialLikes", related_name="saves")
 
     #핵심표현 설명 선택지
     expression_descript_select = models.CharField(max_length=20, choices=EXPRESSION_CHOICES, default='ABBREVIATION')
@@ -56,10 +57,18 @@ class ContentUpload(models.Model):
     def __str__(self):
         return self.title
 
-class ContentLikes(models.Model):
-    like_user = models.ForeignKey(User, verbose_name="좋아요 누른 사람", related_name="like_user", on_delete= models.SET_NULL, null = True)
-    like_content = models.ForeignKey(ContentUpload, verbose_name="좋아요 누른 글", related_name= "like_content", on_delete= models.CASCADE) 
-    like_time = models.DateTimeField(auto_now_add=True)
+class SocialSaves(models.Model):
+    save_user = models.ForeignKey(User, verbose_name="저장 누른 사람", related_name="save_user", on_delete= models.SET_NULL, null = True)
+    save_content = models.ForeignKey(ContentUpload, verbose_name="자징 누른 글", related_name= "save_content", on_delete= models.CASCADE) 
+    save_time = models.DateTimeField(auto_now_add=True)
     
+    class Meta:
+        unique_together = [['save_user', 'save_content']]
+
+class SocialLikes(models.Model):
+    like_user = models.ForeignKey(User, verbose_name="좋아요 누른 사람", related_name= "like_user", on_delete=models.SET_NULL, null=True)
+    like_content = models.ForeignKey(ContentUpload, verbose_name= "좋아요 누른 글", related_name="like_content", on_delete=models.CASCADE)
+    like_time = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         unique_together = [['like_user', 'like_content']]

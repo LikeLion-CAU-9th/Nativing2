@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import ContentUpload, Tag, ContentLikes
+from .models import ContentUpload, Tag, SocialSaves, SocialLikes
 
 admin.site.register(ContentUpload)
 admin.site.register(Tag)
-admin.site.register(ContentLikes)
+admin.site.register(SocialSaves)
