@@ -46,8 +46,15 @@ def social_follow(request):
             follow_save.save()
             print("saved")
         
+        uploader_followers = Follow.objects.filter(followee_id = uploader_id).count()
+        is_follower_plural = (uploader_followers > 1)
         follow_bool = Follow.objects.filter(followee_id = uploader_id, follower_id = request.user.id).exists()
-        result = {"is_following" : follow_bool}
+        result = {
+            "is_following" : follow_bool,
+            "follower_num" : uploader_followers,
+            "is_plural" : is_follower_plural,
+        }
+        print(is_follower_plural)
     
     return JsonResponse(result, safe = False)
     
