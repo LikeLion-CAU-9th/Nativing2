@@ -167,7 +167,7 @@ function printContent(value, count) {
                 <div class="content__author__right"> 
                     <div class="content__author__right__name"> ${value[i].user_name} </div> 
                     <div class="content__author__right__detail"> 
-                        <span class="nativing-orange">3.4k</span> followers <span class="skyblue">${value[i].user_gender}</span> ${value[i].user_age} 
+                        <span class="skyblue">${value[i].user_gender}</span> ${value[i].user_age} 
                     </div> 
                 </div> 
             </div>

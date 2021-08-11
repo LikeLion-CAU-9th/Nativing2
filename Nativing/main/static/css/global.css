@@ -68,8 +68,9 @@ button:hover {
 
 .content__tags {
     display: flex;
+    overflow: hidden;
     padding: 0px;
-    margin: 1em 0px 2em;
+    margin: 1em 0px 1.5em;
 }
 
 .tag {
@@ -81,7 +82,7 @@ button:hover {
     margin-right: 0.9em;
     font-family: 'Lato';
     font-weight: bold;
-    font-size: 0.875em;
+    font-size: 0.8em;
     text-align: center;
     line-height: 1.25em;
     color: white;
