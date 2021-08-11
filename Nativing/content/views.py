@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
 from django.db.models import Q
 from accounts.models import User, Follow
-from . models import ContentUpload, RELATION_CHOICES, Tag, TaggedContent
+from . models import ContentUpload, RELATION_CHOICES, SocialSaves, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
 
@@ -120,13 +120,15 @@ def content_detail(request, content_id):
     content_list_random = content_list.order_by('?')[:4]
 
     follow_bool = Follow.objects.filter(followee_id = content_detail.writer.id, follower_id = request.user.id).exists()
+    save_bool = SocialSaves.objects.filter(save_user_id = request.user.id, save_content_id = content_detail.id).exists()
+    
     context = {
         "detail" : content_detail,
         "content_list_random": content_list_random,
-        "is_following" : follow_bool
+        "is_following" : follow_bool,
+        "is_saved" : save_bool
     }
-    # print(context[''])
-    
+    print(save_bool)
     return render(request, 'content_detail.html', context)
 
 

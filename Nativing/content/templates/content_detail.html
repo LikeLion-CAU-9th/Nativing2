@@ -17,11 +17,22 @@
         <div class="detail__contents">
             <div class="detail__contents__head">
                 <span>{{detail.title}}</span>
-                <button class="save-button button button--orange" id = "save-button" value="{{ detail.id }}" 
+                <button class="save-button button 
+                {% if is_saved %}
+                saved
+                {% else %}
+                button--orange
+                {% endif %}
+                " id = "save-button" value="{{ detail.id }}" 
                 {% if user.is_authenticated is False %}
                 onclick= "signinAlert()"
                 {% endif %}
-                >SAVE</button>
+                >
+                {% if is_saved %}
+                SAVED
+                {% else %}
+                SAVE
+                {% endif %}</button>
             </div>
             <span class="uploader-label">Uploader</span>
             <div class="detail__contents__uploader">
