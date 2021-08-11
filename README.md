@@ -1,10 +1,13 @@
 Nativing
 =======================
 
-[![Build Status](https://travis-ci.org/buonzz/laravel-4-freegeoip.svg?branch=master)](https://travis-ci.org/buonzz/laravel-4-freegeoip)
-[![Latest Stable Version](https://poser.pugx.org/buonzz/laravel-4-freegeoip/v/stable.svg)](https://packagist.org/packages/buonzz/laravel-4-freegeoip) [![Total Downloads](https://poser.pugx.org/buonzz/laravel-4-freegeoip/downloads.svg)](https://packagist.org/packages/buonzz/laravel-4-freegeoip)
-[![Latest Unstable Version](https://poser.pugx.org/buonzz/laravel-4-freegeoip/v/unstable.svg)](https://packagist.org/packages/buonzz/laravel-4-freegeoip) [![License](https://poser.pugx.org/buonzz/laravel-4-freegeoip/license.svg)](https://packagist.org/packages/buonzz/laravel-4-freegeoip)
-
+ <div class="stack">
+   <a href="#"><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=black"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=CSS3&logoColor=white"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Html-61DAFB?style=flat&logo=Html&logoColor=white"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Django-339933?style=flat&logo=Django&logoColor=white"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Python-3766AB?style=flat&logo=Python&logoColor=white"/></a>
+   </div>
 Laravel 4 Library for calling http://freegeoip.net/ API.
 
 In contrary to all other packages wherein it requires that you have the geoip database in your filesystem, this library calls a free service
