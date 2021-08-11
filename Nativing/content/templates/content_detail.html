@@ -106,8 +106,17 @@
                     onclick= "signinAlert()"
                     {% endif %}
                     >
-                        <img src="../../static/img/heart.png">
+                        <img id = "likes-img" 
+                        {% if is_liked %}
+                        src="../../static/img/redheart.png"
+                        {% else %}
+                        src="../../static/img/heart.png"
+                        {% endif %}
+                        >
                     </button>
+                    <span id = "likes-count">
+                        {{ likes_count }}
+                    </span>
                 </div>
                 <div class="detail__contents__description__body">
                     {{ detail.expression }}

@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
 from django.db.models import Q
 from accounts.models import User, Follow
-from . models import ContentUpload, RELATION_CHOICES, SocialSaves, Tag, TaggedContent
+from . models import ContentUpload, RELATION_CHOICES, SocialLikes, SocialSaves, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
 
@@ -118,19 +118,24 @@ def content_detail(request, content_id):
     content_detail = get_object_or_404(content_writer, pk = content_id)
     content_list = ContentUpload.objects
     content_list_random = content_list.order_by('?')[:4]
-    uploader_followers = Follow.objects.filter(followee_id = content_detail.writer.id).count()
-    is_follower_plural = (uploader_followers > 1)
+    follower_count = Follow.objects.filter(followee_id = content_detail.writer.id).count()
+    is_follower_plural = (follower_count > 1)
+    likes_count = SocialLikes.objects.filter(like_content_id = content_id).count()
 
     follow_bool = Follow.objects.filter(followee_id = content_detail.writer.id, follower_id = request.user.id).exists()
-    save_bool = SocialSaves.objects.filter(save_user_id = request.user.id, save_content_id = content_detail.id).exists()
+    save_bool = SocialSaves.objects.filter(save_user_id = request.user.id, save_content_id = content_id).exists()
+    like_bool = SocialLikes.objects.filter(like_user_id = request.user.id, like_content_id = content_id).exists()
+
     
     context = {
         "detail" : content_detail,
         "content_list_random": content_list_random,
-        "follower_num" : uploader_followers,
+        "follower_num" : follower_count,
+        "likes_count" : likes_count,
         "is_following" : follow_bool,
         "is_plural" : is_follower_plural,
-        "is_saved" : save_bool
+        "is_saved" : save_bool,
+        "is_liked" : like_bool,
     }
     return render(request, 'content_detail.html', context)
 
