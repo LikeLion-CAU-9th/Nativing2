@@ -158,6 +158,10 @@
     place-self: center;
 }
 
+#load-more-content {
+    margin: 1rem;
+}
+
 .pagination {
     display:-ms-flexbox;
     display:flex;
