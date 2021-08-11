@@ -1,5 +1,4 @@
-# Nativing
-FreeGeoIP for Laravel 4 
+Nativing
 =======================
 
 [![Build Status](https://travis-ci.org/buonzz/laravel-4-freegeoip.svg?branch=master)](https://travis-ci.org/buonzz/laravel-4-freegeoip)
