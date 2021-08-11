@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+<link rel ="stylesheet" href = "{% static 'css/learning.css' %}">
+{% endblock %}
+
+
+{% block mainContent %}
+<div class = "learning">
+    <div class="side-bar">
+        <span>Following</span> 
+        <span>Recently Viewed</span>
+        <span>Bookmarks</span>
+    </div>
+    
+    <div class = "main-section">
+        
+    </div>
+
+
+</div>
+
+<script src = "{% static 'js/learning-follow.js' %}"></script>
+
+{% endblock %}

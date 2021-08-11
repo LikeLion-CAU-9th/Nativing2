@@ -1,0 +1,20 @@
+.learning {
+    display: flex;
+    flex-direction: row;
+}
+
+.side-bar {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 500px;
+}
+
+.side-bar span {
+    padding-bottom: 10px;
+}
+
+.main-section {
+    width: 80%;
+    height: auto;
+}
