@@ -45,7 +45,7 @@
   
 .Lword{ 
   position: relative;
-   font-size: 4.2em;
+   font-size: 4em;
    font-weight: bold;
    font-family: 'Lato-Regular';
    z-index:2;
@@ -63,7 +63,7 @@
 
 .Rword{ 
    position: relative;
-   font-size: 4.2em;
+   font-size: 4em;
    font-weight: bold;
    font-family: 'Lato-Regular';
    z-index: 2;
