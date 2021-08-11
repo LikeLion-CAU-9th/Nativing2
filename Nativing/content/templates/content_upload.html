@@ -11,7 +11,7 @@
         <br>
         <p class="mychanel" >My Chanel</p>
         <img class="circle" src = "{{ user.user_image.url }}">
-        <p class="username">{{name}}<p><br>
+        <p class="username">{{name}}<p>
         <p class="side_head">업로드한 컨텐츠</p>
         <p class="side">Playlists</p>
         <p class="side">Community</p>
@@ -28,7 +28,7 @@
             <div class="card">
                 <div class="card_left">
                     <div class="picture">          
-                        <img style="width: 14.2em;" id="preview-image" src="">
+                        <img class="hidden" id="preview-image" src="">
                     </div>        
                     {{form.writer}}           
                    {{form.image}}                
@@ -40,6 +40,7 @@
                             const reader = new FileReader()                        
                             reader.onload = e => {
                                 const previewImage = document.getElementById("preview-image")
+                                previewImage.classList.remove('hidden')
                                 previewImage.src = e.target.result
                             }                        
                             reader.readAsDataURL(input.files[0])
@@ -108,12 +109,3 @@
 
 
 {% endblock %}
-
-
-<!--
-<form action="" method="post">
-    {% csrf_token %}
-    
-    {{ form.as_p }}
-    <input type="submit" value="업로드" />
-</form>-->
