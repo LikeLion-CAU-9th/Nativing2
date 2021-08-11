@@ -66,7 +66,7 @@ function fetchContent(isLoadMore = false) {
                 console.log(tempKeyword);
             }
             if (tempGender) {
-                filtered_content = filtered_content.filter((value) => value.user_gender.includes(tempGender))
+                filtered_content = filtered_content.filter((value) => (value.user_gender === tempGender))
             }
             if (tempRelation) {
                 filtered_content = filtered_content.filter((value) => tempRelation.includes(value.relation_select));
