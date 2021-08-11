@@ -27,7 +27,7 @@ SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-#ALLOWED_HOSTS = ['herokuapp.com']
+ALLOWED_HOSTS = ['herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -59,7 +59,7 @@ MIDDLEWARE = [
 ]
 
 #activate django-heroku
-#django_heroku.settins(locals())
+# django_heroku.settins(locals())
 
 ROOT_URLCONF = 'config.urls'
 
@@ -92,8 +92,8 @@ DATABASES = {
     }
 }
 
-#db_from_env = dj_database_url.config(conn_max_age=500)
-#DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -154,6 +154,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#db_from_env = dj_database_url.config(conn_max_age=500)
-#DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 AUTH_USER_MODEL = 'accounts.User'

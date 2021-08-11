@@ -8,7 +8,7 @@ const uploaderData = JSON.stringify({
 function followHandler(event) {
     event.preventDefault();
     let csrftoken = getCookie('csrftoken');
-    fetch('/social-follow/', {
+    fetch('../../social-follow/', {
         method: "POST",
         body : uploaderData,
         headers : {

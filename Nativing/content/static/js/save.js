@@ -13,7 +13,7 @@ function saveHandler(event) {
     event.preventDefault();
     let csrftoken = getCookie('csrftoken');
     console.log("content_id : ", contentId)
-    fetch('/detail-save/', {
+    fetch('../detail-save/', {
         method : "POST",
         body: data,
         headers : {
