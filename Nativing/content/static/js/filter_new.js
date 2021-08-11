@@ -20,7 +20,7 @@ try {
 // 검색어가 있으면, 검색어대로 filter + 검색어 filterProperty에 추가
 // 없으면 모든 모델 가져오고, filterProperty.keyword 초기화
 function initialView(){
-    fetch('/explore-filter/', {
+    fetch('../explore-filter', {
         headers : {
             "Accept" : "application/json"
         }
@@ -49,7 +49,7 @@ function initialView(){
 
 
 function fetchContent(isLoadMore = false) {
-    fetch('/explore-filter',)
+    fetch('../explore-filter',)
         .then((res) => res.json())
         .then((res) => {
             let filtered_content = res;
@@ -146,7 +146,7 @@ function printContent(value, count) {
 
     for (var i = 0; i < biggerInt; i ++){
         const contentBox = document.createElement('a');
-        contentBox.href = `/explore/${value[i].id}`;
+        contentBox.href = `../explore/${value[i].id}`;
         contentBox.className = "content-link"
         contentBox.innerHTML = `
         <div class="content">
