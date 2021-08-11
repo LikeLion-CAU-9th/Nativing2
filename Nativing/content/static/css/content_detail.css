@@ -141,3 +141,12 @@
 .tag--bigger {
     font-size: 1em !important;
 }
+.saved {
+    background-color: black;
+    color: white;
+}
+
+.following {
+    background-color: black;
+    color : white;
+}

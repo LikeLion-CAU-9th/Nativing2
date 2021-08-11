@@ -1,21 +1,16 @@
-const saveBtn = document.getElementById("save-button");
-const contentId= saveBtn.value
-const data = JSON.stringify({
-    content_id : contentId
+const followBtn = document.getElementById("follow-button");
+const uploaderId = followBtn.value
+const uploaderData = JSON.stringify({
+    uploaderId : uploaderId
 });
 
-function signinAlert () {
-    alert("Sign in first");
-};
 
-
-function saveHandler(event) {
+function followHandler(event) {
     event.preventDefault();
     let csrftoken = getCookie('csrftoken');
-    console.log("content_id : ", contentId)
-    fetch('/detail-save/', {
-        method : "POST",
-        body: data,
+    fetch('/social-follow/', {
+        method: "POST",
+        body : uploaderData,
         headers : {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json',
@@ -24,20 +19,17 @@ function saveHandler(event) {
     })
     .then((res) => res.json())
     .then((res) => {
-        let isSaved = res['is_saved']
-        if (isSaved) {
-            console.log("저장된 상태")
-            saveBtn.innerText = "SAVED";
-            saveBtn.classList.remove("button--orange");
-            saveBtn.classList.add("saved");
+        let is_following = res['is_following']
+        if (is_following) {
+            followBtn.innerText = "FOLLOWING";
+            followBtn.classList.add("following");
         } else {
-            console.log("저장 ㄴㄴ ")
-            saveBtn.innerText = "SAVE";
-            saveBtn.classList.add("button--orange");
-            saveBtn.classList.remove("saved");
+            followBtn.innerText = "FOLLOW";
+            followBtn.classList.remove("following");
         }
     })
     .catch((err) => console.log(err));
+    
 }
 
 function getCookie(name) {
@@ -55,10 +47,9 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function init(){
-    saveBtn.addEventListener("click", saveHandler);
+
+function init () {
+    followBtn.addEventListener("click", followHandler);
 }
-
-
 
 init();
