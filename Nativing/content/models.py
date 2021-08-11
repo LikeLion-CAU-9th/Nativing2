@@ -1,8 +1,12 @@
+from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import BooleanField
+from django.db.models.fields.related import ForeignKey
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.utils import timezone
+from numpy import mod
+from numpy.lib.arraysetops import unique
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
 from accounts.models import User
@@ -22,9 +26,9 @@ RELATION_CHOICES = (
 
 class Tag(TagBase):
     unique = True,
-    max_length = 100,
+    max_length = 6,
     allow_unicode = True,
-    en_name = models.CharField(max_length=40, blank=True, null=True)
+    en_name = models.CharField(max_length=6, blank=True, null=True)
 
 # Tag 중개모델
 class TaggedContent(TaggedItemBase):
@@ -34,14 +38,15 @@ class TaggedContent(TaggedItemBase):
     )
 
 class ContentUpload(models.Model):
-    writer = models.ForeignKey(User, on_delete = models.CASCADE, null=True, default=1)
-    title = models.CharField(max_length = 40, )
-    expression = models.TextField()
+    writer = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name="작성자", related_name="content")
+    title = models.CharField(max_length = 12, )
+    expression = models.CharField(max_length = 16, )
     expression_descript = models.TextField()
     datetime = models.DateTimeField(default = timezone.now)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     tag = TaggableManager(through=TaggedContent)
     agree = models.BooleanField(default=False)
+    likes = models.ManyToManyField(User, through="ContentLikes",)
 
     #핵심표현 설명 선택지
     expression_descript_select = models.CharField(max_length=20, choices=EXPRESSION_CHOICES, default='ABBREVIATION')
@@ -51,5 +56,10 @@ class ContentUpload(models.Model):
     def __str__(self):
         return self.title
 
-
-
+class ContentLikes(models.Model):
+    like_user = models.ForeignKey(User, verbose_name="좋아요 누른 사람", related_name="like_user", on_delete= models.SET_NULL, null = True)
+    like_content = models.ForeignKey(ContentUpload, verbose_name="좋아요 누른 글", related_name= "like_content", on_delete= models.CASCADE) 
+    like_time = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = [['like_user', 'like_content']]

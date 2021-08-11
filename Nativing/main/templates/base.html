@@ -20,7 +20,7 @@
         </a>
         <div class="nav__search">
             <form action = "{% url 'explore' %}">
-                <img src="{% static 'img/loupe.png' %}">
+                <label><input type="submit" class="hidden"><img src="{% static 'img/loupe.png' %}"></label>
                 <input type="text" name = "keyword" placeholder="What do you want to learn?">
                 <button type="submit"></button>
             </form>
@@ -37,6 +37,18 @@
             </li>
         </ul>
         <div class="nav__account">
+            {% if user.is_authenticated %}
+                <div class="nav__account__user">
+                    <img src = "{{ user.user_image.url }}">
+                    <span>{{ user.name }}</span>
+                </div>
+                <a href="{% url 'accounts_logout' %}">
+                    <button class="nav__account__button button--orange">
+                        Log out
+                    </button>
+                </a>  
+
+            {% else %}
             <a href="{% url 'accounts_login' %}">
                 <button class="nav__account__button button--white">
                     Sign in
@@ -47,6 +59,7 @@
                     Register
                 </button>
             </a>    
+            {% endif %}
         </div>
     </div>
     {% block mainContent %}

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block mainContent %}
-<form method="POST" action="{% url 'accounts_signup' %}">
+<form method="POST" action="{% url 'accounts_signup' %}" enctype="multipart/form-data">
     <div class="account-area">
         {% csrf_token %}
         <div class="form-box">
@@ -16,28 +16,39 @@
             <div class="form-box__label">
                 Email
             </div>
-            <input name="{{ form.email.name }}" class="form-box__input">
+            <input name="{{ form.email.name }}" class="form-box__input" required>
+            <div class="form-box__label">
+                Username
+            </div>
+            <input name="{{ form.name.name }}" class="form-box__input" required>
             <div class="form-box__label">
                 Password
             </div>
-            <input name="password1" type="password" class="form-box__input">
+            <input name="password1" type="password" class="form-box__input" required>
             <div class="form-box__label">
                 Password Check
             </div>
-            <input name="password2" type="password" class="form-box__input">
+            <input name="password2" type="password" class="form-box__input" required>
             <div class="form-box__label">
                 Date of Birth
             </div>
-            <input type="date" name="{{ form.date_of_birth.name }}" class="form-box__input" id="dateinput">
+            <input type="date" name="{{ form.date_of_birth.name }}" class="form-box__input" id="dateinput" max="2013-12-25" required>
             <div class="form-box__label">
                 Gender
             </div>
-            <button class="form-box__gender-button" id="male">Male</button> 
-            <button class="form-box__gender-button" id="female">Female</button>
-            <input name="{{ form.user_gender.name }}" id="gender-input" class="invisible">
+            <div class="form-box__gender-input">
+                <input type="radio" id="male" name="{{ form.user_gender.name }}" value="male" required>
+                <label class="form-box__gender-button" for="male">Male</label>
+                <input type="radio" id="female" name="{{ form.user_gender.name }}" value="female">
+                <label class="form-box__gender-button" for="female" id="female_button">Female</label>
+            </div>
+            <div class="form-box__label">
+                Profile Picture (optional)
+            </div>
+            <input name="user_image" type="file" class="form-box__input file-input">            
             <button type="submit" class="form-box__subimt-button">Sign Up</button>
             <div class="form-box__social-login-box">
-                <div class="form-box__social-login-box__top">
+                <!-- <div class="form-box__social-login-box__top">
                     <hr>
                     <span>or</span>
                     <hr>
@@ -46,15 +57,19 @@
                     <div class="icon"></div>
                     <div class="icon"></div>
                     <div class="icon"></div>
-                </div>
+                </div> -->
                 <div class="form-box__login">
-                    Already have ccount? <a href="{% url 'accounts_login' %}">Please log in.</a>
+                    Already have an account? <a href="{% url 'accounts_login' %}">Please log in.</a>
                 </div>
             </div>
         </div>
     </div>
 </form>
 
-<script src="{% static 'js/signup.js' %}"></script>
+<!-- <script src="{% static 'js/signup.js' %}"></script> -->
+<script>
+var today = new Date().toISOString().split('T')[0];
+document.getElementById('dateinput').setAttribute('max', today);
+</script>
 
 {% endblock %}

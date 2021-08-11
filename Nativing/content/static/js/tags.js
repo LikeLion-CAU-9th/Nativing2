@@ -9,23 +9,21 @@ function setLocalStorageHashtag(){
 }
 
 function hideTagsInit(){
-    for (var i = 5; i < hashtag.length + 1 ; i ++ ){
+    for (var i = 5; i < hashtag.length ; i ++ ){
         hashtag[i].classList.add(HIDE_TAG);
     }
 }
 
 function showTags() {
-    // console.log(hashtag);
-    for (var i = 5; i < hashtag.length + 1 ; i ++ ){
+    for (var i = 5; i < hashtag.length ; i ++ ){
         hashtag[i].classList.remove(HIDE_TAG);
-        // console.log(hashtag[i]);
     }
 }
 
 function addEventViewMore(){
     viewMoreBtn.addEventListener("click", (event) => {
         showTags();
-        viewMoreBtn[0].classList.add(HIDE_TAG);
+        viewMoreBtn.classList.add(HIDE_TAG);
     })
 }
 function viewMoreHandler(event){

@@ -1,31 +1,30 @@
-
-from django.db.models.expressions import Exists, F
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
-from django.http import HttpResponse
-from django.views.generic import CreateView
 from django.db.models import Q
 from accounts.models import User
-from . models import ContentUpload, RELATION_CHOICES, Tag, TaggedContent
+from . models import ContentLikes, ContentUpload, RELATION_CHOICES, Tag, TaggedContent
 from .forms import ContentUploadForm
 from django.http import JsonResponse
 
-
 import numpy as np
+import pandas as pd
+import json
 
 def CreateContentUploadView(request):
     if not request.user.is_authenticated:
-        return redirect('accounts/login')
-    name_temp = request.user.name
+        return redirect('accounts_login')
+
     if request.method == "POST":
-        form = ContentUploadForm(request.POST)       
+        form = ContentUploadForm(request.POST, request.FILES)       
         if form.is_valid():   
             new_content = form.save(commit=False)      
+            new_content.writer = request.user
             new_content.save()
-            return redirect('/')
+            form.save_m2m()
+            return redirect('explore')
     else:
         form = ContentUploadForm()
-    return render(request, 'content_upload.html', {'name': name_temp, 'form': form})
+        return render(request, 'content_upload.html', {'form': form})
 
 
 def expresstionENG(request):
@@ -51,20 +50,8 @@ def relationENG(request):
 
 
 def explore(request):
-    content_all = ContentUpload.objects.all()
-    print("type of request : ", type(request))
-    print("type of object_all : ", type(content_all))
     keyword_query = request.GET.get('keyword')
-    
-    if keyword_query:
-        print("키워드는: ", keyword_query)
-        content_all = content_all.filter(
-            Q(title__icontains = keyword_query) | 
-            Q(expression__icontains = keyword_query) |
-            Q(expression_descript__icontains = keyword_query)).order_by('-datetime')
-    else:
-        print("키워드 없")
-    
+
     relationships  = np.array(RELATION_CHOICES)[:, 0]
 
     tag_db = Tag.objects.all().values() 
@@ -72,51 +59,85 @@ def explore(request):
     for tag_db_iter in tag_db:
         if tag_db_iter['name'] not in tag_list:
             tag_list.append(tag_db_iter['name'])
-        
-    print("relation tag들: ", relationships,type(relationships))
                
-    return render(request, 'test_explore.html', {'content_all' : content_all,
-                                             "keyword": keyword_query,
+    return render(request, 'explore.html', {"keyword": keyword_query,
                                              "relationships" : relationships,
                                              "tags" : tag_list},)
-
-def explore2(request):
-    return render(request, "explore.html")
 
                                              
 def explore_filter(request):
     content_all = ContentUpload.objects.all()
-    data = np.array(content_all.values())
+    writer_all = ContentUpload.objects.select_related("writer").all()
+    tag_all = ContentUpload.objects.prefetch_related("tag").all()
     
-    np_tag = np.array(Tag.objects.all().values())
-    np_tag_list = np.array(TaggedContent.objects.all().values())
+    user_values = list()
+    for writer_iter in writer_all:
+        temp_iter = {"content_id" : writer_iter.id,
+                     "user_name" : writer_iter.writer.name, 
+                     "user_gender" : writer_iter.writer.user_gender, 
+                     "user_age" : writer_iter.writer.user_age,
+                     "user_image_url" : writer_iter.writer.user_image.url
+                     }
+        user_values.append(temp_iter)
 
-    for tag_list_iter in np_tag_list:
-        tag_id_temp = tag_list_iter['tag_id'] - 1
-        tag_list_iter['tag'] = np_tag[tag_id_temp]['name'].strip()
+    tag_values = list()
+    for tag_iter in tag_all:
+        temp_list = []
+        only_tags = tag_iter.tag.all().values_list("name")
+        
+        for j in only_tags:
+            temp_list.append(j[0])
 
-    for tag_list_iter in np_tag_list:
-        content_id_temp = tag_list_iter['content_object_id'] - 1
-        if 'tag' in data[content_id_temp]:
-            data[content_id_temp]['tag'].append(tag_list_iter['tag'])
-        else:
-            data[content_id_temp]['tag'] = [tag_list_iter['tag']]
+        temp_iter = {
+            "content_id" : tag_iter.id,
+            "tag" : temp_list
+        }
+        tag_values.append(temp_iter)
 
-    return JsonResponse(list(data), safe = False)
+    contentDF = pd.DataFrame(content_all.values())
+    userDF = pd.DataFrame(user_values)
+    tagDF = pd.DataFrame(tag_values)
+    
+    mergedDF = pd.merge(contentDF, userDF, how="left", left_on ="id", right_on="content_id")
+    mergedDF.drop(["image", "agree", "content_id",], axis=1, inplace= True)
+    
+    mergedDF = pd.merge(mergedDF, tagDF, how = "left", left_on="id", right_on="content_id") 
+    mergedDF.sort_values(by=['id'], inplace=True, ascending=False)
 
-def tags_to_json(request):
-    tag_db = Tag.objects.all().values()
-    tag_list = list()
-    for tag_db_iter in tag_db:
-        if tag_db_iter['name'] not in tag_list:
-            tag_list.append(tag_db_iter['name'])
-    print("상황 tag들: ", tag_list)
-    tag_dict = dict({
-        "tags" : tag_list,
-    })
-    print(tag_dict)
-    return JsonResponse(list(tag_list), safe= False)
+    mergedDict = mergedDF.transpose().to_dict()
+    
+    a = writer_all
+    for i in a: 
+        print(i.writer.user_image.url)
+
+    return JsonResponse(list(mergedDict.values()), safe = False, json_dumps_params={'ensure_ascii': False})
+
 
 def content_detail(request, content_id):
-    content_detail = get_object_or_404(ContentUpload, pk = content_id)
+    content_writer = ContentUpload.objects.select_related("writer").all()
+    content_detail = get_object_or_404(content_writer, pk = content_id)
     return render(request, 'content_detail.html', {"detail" : content_detail})
+
+
+def content_save(request):
+    if request.method == 'POST':
+        post_data = json.loads(request.body.decode("utf-8"))
+        content_id = post_data['content_id']
+        content = get_object_or_404(ContentUpload, pk = content_id)
+        print(content)
+
+        if content.likes.filter(id = request.user.id).exists():
+            content.likes.remove(request.user)
+            content.save()
+        else: 
+            content_save = ContentLikes(like_user = request.user, like_content = content)
+            content_save.save() 
+
+        content_user_both = ContentLikes.objects.filter(like_content_id = content_id, like_user_id = request.user.id).values()
+        content_saved = ContentLikes.objects.filter(like_content_id = content_id).values()
+        is_saved = (len(content_user_both) == 1)
+        save_count = len(content_saved)
+        
+        result = { "is_saved" : is_saved, "save_count" : save_count}
+
+    return JsonResponse(result, safe=False)

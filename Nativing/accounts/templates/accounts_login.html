@@ -14,7 +14,7 @@
             <div class="form-box__title">
                 Sign In
             </div>
-            {{form.as_p}}
+            <!-- {{form.as_p}} -->
             <div class="form-box__label">
                 Email
             </div>
@@ -23,10 +23,10 @@
                 Password
             </div>
             <input name="{{ form.password.name }}" type="password" class="form-box__input">
-            <div class="form-box__remember-me">
+            <!-- <div class="form-box__remember-me">
                 <input type="checkbox"> 
                 <span>Remeber me</span>
-            </div>
+            </div> -->
             <button type="submit" class="form-box__subimt-button">Sign in</button>
             <div class="form-box__social-login-box">
                 <div class="form-box__social-login-box__top">
@@ -40,11 +40,16 @@
                     <div class="icon"></div>
                 </div>
                 <div class="form-box__login">
-                    Already have ccount? <a href="{% url 'accounts_login' %}">Please log in.</a>
+                    Don’t have account yet?  <a href="{% url 'accounts_signup' %}">Please sign up.</a>
                 </div>
             </div>
         </div>
     </div>
+</form>
+<form method="POST" action = "{% url 'accounts_login' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">submit</button>
 </form>
 
 <script src="{% static 'js/signup.js' %}"></script>

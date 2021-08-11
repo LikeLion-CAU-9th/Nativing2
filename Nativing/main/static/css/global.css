@@ -29,13 +29,18 @@ button:hover {
     display: none;
 }
 
+.content-link {
+    color: black;
+    text-decoration: none;
+}
+
 .button--orange {
     background-color: var(--nativing-orange);
     color: white;
 }
 
 .content {
-    width: 15.625em;
+    width: 15.625em !important;
     height: 11.25em;
     box-sizing: border-box;
     font-size: 14px;
@@ -131,7 +136,8 @@ button:hover {
 }
 
 .content--big {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    transition: transform 0.7s;
 }
 
 
