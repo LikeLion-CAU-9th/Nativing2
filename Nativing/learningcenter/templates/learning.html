@@ -15,7 +15,51 @@
     </div>
     
     <div class = "main-section">
-        
+        {% for content in contents %}
+            <span>{{content.0.writer.name}}</span>'s content
+            
+            <div class="filtered-content__content-box">
+                {% for content_detail in content %}
+                <div class="content">
+                  <a class="content-link" href="{% url 'content_detail' content_detail.id %}">
+                      <div class="content__expression"> 
+                          "{{ content_detail.title }}"
+                      </div> 
+                      <div class="content__title">
+                          {{ content_detail.expression }} 
+                      </div> 
+                      <ul class="content__tags"> 
+                          <li class="tag">{{ content_detail.relation_select }}</li>
+                          {% for tag in content_detail.tag.all %}
+                          <li class="tag">{{ tag }}</li>
+                          {% endfor %}
+                      </ul> 
+                      <div class="content__author"> 
+                          <div class="content__author__left"> 
+                              <img src="{{ content_detail.writer.user_image.url }}" class="content__author__left__image"> 
+                          </div> 
+                          <div class="content__author__right"> 
+                              <div class="content__author__right__name"> {{ content_detail.writer.name }} </div> 
+                              <div class="content__author__right__detail"> 
+                                  <span>{{ content_detail.writer.followee.count }}</span>
+                                  {% if content_detail.writer.followee.count > 1 %}
+                                  followers
+                                  {% else %}
+                                  follower
+                                  {% endif %}
+                                  <span class="skyblue">{{ content_detail.writer.user_gender }}</span> {{ content_detail.writer.user_age }} 
+                              </div> 
+                          </div> 
+                      </div>
+                    </a>
+                </div>
+                {% endfor %}
+              </div>
+
+
+
+
+        {% endfor %}
     </div>
 
 
