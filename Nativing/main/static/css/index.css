@@ -1,76 +1,77 @@
 .index {
-   width: 100%;
-   height: calc(100vh - 13.75em);
-   position: relative;
+  width: 100%;
+  height: calc(100vh - 13.75em);
+  position: relative;
 }
 
 .center {
-   display: flex;
-   flex-direction: row;
-   width: 100%;
-   height: 37.5em;
-  
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 37.5vh;
+
 }
 
 .center_left {
-   width: 28%;
-   float: left;
-   text-align:center;
-   display: inline; 
-   margin-top: 10%;
+  width: 28%;
+  float: left;
+  text-align: center;
+  display: inline;
+  margin-top: 10%;
 }
 
 .center_right {
-   width: 72%;
-   float: right;
+  width: 72%;
+  float: right;
   text-align: left;
   vertical-align: 20%;
   margin-top: 10%;
 }
 
 .index__image {
-     z-index:1;
-     width: 68.8%;
-     height: 80%;
-     border-radius: 3em 3em 0 0  ;
-     position: absolute;
-     bottom: 0;
-     right: 3.5em;
-     background-image: url("../img/indexbackground.png");
-     background-repeat: no-repeat;
-     background-position: center;
-     background-size: 100%;
+  z-index: 1;
+  width: 68.8%;
+  height: 80%;
+  border-radius: 3em 3em 0 0;
+  position: absolute;
+  bottom: 0;
+  right: 3.5em;
+  background-image: url("../img/indexbackground.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
-  
-.Lword{ 
-  position: relative;
-   font-size: 4em;
-   font-weight: bold;
-   font-family: 'Lato-Regular';
-   z-index:2;
-}   
 
-.Lword_more{
+.Lword {
   position: relative;
-   font-size: 2em;
-   font-weight: bold;
-   font-family: 'Lato-Regular';
-   text-align:center;
-   color:#F2711c;
-   z-index:2;
-}   
-
-.Rword{ 
-   position: relative;
-   font-size: 4em;
-   font-weight: bold;
-   font-family: 'Lato-Regular';
-   z-index: 2;
-   color : #FFFFFF;
+  font-size: 4vw;
+  font-weight: bold;
+  font-family: 'Lato-Regular';
+  z-index: 2;
 }
 
-div, section {
+.Lword_more {
+  position: relative;
+  font-size: 2vw;
+  font-weight: bold;
+  font-family: 'Lato-Regular';
+  text-align: center;
+  color: #F2711c;
+  z-index: 2;
+}
+
+.Rword {
+  position: relative;
+  font-size: 4vw;
+  font-weight: bold;
+  font-family: 'Lato-Regular';
+  z-index: 2;
+  color: #FFFFFF;
+}
+
+div,
+section {
   box-sizing: border-box;
 }
 
@@ -78,47 +79,54 @@ img {
   max-width: 100%;
   height: auto;
 }
+
 .global-width {
-  max-width : 670px;
-  margin : 0 auto;
-  padding : 0 1rem;
+  max-width: 670px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
-.scroll-graphic{
-  position : sticky;
-  top : 0;
-  height : 100vh;
+
+.scroll-graphic {
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
+
 .graphic-item {
-  display : flex;
-  align-items : center;
-  justify-content : center;
-  position : absolute;
-  left : 0;
-  top : 0;
-  width : 100%;
-  height : 100%;
-  opacity : 0;
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+
 }
-.visible{
-  opacity : 1;
+
+.visible {
+  opacity: 1;
 }
+
 .scene-img {
-  max-height : 100vh;
+  max-height: 100vh;
 }
+
 .scroll-text {
-  position : relative;
-  padding-bottom : 1px;
-  opacity : 0;
+  position: relative;
+  padding-bottom: 1px;
+  opacity: 0;
 }
+
 .step {
-  margin-bottom : 60vh;
-  padding : 0.5rem 1rem;
-  border-radius : 10px;
+  margin-bottom: 60vh;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
 }
 
 .arrow {
-  display: flex; 
+  display: flex;
   box-sizing: border-box;
   height: 2vw;
   width: 2vw;
@@ -127,10 +135,10 @@ img {
   border-width: 0px 1px 1px 0px;
   transform: rotate(45deg);
   transition: border-width 150ms ease-in-out;
-  margin-left:45%;
+  margin-left: 45%;
 }
- 
+
 .arrow:hover {
   border-bottom-width: 4px;
   border-right-width: 4px;
- }
+}
