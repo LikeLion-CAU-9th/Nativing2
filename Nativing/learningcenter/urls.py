@@ -4,4 +4,5 @@ from .views import *
 
 urlpatterns = [
     path('', learning_center, name = "learning"),
+    path('saved-contents/', saved_contents, name = "saved_contents"),
 ]

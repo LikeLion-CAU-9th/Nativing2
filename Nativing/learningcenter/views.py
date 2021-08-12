@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from content.models import SocialLikes, SocialSaves
+from django.shortcuts import get_object_or_404, render
 from content.models import ContentUpload
 from accounts.models import User, Follow
 
@@ -16,3 +17,9 @@ def learning_center(request):
         following_contents.append(content_temp)
     
     return render(request,'learning.html', {"contents" : following_contents})
+
+
+def saved_contents(request):
+    saved_contents = SocialSaves.objects.filter(save_user_id = request.user.id)
+    return render(request, 'saved_contents.html', {"contents" : saved_contents})
+

@@ -9,9 +9,9 @@
 {% block mainContent %}
 <div class = "learning">
     <div class="side-bar">
-        <span>Following</span> 
-        <span>Recently Viewed</span>
-        <span>Bookmarks</span>
+        <a href = "{% url 'learning' %}">Following</a> 
+        <a href = "#">Recently Viewed</a>
+        <a href = "{% url 'saved_contents' %}">Bookmarks</a>
     </div>
     
     <div class = "main-section">
