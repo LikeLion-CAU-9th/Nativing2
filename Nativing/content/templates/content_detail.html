@@ -101,7 +101,8 @@
             </div>
             <div class="detail__contents__description">
                 <div class="detail__contents__description__head">
-                    <span>Key expression</span>
+                    <span id = "detail__keyexpression">Key expression</span>
+                    <span id = "detail__comments" value = "{{ detail.id }}">Comments {{ comments_count }}</span> 
                     <button id = likes-button value="{{ detail.id }}"  
                     {% if user.is_authenticated is False %}
                     onclick= "signinAlert()"
@@ -123,6 +124,21 @@
                     {{ detail.expression }}
                     <span style="font-weight: bold;">is {{detail.expression_descript_select}} of</span>
                     {{ detail.expression_descript }}
+                </div>
+                <div class = "comment__section display-hide">
+                    {% for comment in comments %}
+                    <div class = "comment__self">
+                        <div class = "comment__writer">
+                            {{comment.comment_writer.name}}
+                        </div>
+                        <div class = "comment__body">
+                            {{comment.body}}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <form id = "comment-form">
+                        <input id = "comment-body" type="text" placeholder="댓글입력하셈ㄱ">
+                    </form>
                 </div>
             </div>
         </div>
@@ -165,5 +181,6 @@
 <script src="{% static 'js/save.js' %}"></script>
 <script src="{% static 'js/follow.js' %}"></script>
 <script src="{% static 'js/likes.js' %}"></script>
+<script src="{% static 'js/comments.js' %}"></script>
 
 {% endblock %}

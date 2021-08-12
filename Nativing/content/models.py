@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.utils import timezone
 from numpy import mod
+from numpy.core.numeric import ones
 from numpy.lib.arraysetops import unique
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, TaggedItemBase
@@ -77,3 +78,14 @@ class ViewHistory(models.Model):
     view_user = models.ForeignKey(User, verbose_name="조회한 사람", related_name="view_user", on_delete=models.CASCADE)
     view_content = models.ForeignKey(ContentUpload,verbose_name="조회한 글", related_name="view_content", on_delete=models.CASCADE)
     view_time = models.DateTimeField()
+
+
+class Comment(models.Model):
+    comment_writer = models.ForeignKey(User, verbose_name= "댓글 작성자", related_name="comment_writer", on_delete=models.CASCADE)
+    comment_content = models.ForeignKey(ContentUpload, verbose_name="댓글 원 글", related_name="comment_content", on_delete=models.CASCADE)
+    body = models.TextField()
+    pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.body[:20]
+    

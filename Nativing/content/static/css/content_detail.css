@@ -150,3 +150,7 @@
     background-color: black;
     color : white;
 }
+
+.display-hide {
+    display: none;
+}
