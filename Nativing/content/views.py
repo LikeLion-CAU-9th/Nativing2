@@ -1,4 +1,5 @@
 from datetime import date, datetime
+from functools import cmp_to_key
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
 from accounts.models import Follow
@@ -8,6 +9,7 @@ from django.http import JsonResponse
 
 import numpy as np
 import pandas as pd
+import json
 
 def CreateContentUploadView(request):
     if not request.user.is_authenticated:
@@ -151,3 +153,14 @@ def content_detail(request, content_id):
     return render(request, 'content_detail.html', context)
 
 
+def detail_comment(request):
+    if request.method == "POST":
+        comment_data = json.loads(request.body.decode('utf-8'))
+        content_id = comment_data['content_id']
+        comment_body = comment_data['comment_body']
+
+        # save comment
+        comment_create = Comment(comment_writer = request.user, comment_content_id = content_id, body = comment_body)
+        comment_create.save()
+
+    return JsonResponse({"a": "b"}, safe=False)

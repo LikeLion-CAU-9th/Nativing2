@@ -101,8 +101,8 @@
             </div>
             <div class="detail__contents__description">
                 <div class="detail__contents__description__head">
-                    <span id = "detail__keyexpression">Key expression</span>
-                    <span id = "detail__comments" value = "{{ detail.id }}">Comments {{ comments_count }}</span> 
+                    <div id = "detail__keyexpression">Key expression</div>
+                    <button id = "detail__comments" value = "{{ detail.id }}">Comments {{ comments_count }}</button> 
                     <button id = likes-button value="{{ detail.id }}"  
                     {% if user.is_authenticated is False %}
                     onclick= "signinAlert()"
@@ -137,7 +137,13 @@
                     </div>
                     {% endfor %}
                     <form id = "comment-form">
-                        <input id = "comment-body" type="text" placeholder="댓글입력하셈ㄱ">
+                        <input id = "comment-body" type="text" 
+                        {% if user.is_authenticated %}
+                        placeholder="댓글입력하셈ㄱ"
+                        {% else %}
+                        placeholder = "로그인하셈" disabled
+                        {% endif %}
+                        >
                     </form>
                 </div>
             </div>
