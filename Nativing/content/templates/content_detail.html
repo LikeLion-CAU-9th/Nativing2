@@ -126,16 +126,18 @@
                     {{ detail.expression_descript }}
                 </div>
                 <div class = "comment__section display-hide">
-                    {% for comment in comments %}
-                    <div class = "comment__self">
-                        <div class = "comment__writer">
-                            {{comment.comment_writer.name}}
+                    <div id = "comment_iters">
+                        {% for comment in comments %}
+                        <div class = "comment__self">
+                            <div class = "comment__writer">
+                                {{comment.comment_writer.name}}
+                            </div>
+                            <div class = "comment__body">
+                                {{comment.body}}
+                            </div>
                         </div>
-                        <div class = "comment__body">
-                            {{comment.body}}
-                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                     <form id = "comment-form">
                         <input id = "comment-body" type="text" 
                         {% if user.is_authenticated %}

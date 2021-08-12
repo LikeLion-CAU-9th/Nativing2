@@ -163,4 +163,10 @@ def detail_comment(request):
         comment_create = Comment(comment_writer = request.user, comment_content_id = content_id, body = comment_body)
         comment_create.save()
 
-    return JsonResponse({"a": "b"}, safe=False)
+        new_comment = {
+            "comment_writer" : request.user.name,
+            "comment_body" : comment_body,
+            "comment_time" : datetime.now()
+        }
+
+    return JsonResponse(new_comment, safe=False)

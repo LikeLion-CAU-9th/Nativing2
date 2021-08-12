@@ -37,11 +37,33 @@ function submitHandler(event) {
             'X-CSRFToken': csrftoken
         },
     })
-    .then((res) => console.log(res))
+    .then((res) => res.json())
+    .then((res) => {
+        console.log(res);
+        console.log(res.comment_writer);
+        printComments(res);
+    })
     .catch((err) => console.log(err));
 
     submitBody.value = "";
 }
+
+
+function printComments(comments){
+    let comment_iters = document.getElementById("comment_iters");
+    let comment_self = document.createElement('div')
+    comment_self.classList.add("comment__self");
+    comment_self.innerHTML = `
+    <div class = "comment__writer">
+        ${comments.comment_writer}
+    </div>
+    <div class = "comment__body">
+        ${comments.comment_body}
+    </div>
+    `
+    comment_iters.append(comment_self);
+}
+
 
 function getCookie(name) {
     var cookieValue = null;
