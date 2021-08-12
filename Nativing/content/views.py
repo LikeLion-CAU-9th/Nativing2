@@ -1,7 +1,8 @@
+from datetime import date, datetime
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
 from accounts.models import Follow
-from . models import ContentUpload, RELATION_CHOICES, SocialLikes, SocialSaves, Tag, TaggedContent
+from . models import ContentUpload, RELATION_CHOICES, SocialLikes, SocialSaves, Tag, TaggedContent, ViewHistory
 from .forms import ContentUploadForm
 from django.http import JsonResponse
 
@@ -124,6 +125,13 @@ def content_detail(request, content_id):
     save_bool = SocialSaves.objects.filter(save_user_id = request.user.id, save_content_id = content_id).exists()
     like_bool = SocialLikes.objects.filter(like_user_id = request.user.id, like_content_id = content_id).exists()
 
+    if request.user.is_authenticated:
+        view_model = ViewHistory.objects.filter(view_user_id = request.user.id, view_content_id = content_id)
+        if view_model.exists():
+            view_model.update(view_time = datetime.now())
+        else: 
+            create_view = ViewHistory(view_user = request.user, view_content = content_detail, view_time = datetime.now())
+            create_view.save()
     
     context = {
         "detail" : content_detail,

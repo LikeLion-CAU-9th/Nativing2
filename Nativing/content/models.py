@@ -72,3 +72,8 @@ class SocialLikes(models.Model):
 
     class Meta:
         unique_together = [['like_user', 'like_content']]
+
+class ViewHistory(models.Model):
+    view_user = models.ForeignKey(User, verbose_name="조회한 사람", related_name="view_user", on_delete=models.CASCADE)
+    view_content = models.ForeignKey(ContentUpload,verbose_name="조회한 글", related_name="view_content", on_delete=models.CASCADE)
+    view_time = models.DateTimeField()
