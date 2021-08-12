@@ -102,7 +102,7 @@
             <div class="detail__contents__description">
                 <div class="detail__contents__description__head">
                     <div id = "detail__keyexpression">Key expression</div>
-                    <button id = "detail__comments" value = "{{ detail.id }}">Comments {{ comments_count }}</button> 
+                    <button id = "detail__comments" value = "{{ detail.id }}">Comments <span id = "comments_count">{{ comments_count }}</span></button> 
                     <button id = likes-button value="{{ detail.id }}"  
                     {% if user.is_authenticated is False %}
                     onclick= "signinAlert()"

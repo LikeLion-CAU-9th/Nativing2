@@ -4,6 +4,7 @@ const keyExpressionBody = document.getElementsByClassName("detail__contents__des
 const commentSection = document.getElementsByClassName("comment__section")[0];
 const submitForm = document.getElementById("comment-form");
 const submitBody = document.getElementById("comment-body");
+const commentCnt = document.getElementById("comments_count");
 
 const HIDE_CLASS = "display-hide"
 
@@ -42,6 +43,7 @@ function submitHandler(event) {
         console.log(res);
         console.log(res.comment_writer);
         printComments(res);
+        commentCnt.innerHTML = Number(commentCnt.innerHTML) + 1;
     })
     .catch((err) => console.log(err));
 
