@@ -7,7 +7,7 @@ const loadMoreBtn = document.getElementById("load-more-content");
 var loadCount = 1;
 
 // loadmore 할때 몇개 씩 보여줄지
-const LOADMORE_NUM = 4;
+const LOADMORE_NUM = 12;
 
 try {
     let keyword = document.getElementById("just-for-keyword").innerText;
@@ -172,6 +172,7 @@ function printContent(value, count) {
                 <div class="content__author__right"> 
                     <div class="content__author__right__name"> ${value[i].user_name} </div> 
                     <div class="content__author__right__detail"> 
+                        <span>${value[i].followers}</span> ${followerText}
                     </div> 
                 </div> 
             </div>
