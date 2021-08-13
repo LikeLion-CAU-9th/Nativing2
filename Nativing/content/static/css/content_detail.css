@@ -102,26 +102,119 @@
 
 .detail__contents__description__head {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+}
+
+.detail__contents__description__head > button{
+    height: 3em;
     font-size: 0.9em;
     font-family: 'Quicksand';
     font-weight: bold;
+    border-bottom: 2px solid black;
+    box-sizing: border-box;
 }
 
-.detail__contents__description__head img {
+#comments_count {
+    display: inline-block;
+    color: white;
+    background-color: var(--nativing-orange);
+    font-size: 0.9em;
+    width: 1.2em;
+    height: 1.2em;
+    line-height: 1.2em;
+    border-radius: 50%;
+    position: relative;
+    top: -0.5em;
+    left: -0.3em;
+}
+
+.detail__contents__description__head__like {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#likes-button {
+    display: flex;
+    align-items: center;
+}
+
+.detail__contents__description__head__like img {
+    width: 1.8em;
+    height: 1.8em;
+}
+
+.detail__contents__description__head__like span {
+    display: inline-block;
     width: 2em;
-    height: 2em;
-    padding: 0 1em;
+    padding-bottom: 0.2em;
+    font-family: 'Quicksand';
+    font-weight: bold;
+    line-height: 3em;
 }
 
 .detail__contents__description__body {
     height: 5em;
     border-radius: 1em;
     background-color: #FAFAFA;
-    margin-top: 1em;
     padding: 1em;
     font-size: 0.9em;
     font-family: 'NanumSquareRoundB';
+}
+
+#comment_iters {
+    margin-bottom: 1rem;
+}
+
+.comment__self {
+    display: flex;
+    height: 4em;
+    padding: 0.5em 0;
+}
+
+.comment__self__image {
+    width: 4em;
+    display: flex;
+    align-items: center;
+}
+
+.comment__body {
+    flex: 1;
+    border-radius: 1em;
+    border: 1px solid #EAEAEA;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 1.25em;
+    font-size: 0.9em;
+    font-family: 'NanumSquareRoundR';
+    font-weight: bold;
+}
+
+.comment__body__writer {
+    flex: 1
+}
+
+.comment__body__text {
+    flex: 1;
+    color: #808080;
+}
+
+.comment__self input {
+    outline: none;
+}
+
+.comment__self input:focus {
+    box-shadow: 0 0 0 1.5px black;
+}
+
+#comment-form button {
+    width: 5.6em;
+    height: 2.2em;
+    border-radius: 1em;
+    font-size: 0.9em;
+    font-family: 'Quicksand';
+    font-weight: bold;
 }
 
 .recommended {
@@ -140,17 +233,28 @@
 
 .tag--bigger {
     font-size: 1em !important;
+    padding: 0.1em 0.5em !important;
 }
 .saved {
-    background-color: black;
+    background-color: #707070;
     color: white;
 }
 
 .following {
-    background-color: black;
+    background-color: #707070;
     color : white;
 }
 
 .display-hide {
     display: none;
+}
+
+.gray {
+    color: #808080;
+    border-bottom: 2px solid transparent !important;
+}
+
+.disabled {
+    background-color: #707070 !important;
+    color: white !important;
 }

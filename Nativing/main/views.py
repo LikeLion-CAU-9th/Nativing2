@@ -12,5 +12,4 @@ def main(request):
         'content_list': content_list_timeorder,
         'content_list_random': content_list_random
     }
-    print(content_list[0].writer.followee.count())
     return render(request, 'main.html', context)

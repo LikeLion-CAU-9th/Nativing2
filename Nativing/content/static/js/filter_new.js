@@ -163,8 +163,7 @@ function printContent(value, count) {
                 ${value[i].expression} 
             </div> 
             <ul class="content__tags"> 
-                <li class="tag">${value[i].relation_select}</li> 
-                <li class="tag">${value[i].tag}</li>
+                <li class="tag tag--relation">${value[i].relation_select}</li>
             </ul> 
             <div class="content__author"> 
                 <div class="content__author__left"> 
@@ -173,13 +172,31 @@ function printContent(value, count) {
                 <div class="content__author__right"> 
                     <div class="content__author__right__name"> ${value[i].user_name} </div> 
                     <div class="content__author__right__detail"> 
-                        <span>${value[i].followers}</span> ${followerText}
-                        <span class="skyblue">${value[i].user_gender}</span> ${value[i].user_age} 
                     </div> 
                 </div> 
             </div>
         </div>
-        `     
+        `
+        const tagList = contentBox.querySelector('ul')
+        value[i].tag.forEach(tagName => {
+            const tag = document.createElement('li');
+            tag.classList.add('tag');
+            tag.innerHTML = tagName
+            tagList.appendChild(tag);
+        });
+        const authorDetail = contentBox.querySelector('.content__author__right__detail')
+        genderSpan = document.createElement('span');
+        if (value[i].user_gender === "male") {
+            genderSpan.classList.add('skyblue')
+            genderSpan.innerHTML = "male "   
+        } else {
+            genderSpan.classList.add('pink')
+            genderSpan.innerHTML = "female "   
+        }
+        ageSpan = document.createElement('span');
+        ageSpan.innerHTML = String(value[i].user_age)
+        authorDetail.appendChild(genderSpan);
+        authorDetail.appendChild(ageSpan);
         mainSection.appendChild(contentBox);
     }
 }

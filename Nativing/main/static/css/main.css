@@ -58,9 +58,5 @@
 }
 
 .content:hover {
-    /* transform: scale(1.1); */
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0em 0em 2rem 0.5rem var(--shadow);;
+    box-shadow: 0em 0em 1.5rem 0.5rem var(--shadow);;
 }

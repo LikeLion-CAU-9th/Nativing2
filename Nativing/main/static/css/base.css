@@ -25,6 +25,7 @@
     width: 25em;
     height: 2.5em;
     background-color: #FAFAFA;
+    border-radius: 1em;
     display: flex;
     align-items: center;
 }
