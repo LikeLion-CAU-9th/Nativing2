@@ -146,7 +146,13 @@ function printContent(value, count) {
 
     for (var i = 0; i < biggerInt; i ++){
         const contentBox = document.createElement('a');
+        let followerText = "follower"
+        if (value[i].followers > 1) {
+            followerText = "followers"
+        }
+        
         contentBox.href = `../explore/${value[i].id}`;
+
         contentBox.className = "content-link"
         contentBox.innerHTML = `
         <div class="content">
@@ -167,9 +173,7 @@ function printContent(value, count) {
                 <div class="content__author__right"> 
                     <div class="content__author__right__name"> ${value[i].user_name} </div> 
                     <div class="content__author__right__detail"> 
-                        <span>${value[i].followers}</span> 
-                        {% if ${value[i]} 
-                        followers
+                        <span>${value[i].followers}</span> ${followerText}
                         <span class="skyblue">${value[i].user_gender}</span> ${value[i].user_age} 
                     </div> 
                 </div> 
