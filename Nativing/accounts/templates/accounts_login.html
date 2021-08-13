@@ -18,11 +18,15 @@
             <div class="form-box__label">
                 Email
             </div>
-            <input name="{{ form.email.name }}" class="form-box__input">
+            <input name="{{ form.email.name }}" class="form-box__input" required>
+
             <div class="form-box__label">
                 Password
             </div>
-            <input name="{{ form.password.name }}" type="password" class="form-box__input">
+            <input name="{{ form.password.name }}" type="password" class="form-box__input" required>
+            <ul class="errorlist">
+                <li>{{ error }}</li>
+            </ul>
             <!-- <div class="form-box__remember-me">
                 <input type="checkbox"> 
                 <span>Remeber me</span>

@@ -17,6 +17,7 @@
                 Email
             </div>
             <input name="{{ form.email.name }}" class="form-box__input" required>
+            {{ error.email }}
             <div class="form-box__label">
                 Username
             </div>
@@ -25,14 +26,17 @@
                 Password
             </div>
             <input name="password1" type="password" class="form-box__input" required>
+            {{ error.password1 }}
             <div class="form-box__label">
                 Password Check
             </div>
             <input name="password2" type="password" class="form-box__input" required>
+            {{ error.password2 }}
             <div class="form-box__label">
                 Date of Birth
             </div>
             <input type="date" name="{{ form.date_of_birth.name }}" class="form-box__input" id="dateinput" max="2013-12-25" required>
+            {{ error.date_of_birth }}
             <div class="form-box__label">
                 Gender
             </div>
@@ -42,10 +46,12 @@
                 <input type="radio" id="female" name="{{ form.user_gender.name }}" value="female">
                 <label class="form-box__gender-button" for="female" id="female_button">Female</label>
             </div>
+            {{ error.gender }}
             <div class="form-box__label">
                 Profile Picture (optional)
             </div>
             <input name="user_image" type="file" class="form-box__input file-input">            
+            {{ error.user_image }}
             <button type="submit" class="form-box__subimt-button">Sign Up</button>
             <div class="form-box__social-login-box">
                 <!-- <div class="form-box__social-login-box__top">

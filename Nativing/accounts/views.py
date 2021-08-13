@@ -31,8 +31,10 @@ def accounts_signup(request):
             return redirect("main")
             #TODO 추후 회원가입 후 개인 프로필로 redirect 되도록 설정 필요
         else:
+            print(form.errors)
             ctx = {
                 "form": form,
+                "error": form.errors
             }
             return render(request, "accounts_signup.html", ctx)
 
@@ -58,7 +60,7 @@ def accounts_login(request):
         else:
             ctx = {
                 "form": form,
-                "error": "email or password is incorrect",
+                "error": "Email and password do not match",
             }
             return render(request, "accounts_login.html", ctx)
     elif request.method == "GET":

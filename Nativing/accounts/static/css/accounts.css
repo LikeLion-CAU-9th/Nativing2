@@ -29,6 +29,7 @@
     font-size: 1em;
     font-family: 'Quicksand';
     margin-bottom: 0.5em;
+    margin-top: 1em;
 }
 
 .form-box__input {
@@ -38,7 +39,6 @@
     border-radius: 1em;
     border: 1px solid #DEDEDF;
     padding: 1em;
-    margin-bottom: 1em;
     outline: none;
 }
 
@@ -159,4 +159,15 @@ hr {
 .form-box a {
     color: #2185D0;
     text-decoration: none;
+}
+
+.errorlist {
+    margin: 0;
+    padding: 0.3em 0;
+    list-style: none;
+}
+
+.errorlist li {
+    color: red;
+    font-family: 'Lato';
 }
