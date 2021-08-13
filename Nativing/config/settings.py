@@ -61,7 +61,7 @@ MIDDLEWARE = [
 ]
 
 #activate django-heroku
-django_heroku.settins(locals())
+django_heroku.settings(locals())
 
 ROOT_URLCONF = 'config.urls'
 
