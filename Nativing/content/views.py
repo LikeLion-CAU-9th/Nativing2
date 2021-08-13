@@ -2,7 +2,7 @@ from datetime import date, datetime
 from functools import cmp_to_key
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
-from accounts.models import Follow
+from accounts.models import Follow, User
 from . models import Comment, ContentUpload, RELATION_CHOICES, SocialLikes, SocialSaves, Tag, TaggedContent, ViewHistory
 from .forms import ContentUploadForm
 from django.http import JsonResponse
@@ -95,21 +95,26 @@ def explore_filter(request):
         }
         tag_values.append(temp_iter)
 
+    follower_dict = []
+    k = ContentUpload.objects.prefetch_related("writer")
+    for i in k:
+        aa = {"content_id" : i.id, "followers" : i.writer.followee.count()}
+        follower_dict.append(aa)
+
     contentDF = pd.DataFrame(content_all.values())
     userDF = pd.DataFrame(user_values)
     tagDF = pd.DataFrame(tag_values)
+    followerDF = pd.DataFrame(follower_dict)
     
-    mergedDF = pd.merge(contentDF, userDF, how="left", left_on ="id", right_on="content_id")
+    mergedDF = pd.merge(contentDF, followerDF, how="left", left_on="id", right_on="content_id")
+    mergedDF.drop(['content_id'], axis=1, inplace=True)
+    
+    mergedDF = pd.merge(mergedDF, userDF, how="left", left_on ="id", right_on="content_id")
     mergedDF.drop(["image", "agree", "content_id",], axis=1, inplace= True)
     
     mergedDF = pd.merge(mergedDF, tagDF, how = "left", left_on="id", right_on="content_id") 
     mergedDF.sort_values(by=['id'], inplace=True, ascending=False)
-
-    mergedDict = mergedDF.transpose().to_dict()
-    
-    a = writer_all
-    for i in a: 
-        print(i.writer.user_image.url)
+    mergedDict = mergedDF.transpose().to_dict() 
 
     return JsonResponse(list(mergedDict.values()), safe = False, json_dumps_params={'ensure_ascii': False})
 
