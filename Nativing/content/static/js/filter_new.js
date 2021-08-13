@@ -53,7 +53,7 @@ function fetchContent(isLoadMore = false) {
         .then((res) => res.json())
         .then((res) => {
             let filtered_content = res;
-
+            console.log(res[0]);
             let tempKeyword = localStorage.getItem("keyword");
             let tempRescan = localStorage.getItem("reScanList");
             const tempRelation = localStorage.getItem("relation");
@@ -167,6 +167,9 @@ function printContent(value, count) {
                 <div class="content__author__right"> 
                     <div class="content__author__right__name"> ${value[i].user_name} </div> 
                     <div class="content__author__right__detail"> 
+                        <span>${value[i].followers}</span> 
+                        {% if ${value[i]} 
+                        followers
                         <span class="skyblue">${value[i].user_gender}</span> ${value[i].user_age} 
                     </div> 
                 </div> 
