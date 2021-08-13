@@ -9,5 +9,5 @@ urlpatterns = [
      path('explore/', explore, name = "explore"),
      path('explore-filter/', explore_filter, name = "explore_filter"),
      path('explore/<int:content_id>', content_detail, name = "content_detail"),
-     path('detail-save/', content_save, name = "content_save"),
+     path('detail-comment', detail_comment, name = "detaio_comment"),
 ]

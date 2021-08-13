@@ -76,7 +76,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_age = models.PositiveIntegerField(blank=True, null=True, default= 20)
     is_login = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-    # follow = models.ManyToManyField("self", through="Follow")
 
     objects = CustomAccountManager()
 

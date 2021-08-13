@@ -17,11 +17,22 @@
         <div class="detail__contents">
             <div class="detail__contents__head">
                 <span>{{detail.title}}</span>
-                <button class="save-button button button--orange" id = "save-button" value="{{ detail.id }}" 
+                <button class="save-button button 
+                {% if is_saved %}
+                saved
+                {% else %}
+                button--orange
+                {% endif %}
+                " id = "save-button" value="{{ detail.id }}" 
                 {% if user.is_authenticated is False %}
                 onclick= "signinAlert()"
                 {% endif %}
-                >SAVE</button>
+                >
+                {% if is_saved %}
+                SAVED
+                {% else %}
+                SAVE
+                {% endif %}</button>
             </div>
             <span class="uploader-label">Uploader</span>
             <div class="detail__contents__uploader">
@@ -32,15 +43,33 @@
                     <div class="content__author__right"> 
                         <div class="content__author__right__name"> {{ detail.writer.name }} </div> 
                         <div class="content__author__right__detail">
-                            <span class="nativing-orange">3.4k</span> followers <span class="skyblue"> {{ detail.writer.user_gender }}</span> {{ detail.writer.user_age }}
+                            <span class="nativing-orange" id = "follower-count">{{ follower_num }}</span>
+                            <span id = "follower-text">
+                                {% if is_plural %}
+                                 followers 
+                                {% else %}
+                                 follower
+                                {% endif %}
+                            </span>
+                            <span class="skyblue"> {{ detail.writer.user_gender }}</span> {{ detail.writer.user_age }}
                         </div> 
                     </div> 
                 </div>
-                <button class="follow-button button" id = "follow-button" value = "{{ detail.writer.id }}"
+                <button class="follow-button button
+                {% if is_following %}
+                following
+                {% endif %}
+                " id = "follow-button" value = "{{ detail.writer.id }}"
                 {% if user.is_authenticated is False %}
                 onclick= "signinAlert()"
                 {% endif %}
-                >FOLLOW</button>
+                >
+                {% if is_following %}
+                FOLLOWING
+                {% else %}
+                FOLLOW
+                {% endif %}
+                </button>
             </div>
             <div class="detail__contents__category">
                 <div class="detail__contents__category__child">
@@ -72,13 +101,52 @@
             </div>
             <div class="detail__contents__description">
                 <div class="detail__contents__description__head">
-                    <span>Key expression</span>
-                    <img src="../../static/img/heart.png">
+                    <div id = "detail__keyexpression">Key expression</div>
+                    <button id = "detail__comments" value = "{{ detail.id }}">Comments <span id = "comments_count">{{ comments_count }}</span></button> 
+                    <button id = likes-button value="{{ detail.id }}"  
+                    {% if user.is_authenticated is False %}
+                    onclick= "signinAlert()"
+                    {% endif %}
+                    >
+                        <img id = "likes-img" 
+                        {% if is_liked %}
+                        src="../../static/img/redheart.png"
+                        {% else %}
+                        src="../../static/img/heart.png"
+                        {% endif %}
+                        >
+                    </button>
+                    <span id = "likes-count">
+                        {{ likes_count }}
+                    </span>
                 </div>
                 <div class="detail__contents__description__body">
                     {{ detail.expression }}
                     <span style="font-weight: bold;">is {{detail.expression_descript_select}} of</span>
                     {{ detail.expression_descript }}
+                </div>
+                <div class = "comment__section display-hide">
+                    <div id = "comment_iters">
+                        {% for comment in comments %}
+                        <div class = "comment__self">
+                            <div class = "comment__writer">
+                                {{comment.comment_writer.name}}
+                            </div>
+                            <div class = "comment__body">
+                                {{comment.body}}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <form id = "comment-form">
+                        <input id = "comment-body" type="text" 
+                        {% if user.is_authenticated %}
+                        placeholder="댓글입력하셈ㄱ"
+                        {% else %}
+                        placeholder = "로그인하셈" disabled
+                        {% endif %}
+                        >
+                    </form>
                 </div>
             </div>
         </div>
@@ -118,8 +186,9 @@
 </div>
 
 
-
 <script src="{% static 'js/save.js' %}"></script>
 <script src="{% static 'js/follow.js' %}"></script>
+<script src="{% static 'js/likes.js' %}"></script>
+<script src="{% static 'js/comments.js' %}"></script>
 
 {% endblock %}

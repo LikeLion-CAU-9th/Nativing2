@@ -1,8 +1,9 @@
+from datetime import date, datetime
+from functools import cmp_to_key
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import get_object_or_404, redirect, render
-from django.db.models import Q
-from accounts.models import User
-from . models import ContentLikes, ContentUpload, RELATION_CHOICES, Tag, TaggedContent
+from accounts.models import Follow
+from . models import Comment, ContentUpload, RELATION_CHOICES, SocialLikes, SocialSaves, Tag, TaggedContent, ViewHistory
 from .forms import ContentUploadForm
 from django.http import JsonResponse
 
@@ -118,32 +119,54 @@ def content_detail(request, content_id):
     content_detail = get_object_or_404(content_writer, pk = content_id)
     content_list = ContentUpload.objects
     content_list_random = content_list.order_by('?')[:4]
+    comment_list = Comment.objects.filter(comment_content_id = content_id)
+
+    follower_count = Follow.objects.filter(followee_id = content_detail.writer.id).count()
+    is_follower_plural = (follower_count > 1)
+    likes_count = SocialLikes.objects.filter(like_content_id = content_id).count()
+    comments_count = comment_list.count()
+
+    follow_bool = Follow.objects.filter(followee_id = content_detail.writer.id, follower_id = request.user.id).exists()
+    save_bool = SocialSaves.objects.filter(save_user_id = request.user.id, save_content_id = content_id).exists()
+    like_bool = SocialLikes.objects.filter(like_user_id = request.user.id, like_content_id = content_id).exists()
+
+    if request.user.is_authenticated:
+        view_model = ViewHistory.objects.filter(view_user_id = request.user.id, view_content_id = content_id)
+        if view_model.exists():
+            view_model.update(view_time = datetime.now())
+        else: 
+            create_view = ViewHistory(view_user = request.user, view_content = content_detail, view_time = datetime.now())
+            create_view.save()
+    
     context = {
         "detail" : content_detail,
-        'content_list_random': content_list_random
+        "comments" : comment_list,
+        "content_list_random": content_list_random,
+        "follower_num" : follower_count,
+        "likes_count" : likes_count,
+        "comments_count" : comments_count,
+        "is_following" : follow_bool,
+        "is_plural" : is_follower_plural,
+        "is_saved" : save_bool,
+        "is_liked" : like_bool,
     }
     return render(request, 'content_detail.html', context)
 
 
-def content_save(request):
-    if request.method == 'POST':
-        post_data = json.loads(request.body.decode("utf-8"))
-        content_id = post_data['content_id']
-        content = get_object_or_404(ContentUpload, pk = content_id)
-        print(content)
+def detail_comment(request):
+    if request.method == "POST":
+        comment_data = json.loads(request.body.decode('utf-8'))
+        content_id = comment_data['content_id']
+        comment_body = comment_data['comment_body']
 
-        if content.likes.filter(id = request.user.id).exists():
-            content.likes.remove(request.user)
-            content.save()
-        else: 
-            content_save = ContentLikes(like_user = request.user, like_content = content)
-            content_save.save() 
+        # save comment
+        comment_create = Comment(comment_writer = request.user, comment_content_id = content_id, body = comment_body)
+        comment_create.save()
 
-        content_user_both = ContentLikes.objects.filter(like_content_id = content_id, like_user_id = request.user.id).values()
-        content_saved = ContentLikes.objects.filter(like_content_id = content_id).values()
-        is_saved = (len(content_user_both) == 1)
-        save_count = len(content_saved)
-        
-        result = { "is_saved" : is_saved, "save_count" : save_count}
+        new_comment = {
+            "comment_writer" : request.user.name,
+            "comment_body" : comment_body,
+            "comment_time" : datetime.now()
+        }
 
-    return JsonResponse(result, safe=False)
+    return JsonResponse(new_comment, safe=False)

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+<link rel ="stylesheet" href = "{% static 'css/learning.css' %}">
+{% endblock %}
+
+
+{% block mainContent %}
+<div class = "learning">
+    <div class="side-bar">
+        <a href = "{% url 'learning' %}">Following</a> 
+        <a href = "#">Recently Viewed</a>
+        <a href = "{% url 'saved_contents' %}">Bookmarks</a>
+    </div>
+    
+    <div class = "main-section">
+        <div class="filtered-content__content-box">
+            {% for content in contents %}
+            <div class="content">
+              <a class="content-link" href="{% url 'content_detail' content.save_content.id %}">
+                  <div class="content__expression"> 
+                      "{{ content.save_content.title }}"
+                  </div> 
+                  <div class="content__title">
+                      {{ content.save_content.expression }} 
+                  </div> 
+                  <ul class="content__tags"> 
+                      <li class="tag">{{ content.save_content.relation_select }}</li>
+                      {% for tag in content.save_content.tag.all %}
+                      <li class="tag">{{ tag }}</li>
+                      {% endfor %}
+                  </ul> 
+                  <div class="content__author"> 
+                      <div class="content__author__left"> 
+                          <img src="{{ content.save_content.writer.user_image.url }}" class="content__author__left__image"> 
+                      </div> 
+                      <div class="content__author__right"> 
+                          <div class="content__author__right__name"> {{ content.save_content.writer.name }} </div> 
+                          <div class="content__author__right__detail"> 
+                              <span>{{ content.save_content.writer.followee.count }}</span>
+                              {% if content.save_content.writer.followee.count > 1 %}
+                              followers
+                              {% else %}
+                              follower
+                              {% endif %}
+                              <span class="skyblue">{{ content.save_content.writer.user_gender }}</span> {{ content_detail.save_content.writer.user_age }} 
+                          </div> 
+                      </div> 
+                  </div>
+                </a>
+            </div>
+            {% endfor %}
+          </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
