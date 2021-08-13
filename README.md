@@ -1,22 +1,17 @@
 # Nativing
 
-
 Hello, we are a web service made for people who want to learn Korean!
-
 <br/>
 
 ## About The Project
 
 It's been distributed, so please watch it a lot. [HERE](https://nativing10.herokuapp.com/)
 
-1. 프로젝트 대표 기능 1을 적어주세요(ex. You can upload screen-captured image of Kakao message. )
-   대표 기능 1의 자세한 설명~~~~
+1. 
 
-2. 프로젝트 대표 기능 2를 적어주세요
-   대표 기능 2의 자세한 설명~~~~
+2. 
 
-3. 프로젝트 대표 기능 3를 적어주세요
-   대표 기능 3의 자세한 설명~~~~
+3. 
 
 4. How to use this project
 
