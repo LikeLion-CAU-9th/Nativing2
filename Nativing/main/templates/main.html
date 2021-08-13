@@ -13,40 +13,43 @@
     <span style="text-align: center;"><span class="nativing-orange">Featured</span> content</span>
     <div class="screen">
     <div class="featured-content__content-box">
-      {% for content in content_list_random %}
-      <div class="content content--big">
-        <a class="content-link" href="{% url 'content_detail' content.id %}">
-            <div class="content__expression"> 
-              "{{ content.expression }}"
-            </div> 
-            <div class="content__title">
-              {{ content.title }} 
-            </div> 
-            <ul class="content__tags"> 
-                <li class="tag">{{ content.relation_select }}</li>
-                {% for tag in content.tag.all %}
-                <li class="tag">{{ tag }}</li>
-                {% endfor %}
-            </ul> 
-            <div class="content__author"> 
-                <div class="content__author__left"> 
-                    <img src="{{ content.writer.user_image.url }}" class="content__author__left__image"> 
-                </div> 
-                <div class="content__author__right"> 
-                    <div class="content__author__right__name"> {{ content.writer.name }} </div> 
-                    <div class="content__author__right__detail"> 
-                        <span>{{ content.writer.followee.count }}</span>
-                        {% if content.writer.followee.count > 1 %}
-                        followers
-                        {% else %}
-                        follower
-                        {% endif %}
-                        <span class="skyblue">{{ content.writer.user_gender }}</span> {{ content.writer.user_age }} 
-                    </div> 
-                </div> 
-            </div>
-          </a>
-      </div>
+      {% for content_detail in content_list_random %}
+        <div class="content content--big">
+            <a class="content-link" href="{% url 'content_detail' content_detail.id %}">
+                <div class="content__expression">
+                    "{{ content_detail.expression }}"
+                </div>
+                <div class="content__title">                                
+                    {{ content_detail.title }}
+                </div>
+                <ul class="content__tags">
+                    <li class="tag tag--relation">{{ content_detail.relation_select }}</li>
+                    {% for tag in content_detail.tag.all %}
+                    <li class="tag">{{ tag }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="content__author">
+                    <div class="content__author__left">
+                        <img src="{{ content_detail.writer.user_image.url }}"
+                            class="content__author__left__image">
+                    </div>
+                    <div class="content__author__right">
+                        <div class="content__author__right__name"> {{ content_detail.writer.name }} </div>
+                        <div class="content__author__right__detail">
+                            <span class="nativing-orange">{{ content_detail.writer.followee.count }}</span>
+                            {% if content_detail.writer.followee.count > 1 %}
+                            followers
+                            {% else %}
+                            follower
+                            {% endif %}
+                            <span
+                                class="{% if content_detail.writer.user_gender == 'male' %}skyblue{% endif %} {% if content_detail.writer.user_gender == 'female' %}pink{% endif %}">
+                                {{ content_detail.writer.user_gender }}</span> {{ content_detail.writer.user_age }}
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
       {% endfor %}
     </div>
     </div>
@@ -57,40 +60,43 @@
     <div class="filtered-content">
         <span class="nativing-orange">Newest</span> Content
         <div class="filtered-content__content-box">
-          {% for content in content_list %}
-          <div class="content">
-            <a class="content-link" href="{% url 'content_detail' content.id %}">
-                <div class="content__expression"> 
-                    "{{ content.title }}"
-                </div> 
-                <div class="content__title">
-                    {{ content.expression }} 
-                </div> 
-                <ul class="content__tags"> 
-                    <li class="tag">{{ content.relation_select }}</li>
-                    {% for tag in content.tag.all %}
-                    <li class="tag">{{ tag }}</li>
-                    {% endfor %}
-                </ul> 
-                <div class="content__author"> 
-                    <div class="content__author__left"> 
-                        <img src="{{ content.writer.user_image.url }}" class="content__author__left__image"> 
-                    </div> 
-                    <div class="content__author__right"> 
-                        <div class="content__author__right__name"> {{ content.writer.name }} </div> 
-                        <div class="content__author__right__detail"> 
-                            <span>{{ content.writer.followee.count }}</span>
-                            {% if content.writer.followee.count > 1 %}
-                            followers
-                            {% else %}
-                            follower
-                            {% endif %}
-                            <span class="skyblue">{{ content.writer.user_gender }}</span> {{ content.writer.user_age }} 
-                        </div> 
-                    </div> 
-                </div>
-              </a>
-          </div>
+          {% for content_detail in content_list %}
+            <div class="content">
+                <a class="content-link" href="{% url 'content_detail' content_detail.id %}">
+                    <div class="content__expression">
+                        "{{ content_detail.expression }}"
+                    </div>
+                    <div class="content__title">                                
+                        {{ content_detail.title }}
+                    </div>
+                    <ul class="content__tags">
+                        <li class="tag tag--relation">{{ content_detail.relation_select }}</li>
+                        {% for tag in content_detail.tag.all %}
+                        <li class="tag">{{ tag }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="content__author">
+                        <div class="content__author__left">
+                            <img src="{{ content_detail.writer.user_image.url }}"
+                                class="content__author__left__image">
+                        </div>
+                        <div class="content__author__right">
+                            <div class="content__author__right__name"> {{ content_detail.writer.name }} </div>
+                            <div class="content__author__right__detail">
+                                <span class="nativing-orange">{{ content_detail.writer.followee.count }}</span>
+                                {% if content_detail.writer.followee.count > 1 %}
+                                followers
+                                {% else %}
+                                follower
+                                {% endif %}
+                                <span
+                                    class="{% if content_detail.writer.user_gender == 'male' %}skyblue{% endif %} {% if content_detail.writer.user_gender == 'female' %}pink{% endif %}">
+                                    {{ content_detail.writer.user_gender }}</span> {{ content_detail.writer.user_age }}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
           {% endfor %}
         </div>
     </div>

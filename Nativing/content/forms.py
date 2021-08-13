@@ -3,6 +3,12 @@ from django.forms import ModelForm, TextInput, Select, FileInput, RadioSelect
 from . models import ContentUpload 
 
 class ContentUploadForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ContentUploadForm, self).__init__(*args, **kwargs)
+        self.fields['agree'].required = True
+        self.fields['image'].required = True
+
     class Meta:
         model = ContentUpload
         fields = ['title','expression', 'expression_descript', 'image', 'tag', 'expression_descript_select', 'relation_select','agree']

@@ -15,9 +15,8 @@
 .center_left {
   width: 28%;
   float: left;
-  text-align: center;
   display: inline;
-  margin-top: 10%;
+  margin-top: 12rem;
 }
 
 .center_right {
@@ -25,17 +24,17 @@
   float: right;
   text-align: left;
   vertical-align: 20%;
-  margin-top: 10%;
+  position: relative;
 }
 
 .index__image {
-  z-index: 1;
-  width: 68.8%;
-  height: 80%;
+  width: 96%;
+  height: 80vh;
   border-radius: 3em 3em 0 0;
   position: absolute;
-  bottom: 0;
-  right: 3.5em;
+  z-index: 2;
+  top: calc(20vh - 7.5rem);
+  left: 0rem;
   background-image: url("../img/indexbackground.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -56,13 +55,14 @@
   font-size: 2vw;
   font-weight: bold;
   font-family: 'Lato-Regular';
-  text-align: center;
   color: #F2711c;
   z-index: 2;
 }
 
 .Rword {
   position: relative;
+  top: 12rem;
+  left: 0.5rem;
   font-size: 4vw;
   font-weight: bold;
   font-family: 'Lato-Regular';
@@ -70,12 +70,35 @@
   color: #FFFFFF;
 }
 
+.explore {
+  display: flex;
+  flex-direction: column;
+  padding-left: 4em;
+  padding-top: 20vh;
+}
+
+.get-started {
+  display: block;
+  font-size: 1.5rem;
+  width: 14.3vw;
+  height: 2.8em;
+  line-height: 2.8em;
+  text-align: center;
+  border-radius: 1em;
+  background-color: var(--nativing-orange);
+  text-decoration: none;
+  color: white;
+  font-family:'Quicksand';
+  font-weight: bold;
+  z-index: 10;
+}
+
 div,
 section {
   box-sizing: border-box;
 }
 
-img {
+section img, a img {
   max-width: 100%;
   height: auto;
 }
@@ -135,7 +158,7 @@ img {
   border-width: 0px 1px 1px 0px;
   transform: rotate(45deg);
   transition: border-width 150ms ease-in-out;
-  margin-left: 45%;
+  margin-left: 25%;
 }
 
 .arrow:hover {

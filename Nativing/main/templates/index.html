@@ -9,19 +9,22 @@
 {% block mainContent %}
 <div class="center">
     <div class="center_left">
-        <div style="text-align: right;">
-        <a class="Lword">How to text </a>&nbsp; <br>
-        <a class="Lword"> like a</a>&nbsp; &nbsp;<br><br><br><br><br>
+        <div style="text-align: right; padding-right: 1em;">
+        <a class="Lword">How to text</a><br>
+        <a class="Lword"> like a</a><br><br><br><br><br>
     </div>
+        <div class="explore">
+        <a class="get-started" href="{% url 'main' %}">Get Started</a>
         <a class="Lword_more">More about us</a>
-        <a data-scroll href="#animation">
+        <a class="scroll" data-scroll href="#animation">
             <div class="arrow"></div>
           </a>
+        </div>
     </div>
     <div class ="center_right">
         <div class="index__image"></div>
         <a class="Rword">message</a> <br>
-        <a class="Rword">native Korean</a>       
+        <a class="Rword">native Korean</a>               
     </div>
 </div>
 

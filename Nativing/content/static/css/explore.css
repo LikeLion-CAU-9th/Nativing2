@@ -13,6 +13,7 @@
     margin: 3rem 0;
     font-size: 1.5625rem;
     font-family: 'Quicksand';
+    font-weight: bold;
 }
 
 .menu__search {
@@ -111,6 +112,13 @@
     color: var(--nativing-orange)
 }
 
+#viewtags-btn {
+    text-align: left;
+    padding: 0.2em 0;
+    font-family: 'Quicksand';
+    font-size: 0.9em;
+}
+
 .content-list {
     flex: 1;
 }
@@ -159,7 +167,13 @@
 }
 
 #load-more-content {
-    margin: 1rem;
+    margin: 3rem;
+    font-size: 1.2em;
+    /* color: #5e89ff; */
+    background-color: transparent;
+    border: 1px solid #c2c2c2;
+    color: #a0a0a0;
+    width: 90%;
 }
 
 .pagination {
