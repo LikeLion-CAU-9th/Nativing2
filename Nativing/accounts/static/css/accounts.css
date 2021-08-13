@@ -29,6 +29,7 @@
     font-size: 1em;
     font-family: 'Quicksand';
     margin-bottom: 0.5em;
+    margin-top: 1em;
 }
 
 .form-box__input {
@@ -38,8 +39,11 @@
     border-radius: 1em;
     border: 1px solid #DEDEDF;
     padding: 1em;
-    margin-bottom: 1em;
     outline: none;
+}
+
+.file-input {
+    padding: 0.6em 1em;
 }
 
 .form-box__input:focus {
@@ -57,26 +61,49 @@
     align-items: center;
 }
 
+.form-box__gender-input {
+    height: 3.5em;
+}
+
 .form-box__gender-button {
+    background-color: white;
     font-size: 1em;
     font-family: 'Quicksand';
     border: 1px solid #DEDEDF;
     border-radius: 0.5em;
     padding: 0.6em 1em;
     margin-right: 0.8em;
+    position: relative;
+    left: -1rem;
+    top: 0.7rem;
+    z-index: 2;
 }
 
-.form-box__gender-button--selected {
+input[type=radio] {
+    width:0.1rem;
+    height: 0.1rem;
+}
+
+input[type=radio]:checked + label{
     background-color: var(--nativing-orange);
     color: white;
 }
+
+#female_button {
+    left:-1.6rem;
+}
+
+/* .form-box__gender-button--selected {
+    background-color: var(--nativing-orange);
+    color: white;
+} */
 
 .form-box__subimt-button {
     width: 100%;
     height: 3.5em;
     border-radius: 0.5em;
     background-color: var(--nativing-orange);
-    margin-top: 2.5em;
+    margin-top: 3.5em;
     font-size: 1rem;
     font-family: 'Quicksand';
     color: white;
@@ -132,4 +159,15 @@ hr {
 .form-box a {
     color: #2185D0;
     text-decoration: none;
+}
+
+.errorlist {
+    margin: 0;
+    padding: 0.3em 0;
+    list-style: none;
+}
+
+.errorlist li {
+    color: red;
+    font-family: 'Lato';
 }

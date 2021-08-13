@@ -39,11 +39,27 @@
     padding-bottom: 10px;
 }
 
+.main-part{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto 0 auto;
+}
+
+#keyword-count {
+    font-size: 18px;
+}
+
+#keyword-count span {
+    color: orange;
+    font-weight: bold;
+}
+
 .main-sections {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 70%;
+    /* width: 70%; */
     margin: 0 auto 0 auto;
 }
 
@@ -98,8 +114,8 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    padding-bottom: 10px;
-    border-bottom: black solid 1px;
+    gap: 0.2em;
+    padding: 10px 0;
 }
 
 .keyword-box {
@@ -109,4 +125,14 @@
 
 .keyword-del {
     cursor: pointer;
+}
+
+.relationships {
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+
+.do-not-show {
+    display: none;
 }

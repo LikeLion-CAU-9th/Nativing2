@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block htmlHead %}
+<link rel="stylesheet" href="{% static 'css/learning.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+{% endblock %}
+
+
+{% block mainContent %}
+<div class="learning-center">
+    <div class="menu">
+        <div class="menu__title">
+            My Learning Center
+        </div>
+        <div class="menu_items">
+            <a href="{% url 'learning' %}">Following</a>
+            <a href="{% url 'view_history' %}" class="nativing-orange">Recently Viewed</a>
+            <a href="{% url 'saved_contents' %}">Bookmarks</a>
+        </div>
+    </div>
+    <div class="content-list">
+        <span class="content-list__title"><span class="nativing-orange">Recently Viewed</span></span>
+        <div class="content-list__content-box content-list__content-box--grid">
+            {% for content in contents %}
+            <div class="content">
+              <a class="content-link" href="{% url 'content_detail' content.view_content.id %}">
+                  <div class="content__expression"> 
+                      "{{ content.view_content.expression }}"
+                    </div> 
+                    {{ content.view_content.title }}
+                  <div class="content__title">
+                  </div> 
+                  <ul class="content__tags"> 
+                      <li class="tag tag--relation">{{ content.view_content.relation_select }}</li>
+                      {% for tag in content.view_content.tag.all %}
+                      <li class="tag">{{ tag }}</li>
+                      {% endfor %}
+                  </ul> 
+                  <div class="content__author"> 
+                      <div class="content__author__left"> 
+                          <img src="{{ content.view_content.writer.user_image.url }}" class="content__author__left__image"> 
+                      </div> 
+                      <div class="content__author__right"> 
+                          <div class="content__author__right__name"> {{ content.view_content.writer.name }} </div> 
+                          <div class="content__author__right__detail">
+                            <span class="nativing-orange">{{ content.view_content.writer.followee.count }}</span>
+                            {% if content.view_content.writer.followee.count > 1 %}
+                            followers
+                            {% else %}
+                            follower
+                            {% endif %}
+                            <span
+                                class="{% if content.view_content.writer.user_gender == 'male' %}skyblue{% endif %} {% if content.view_content.writer.user_gender == 'female' %}pink{% endif %}">
+                                {{ content.view_content.writer.user_gender }}</span> {{ content.view_content.writer.user_age }}
+                        </div>
+                      </div> 
+                  </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/learning-follow.js' %}"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('.content-list__content-box__creator__body').slick({
+        infinite: false,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        draggable: false,
+        variableWidth: true,
+      });
+    });
+  </script>
+
+{% endblock %}

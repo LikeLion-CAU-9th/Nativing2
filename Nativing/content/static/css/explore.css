@@ -1,5 +1,6 @@
 .explore {
     display: flex;
+    padding-bottom: 5rem;
 }
 
 .menu {
@@ -12,9 +13,16 @@
     margin: 3rem 0;
     font-size: 1.5625rem;
     font-family: 'Quicksand';
+    font-weight: bold;
 }
 
 .menu__search {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.menu__search form {
     position: relative;
     left: -1.5em;
     width: 13.125em;
@@ -38,6 +46,10 @@
 .menu__search img {
     width: 1.1em;
     height: 1.1em;
+}
+
+.menu__search img:hover {
+    cursor: pointer;
 }
 
 .menu__filter-list {
@@ -100,12 +112,28 @@
     color: var(--nativing-orange)
 }
 
+#viewtags-btn {
+    text-align: left;
+    padding: 0.2em 0;
+    font-family: 'Quicksand';
+    font-size: 0.9em;
+}
+
 .content-list {
     flex: 1;
 }
 
-.content-list__result {
+.content-list__keyword {
+    text-align: center;
     margin: 3.75rem 0 0 2.5rem;
+    height: 1.5rem;
+    font-size: 1.6em;
+    font-family: 'Quicksand';
+    font-weight: bold;
+}
+
+.content-list__result {
+    margin: 1rem 0 0 2.5rem;
     height: 1.5rem;
     font-size: 1.3125em;
     font-family: 'Quicksand';
@@ -136,6 +164,16 @@
 
 .content {
     place-self: center;
+}
+
+#load-more-content {
+    margin: 3rem;
+    font-size: 1.2em;
+    /* color: #5e89ff; */
+    background-color: transparent;
+    border: 1px solid #c2c2c2;
+    color: #a0a0a0;
+    width: 90%;
 }
 
 .pagination {

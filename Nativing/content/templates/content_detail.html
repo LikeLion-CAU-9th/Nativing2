@@ -10,27 +10,66 @@
 <div class="detail-page">
     <div class="detail">
         <div class="detail__image">
-
+            {% if detail.image %}
+            <img src="{{ detail.image.url }}">
+            {% endif %}
         </div>
         <div class="detail__contents">
             <div class="detail__contents__head">
                 <span>{{detail.title}}</span>
-                <button class="save-button button button--orange">SAVE</button>
+                <button class="save-button button 
+                {% if is_saved %}
+                saved
+                {% else %}
+                button--orange
+                {% endif %}
+                " id = "save-button" value="{{ detail.id }}" 
+                {% if user.is_authenticated is False %}
+                onclick= "signinAlert()"
+                {% endif %}
+                >
+                {% if is_saved %}
+                SAVED
+                {% else %}
+                SAVE
+                {% endif %}</button>
             </div>
             <span class="uploader-label">Uploader</span>
             <div class="detail__contents__uploader">
                <div class="content__author"> 
                    <div class="content__author__left"> 
-                       <img src="../static/img/tarakyu.png" class="content__author__left__image"> 
+                        <img src="{{ detail.writer.user_image.url }}" class="content__author__left__image"> 
                     </div> 
                     <div class="content__author__right"> 
-                        <div class="content__author__right__name"> 따라큐 </div> 
+                        <div class="content__author__right__name"> {{ detail.writer.name }} </div> 
                         <div class="content__author__right__detail">
-                            <span class="nativing-orange">3.4k</span> followers <span class="skyblue"> Male</span> 26 
+                            <span class="nativing-orange" id = "follower-count">{{ follower_num }}</span>
+                            <span id = "follower-text">
+                                {% if is_plural %}
+                                 followers 
+                                {% else %}
+                                 follower
+                                {% endif %}
+                            </span>
+                            <span class="skyblue"> {{ detail.writer.user_gender }}</span> {{ detail.writer.user_age }}
                         </div> 
                     </div> 
                 </div>
-                <button class="follow-button button">FOLLOW</button>
+                <button class="follow-button button
+                {% if is_following %}
+                following
+                {% endif %}
+                " id = "follow-button" value = "{{ detail.writer.id }}"
+                {% if user.is_authenticated is False %}
+                onclick= "signinAlert()"
+                {% endif %}
+                >
+                {% if is_following %}
+                FOLLOWING
+                {% else %}
+                FOLLOW
+                {% endif %}
+                </button>
             </div>
             <div class="detail__contents__category">
                 <div class="detail__contents__category__child">
@@ -38,7 +77,7 @@
                         Relationship
                     </div>
                     <div class="detail__contents__category__child__tags">
-                        <span class="tag">
+                        <span class="tag tag--relation tag--bigger">
                             {{ detail.relation_select }}
                         </span>
                     </div>
@@ -49,8 +88,12 @@
                     </div>
                     <div class="detail__contents__category__child__tags">
                         {% for tag in detail.tag.all %}
-                        <span class="tag">
+                        <span class="tag tag--bigger">
+                            {% if tag.en_name %}
                             {{ tag.en_name }}
+                            {% else %}
+                            {{ tag }}
+                            {% endif %}
                         </span>
                         {% endfor %}
                     </div>
@@ -58,27 +101,116 @@
             </div>
             <div class="detail__contents__description">
                 <div class="detail__contents__description__head">
-                    Key expression
+                    <button id = "detail__keyexpression">Key expression</button>
+                    <button id = "detail__comments" value = "{{ detail.id }}" class="gray">Comments <span id = "comments_count">{{ comments_count }}</span></button> 
+                    <div class="detail__contents__description__head__like">
+                        <button id = likes-button value="{{ detail.id }}"                   
+                        {% if user.is_authenticated is False %}
+                        onclick= "signinAlert()"
+                        {% endif %}
+                        >
+                            <img id = "likes-img" 
+                            {% if is_liked %}
+                            src="../../static/img/redheart.png"
+                            {% else %}
+                            src="../../static/img/heart.png"
+                            {% endif %}
+                            >
+                        </button>
+                        <span id = "likes-count">
+                            {{ likes_count }}
+                        </span>
+                    </div>
                 </div>
                 <div class="detail__contents__description__body">
-                    {{ detail.expression }}
+                    <span class="nativing-orange">{{ detail.expression }}</span>
                     <span style="font-weight: bold;">is {{detail.expression_descript_select}} of</span>
                     {{ detail.expression_descript }}
+                </div>
+                <div class = "comment__section display-hide">
+                    <div id = "comment_iters">
+                        {% for comment in comments %}
+                        <div class = "comment__self">
+                            <div class = "comment__self__image">
+                                <img src="{{ comment.comment_writer.user_image.url }}" class="content__author__left__image">
+                            </div>
+                            <div class = "comment__body">
+                                <div class="comment__body__writer">{{comment.comment_writer.name}}</div>
+                                <div class="comment__body__text">{{comment.body}}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <form id = "comment-form">
+                        <div class = "comment__self">
+                            <div class = "comment__self__image">
+                                <img src="{{ user.user_image.url }}" class="content__author__left__image">
+                            </div>
+                            <input id = "comment-body" type="text" class="comment__body"
+                        {% if user.is_authenticated %}
+                        placeholder="Write your comments here! "
+                        {% else %}
+                        placeholder = "You must be logged in to post a comment." disabled
+                        {% endif %}
+                        >
+                        </div>
+                        <div style="display:flex; justify-content:flex-end;">
+                            <button type="submit" class="button button--orange disabled" id="commentSubmit" disabled>Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     <div class="recommended">
-        <span>Featured Content</span>
-        <div class="content"></div>
-        <div class="content"></div>
-        <div class="content"></div>
-        <div class="content"></div>
-        <div class="content"></div>
+        <span><span class="nativing-orange">Featured</span> Content</span>
+        {% for content_detail in content_list_random %}
+                    <div class="content">
+                        <a class="content-link" href="{% url 'content_detail' content_detail.id %}">
+                            <div class="content__expression">
+                                "{{ content_detail.expression }}"
+                            </div>
+                            <div class="content__title">                                
+                                {{ content_detail.title }}
+                            </div>
+                            <ul class="content__tags">
+                                <li class="tag tag--relation">{{ content_detail.relation_select }}</li>
+                                {% for tag in content_detail.tag.all %}
+                                <li class="tag">{{ tag }}</li>
+                                {% endfor %}
+                            </ul>
+                            <div class="content__author">
+                                <div class="content__author__left">
+                                    <img src="{{ content_detail.writer.user_image.url }}"
+                                        class="content__author__left__image">
+                                </div>
+                                <div class="content__author__right">
+                                    <div class="content__author__right__name"> {{ content_detail.writer.name }} </div>
+                                    <div class="content__author__right__detail">
+                                        <span class="nativing-orange">{{ content_detail.writer.followee.count }}</span>
+                                        {% if content_detail.writer.followee.count > 1 %}
+                                        followers
+                                        {% else %}
+                                        follower
+                                        {% endif %}
+                                        <span
+                                            class="{% if content_detail.writer.user_gender == 'male' %}skyblue{% endif %} {% if content_detail.writer.user_gender == 'female' %}pink{% endif %}">
+                                            {{ content_detail.writer.user_gender }}</span> {{ content_detail.writer.user_age }}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
     </div>
 </div>
 
-
-<script src="{% static 'js/creator.js' %}"></script>
+<script>
+    const userImageURL = '{{ user.user_image.url }}';
+</script>
+<script src="{% static 'js/save.js' %}"></script>
+<script src="{% static 'js/follow.js' %}"></script>
+<script src="{% static 'js/likes.js' %}"></script>
+<script src="{% static 'js/comments.js' %}"></script>
 
 {% endblock %}

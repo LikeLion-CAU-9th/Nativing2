@@ -16,27 +16,45 @@
 <body>
     <div class="nav">
         <a href ="{% url 'main' %}" class="nav__logo">
-            Nativing
+            Nativing.
         </a>
         <div class="nav__search">
             <form action = "{% url 'explore' %}">
-                <img src="../static/img/loupe.png">
-                <input tpye="text" name = "keyword" placeholder="What do you want to learn?">
+                <label><input type="submit" class="hidden"><img src="{% static 'img/loupe.png' %}"></label>
+                <input type="text" name = "keyword" placeholder="What do you want to learn?">
                 <button type="submit"></button>
             </form>
         </div>
         <ul class="nav__menu">
-            <li>
+            <li class="nav__menu__explore">
                 <a href="{% url 'explore' %}">Explore</a>    
             </li>
-            <li>
-                <a href="#">My Learning Center</a>
+            <li class="nav__menu__center">
+                <a style="cursor: pointer;"
+                {% if user.is_authenticated %}
+                href="{% url 'learning' %}" 
+                {% else %}
+                onclick="signInAlert()"
+                {% endif %}
+                >My Learning Center</a>
             </li>
-            <li>
+            <li class="nav__menu__upload">
                 <a href="{% url 'content_upload' %}">Upload</a>
             </li>
         </ul>
         <div class="nav__account">
+            {% if user.is_authenticated %}
+                <div class="nav__account__user">
+                    <img src = "{{ user.user_image.url }}">
+                    <span>{{ user.name }}</span>
+                </div>
+                <a href="{% url 'accounts_logout' %}">
+                    <button class="nav__account__button button--orange">
+                        Log out
+                    </button>
+                </a>  
+
+            {% else %}
             <a href="{% url 'accounts_login' %}">
                 <button class="nav__account__button button--white">
                     Sign in
@@ -47,6 +65,7 @@
                     Register
                 </button>
             </a>    
+            {% endif %}
         </div>
     </div>
     {% block mainContent %}
@@ -62,5 +81,13 @@
         </div>
     </div>
 </body>
+
+<script>
+    function signInAlert(event){
+        // event.preventDefault();
+        alert("You should sign-in first!");
+    }
+
+</script>
 
 </html>

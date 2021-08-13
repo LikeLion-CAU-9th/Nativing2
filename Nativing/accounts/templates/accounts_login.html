@@ -9,22 +9,28 @@
 <form method="POST" action="{% url 'accounts_login' %}">
     <div class="account-area">
         {% csrf_token %}
+        
         <div class="form-box">
             <div class="form-box__title">
                 Sign In
             </div>
+            <!-- {{form.as_p}} -->
             <div class="form-box__label">
-                Username
+                Email
             </div>
-            <input name="{{ form.name.name }}" class="form-box__input">
+            <input name="{{ form.email.name }}" class="form-box__input" required>
+
             <div class="form-box__label">
                 Password
             </div>
-            <input name="{{ form.password.name }}" type="password" class="form-box__input">
-            <div class="form-box__remember-me">
+            <input name="{{ form.password.name }}" type="password" class="form-box__input" required>
+            <ul class="errorlist">
+                <li>{{ error }}</li>
+            </ul>
+            <!-- <div class="form-box__remember-me">
                 <input type="checkbox"> 
                 <span>Remeber me</span>
-            </div>
+            </div> -->
             <button type="submit" class="form-box__subimt-button">Sign in</button>
             <div class="form-box__social-login-box">
                 <div class="form-box__social-login-box__top">
@@ -38,7 +44,7 @@
                     <div class="icon"></div>
                 </div>
                 <div class="form-box__login">
-                    Already have ccount? <a href="{% url 'accounts_login' %}">Please log in.</a>
+                    Don’t have account yet?  <a href="{% url 'accounts_signup' %}">Please sign up.</a>
                 </div>
             </div>
         </div>

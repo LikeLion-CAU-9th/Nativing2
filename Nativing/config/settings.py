@@ -1,6 +1,7 @@
 from pathlib import Path
 import os, json
 from django.core.exceptions import ImproperlyConfigured
+#import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +25,9 @@ def get_secret(key, secrets=secrets):
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -41,12 +42,14 @@ INSTALLED_APPS = [
     'main',
     'accounts',
     'content',
-    'upload',
+    'social',
+    'learningcenter',
     'taggit',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -55,6 +58,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+#activate django-heroku
+# django_heroku.settins(locals())
 
 ROOT_URLCONF = 'config.urls'
 
@@ -86,6 +92,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -133,7 +142,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'main', 'static'),
     os.path.join(BASE_DIR, 'accounts', 'static'),
     os.path.join(BASE_DIR, 'content', 'static'),
-    os.path.join(BASE_DIR, 'upload', 'static'),
+    os.path.join(BASE_DIR, 'social', 'static'),
+    os.path.join(BASE_DIR, 'learningcenter', 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -146,4 +156,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 AUTH_USER_MODEL = 'accounts.User'

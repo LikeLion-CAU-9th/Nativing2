@@ -12,4 +12,3 @@ urlpatterns = [
     path("login_success/", login_success, name="login_success"),
     path("logout_success/", logout_success, name="logout_success"),
 ]
- 
